@@ -10,12 +10,12 @@ const Banner = () => {
          <div className='basis-1/2 space-y-5'>
             <h1 className="text-4xl md:text-5xl font-semibold flex flex-col space-y-3 text-center md:text-left">
                <span className='animate-fade-up animate-once animate-duration-[1500ms]'>Level Up Your Skills</span>
-               <span className='animate-fade-up animate-once animate-duration-[1900ms]'>with Hands On</span>
+               <span className='animate-fade-up animate-once animate-duration-[1500ms]'>with Hands On</span>
                <span className="text-primary animate-fade-up animate-once animate-duration-[2300ms]">Tech Courses</span>
             </h1>
             <p className='md:text-lg font-light text-center md:text-left animate-fade-up animate-once animate-duration-[3000ms]'>Master cutting-edge tech skills through hands-on, project-based courses designed to boost your expertise and career growth.</p>
             <div className='flex items-center justify-center md:justify-start animate-fade-up animate-once animate-duration-[3000ms]'>
-               <Button />
+               <Button path='/course' content='Explore Courses' />
             </div>
          </div>
 
