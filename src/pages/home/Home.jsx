@@ -10,7 +10,8 @@ const Home = () => {
       <div>
          <Banner />
          <OurProgram/>
-        
+         <OnlineProgramSection/>
+       
 
       </div>
    );
