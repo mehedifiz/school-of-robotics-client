@@ -1,15 +1,16 @@
-import Card from "../../components/Card";
+import OurProgram from "@/components/OurProgram";
 import Banner from "./Banner";
+import OnlineProgramSection from "@/components/OnlineProgramSection";
+import FeatureSection from "@/components/FeatureSection";
+import StayConnected from "@/components/StayConnected";
+import PricingSection from "@/components/PricingSection";
 
 const Home = () => {
    return (
       <div>
          <Banner />
-         <div className="grid grid-cols-3 max-w-7xl mx-auto px-4 gap-6">
-            <Card />
-            <Card />
-            <Card />
-         </div>
+         <OurProgram/>
+        
 
       </div>
    );

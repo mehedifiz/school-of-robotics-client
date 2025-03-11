@@ -6,7 +6,7 @@ import Home from "../pages/home/Home";
 const router = createBrowserRouter([
    {
       path: "/",
-      errorElement: <ErrorPage />,
+      // errorElement: <ErrorPage />,
       element: <Root />,
       children: [
          { index: true, element: <Home /> },
