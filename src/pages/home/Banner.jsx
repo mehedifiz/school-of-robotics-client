@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 
 const Banner = () => {
    return (
-      <div className="max-w-7xl bg-primary mx-auto px-4 flex items-center flex-col-reverse gap-y-10 md:flex-row ">
+      <div className="max-w-7xl mt-14 bg-primary mx-auto px-4 flex items-center flex-col-reverse gap-y-10 md:flex-row ">
          <div className='basis-1/2 space-y-5'>
             <h1 className="text-4xl md:text-5xl text-white font-semibold flex flex-col space-y-3 text-center md:text-left">
               School of Robotics <span className='text-orange-400'>Bangladesh</span>
