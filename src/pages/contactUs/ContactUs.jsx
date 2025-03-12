@@ -1,5 +1,10 @@
+import React, { useEffect } from 'react';
+import AOS from 'aos';
 const ContactUs = () => {
-
+useEffect(() => {
+        AOS.init();
+      }, []);
+      
 	const handleContact = (e) => {
 		e.preventDefault();
 		const form = e.target;
@@ -18,19 +23,20 @@ const ContactUs = () => {
 	
 		
 	  };
+     
   return (
-    <div className="max-w-7xl mx-auto p-4 my-12">
-      <div className="w-full sm:w-[500px] text-center mx-auto px-3 mb-10">
+    <div className="max-w-7xl mx-auto p-4 my-24">
+      <div className="text-center mb-10 max-w-2xl mx-auto">
         <h2 className="text-2xl font-bold sm:text-3xl  text-center text-gray-900">
           Contact Us
         </h2>
-        <p className="text-center text-[#99A5B9]">
+        <p className="text-center text-gray-500">
           Just send us your questions or concerns by starting a message from the
           contact form and we will give you the help you need.
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 justify-between gap-8 md:gap-x-10 my-5">
-        <div className="">
+        <div className=""  data-aos="fade-right" data-aos-duration="1800">
           <iframe className="rounded-lg"
             src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d6030.418742494061!2d-111.34563870463673!3d26.01036670629853!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2smx!4v1471908546569"
             width="100%"
@@ -41,7 +47,7 @@ const ContactUs = () => {
           ></iframe>
         </div>
         {/* Form */}
-        <div>
+        <div className="" data-aos="fade-left" data-aos-duration="1800" >
           <form onSubmit={handleContact} className="p-10 border border-gray-300 rounded-lg space-y-6">
             <h4 className="text-2xl font-semibold">Contact Us</h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
