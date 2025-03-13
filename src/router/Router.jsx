@@ -4,6 +4,8 @@ import ErrorPage from "../pages/error/ErrorPage";
 import Home from "../pages/home/Home";
 import ContactUs from "../pages/contactUs/ContactUs";
 import Management from "@/pages/management/Management";
+import Dashboard from "@/layout/Dashboard";
+import UserSidebar from "@/components/UserSidebar";
 
 const router = createBrowserRouter([
    {
@@ -22,6 +24,16 @@ const router = createBrowserRouter([
          },
       ]
    },
+   {
+      path: '/dashboard',
+      element: <Dashboard></Dashboard>,
+      children: [
+         {
+            path: 'user-dashboard',
+            element: <UserSidebar></UserSidebar>
+         }
+      ]
+   }
 ]);
 
 export default router;
