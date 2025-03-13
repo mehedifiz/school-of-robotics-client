@@ -41,14 +41,14 @@ const Register = () => {
               placeholder="Password"
             />
           </div>
-          <button className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700">
+          <button className="w-full bg-primary text-white py-2 rounded-lg hover:bg-indigo-600">
             {isLogin ? "Login" : "Register"}
           </button>
         </form>
         <p className="text-center text-gray-600 mt-4">
           {isLogin ? "Don't have an account?" : "Already have an account?"}
           <button
-            className="text-indigo-600 hover:underline ml-1"
+            className="text-primary hover:underline ml-1"
             onClick={() => setIsLogin(!isLogin)}
           >
             {isLogin ? "Register" : "Login"}
