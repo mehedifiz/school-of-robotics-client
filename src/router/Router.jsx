@@ -5,7 +5,7 @@ import Home from "../pages/home/Home";
 import ContactUs from "../pages/contactUs/ContactUs";
 import Management from "@/pages/management/Management";
 import Dashboard from "@/layout/Dashboard";
-import UserSidebar from "@/components/UserSidebar";
+import DashboardHome from "@/components/dashboard/DashboardHome";
 
 const router = createBrowserRouter([
    {
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
       children: [
          {
             path: 'user-dashboard',
-            element: <UserSidebar></UserSidebar>
+            element: <DashboardHome></DashboardHome>
          }
       ]
    }

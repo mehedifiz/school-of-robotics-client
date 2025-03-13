@@ -1,4 +1,5 @@
-import UserSidebar from "@/components/UserSidebar";
+import DashboardNav from "@/components/dashboard/DashboardNav";
+import UserSidebar from "@/components/dashboard/UserSidebar";
 import { Outlet } from "react-router-dom";
 
 
@@ -8,28 +9,22 @@ const Dashboard = () => {
     return (
         <div>
            <div>
-      <div className="flex bg-[#FAFAFC] min-h-screen">
+      <div className="flex bg-[#E5E5E5] min-h-screen">
         <div className={`hidden lg:block ${role === "admin" ? "min-w-[250px]" : "min-w-[150px]"}`}></div>
 
         {/* Sidebar for larger screens */}
         <div className={`hidden fixed lg:block bg-white ${role === "admin" ? "min-w-[250px]" : "min-w-[150px]"}`}>
-          {/* {role === "admin" && <AdminSidebar />} */}
           {role === "user" && <UserSidebar />}
         </div>
 
         {/* Main content area */}
         <div className="flex-grow max-w-[1320px] mx-auto">
           <div className="bg-[#FAFAFC] px-6 sm:px-14 sticky z-20 top-0 left-0 right-0 min-h-[100px]">
-            {/* <DashboardNav sidebar={sidebar} setSidebar={setSidebar} /> */}
+            <DashboardNav />
           </div>
           <div className="px-6 sm:px-14">
             <Outlet />
           </div>
-          {role === "user" && (
-            <div className="lg:hidden sticky z-10 bottom-0 left-0 right-0 bg-white shadow-lg">
-              {/* <SidebarBottom /> */}
-            </div>
-          )}
         </div>
       </div>
 
