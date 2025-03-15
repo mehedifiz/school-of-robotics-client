@@ -21,7 +21,7 @@ const Footer = () => {
             { icon: FaLinkedinIn, link: "#", color: "#0077B5" }
           ].map(({ icon: Icon, link, color }, index) => (
             <a key={index} href={link} className="text-xl" style={{ color }}>
-              <Icon />
+              <Icon /> 
             </a>
           ))}
         </div>

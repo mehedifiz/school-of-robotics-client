@@ -33,6 +33,8 @@ const Nav = () => {
                   <NavLink to="/about" className="hover:text-primary">About</NavLink>
                   <NavLink to="/course" className="hover:text-primary">Course</NavLink>
                   <NavLink to="/contact" className="hover:text-primary">Contact</NavLink>
+                  <NavLink to="/management" className="hover:text-primary">Management</NavLink>
+                  <NavLink to="/dashboard" className="hover:text-primary">dashboard</NavLink>
                </ul>
 
                {/* Auth Buttons (Desktop) */}
