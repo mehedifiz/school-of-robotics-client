@@ -1,9 +1,17 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import { HiMenu, HiX } from "react-icons/hi"; // Importing icons for the menu toggle
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { HiMenu, HiX } from "react-icons/hi";
+import useAuth from "@/Hooks/useAuth";
 
 const Nav = () => {
    const [isOpen, setIsOpen] = useState(false);
+   const navigate = useNavigate();
+   const { user, logoutUser } = useAuth();
+
+   const handleLogout = () => {
+      logoutUser();
+      navigate('/login');
+   };
 
    return (
       <nav className="border-b absolute top-0 z-20 w-full bg-slate-50 border-gray-200">
@@ -27,13 +35,35 @@ const Nav = () => {
                   <NavLink to="/contact" className="hover:text-primary">Contact</NavLink>
                </ul>
 
-               {/* Register Button (Desktop) */}
-               <Link
-                  to="/register"
-                  className="hidden lg:inline-block bg-primary px-4 py-2 rounded-full text-white text-sm font-semibold"
-               >
-                  Create an Account
-               </Link>
+               {/* Auth Buttons (Desktop) */}
+               <div className="hidden lg:flex space-x-4">
+                  {user ? (
+                     <>
+                        <span className="text-gray-600">Welcome, {user?.name}</span>
+                        <button 
+                           onClick={handleLogout}
+                           className="bg-red-500 px-4 py-2 rounded-full text-white text-sm font-semibold hover:bg-red-600"
+                        >
+                           Logout
+                        </button>
+                     </>
+                  ) : (
+                     <>
+                        <Link
+                           to="/login"
+                           className="bg-primary px-4 py-2 rounded-full text-white text-sm font-semibold"
+                        >
+                           Login
+                        </Link>
+                        <Link
+                           to="/register"
+                           className="border border-primary px-4 py-2 rounded-full text-primary text-sm font-semibold"
+                        >
+                           Register
+                        </Link>
+                     </>
+                  )}
+               </div>
             </div>
 
             {/* Mobile Menu */}
@@ -42,13 +72,34 @@ const Nav = () => {
                   <NavLink to="/about" className="hover:text-primary" onClick={() => setIsOpen(false)}>About</NavLink>
                   <NavLink to="/course" className="hover:text-primary" onClick={() => setIsOpen(false)}>Course</NavLink>
                   <NavLink to="/contact" className="hover:text-primary" onClick={() => setIsOpen(false)}>Contact</NavLink>
-                  <Link
-                     to="/register"
-                     className="bg-primary px-4 py-2 rounded-full text-white text-sm font-semibold"
-                     onClick={() => setIsOpen(false)}
-                  >
-                     Create an Account
-                  </Link>
+                  {user ? (
+                     <button 
+                        onClick={() => {
+                           handleLogout();
+                           setIsOpen(false);
+                        }}
+                        className="bg-red-500 px-4 py-2 rounded-full text-white text-sm font-semibold"
+                     >
+                        Logout
+                     </button>
+                  ) : (
+                     <>
+                        <Link
+                           to="/login"
+                           className="bg-primary px-4 py-2 rounded-full text-white text-sm font-semibold"
+                           onClick={() => setIsOpen(false)}
+                        >
+                           Login
+                        </Link>
+                        <Link
+                           to="/register"
+                           className="border border-primary px-4 py-2 rounded-full text-primary text-sm font-semibold"
+                           onClick={() => setIsOpen(false)}
+                        >
+                           Register
+                        </Link>
+                     </>
+                  )}
                </ul>
             )}
          </div>
