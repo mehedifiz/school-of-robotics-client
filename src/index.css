@@ -14,6 +14,11 @@
 * {
    font-family: "Roboto", sans-serif;
 }
+
+body {
+   overflow-x: hidden;
+}
+
 /* dashboard styles */
 
 .dashboard-side-nav a.active {
