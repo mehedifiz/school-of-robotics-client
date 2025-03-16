@@ -1,3 +1,4 @@
+// import "@material-tailwind/react/tailwind.css";
 import { createBrowserRouter } from "react-router-dom";
 import Root from "../layout/Root";
 import ErrorPage from "../pages/error/ErrorPage";
@@ -7,10 +8,8 @@ import ContactUs from "../pages/contactUs/ContactUs";
 import Management from "@/pages/management/Management";
 import Dashboard from "@/layout/Dashboard";
 import DashboardHome from "@/components/dashboard/DashboardHome";
- 
-import Login from "../pages/auth/Login";
-import Register from "../pages/auth/Register";
- 
+
+
 const router = createBrowserRouter([
    {
       path: "/",

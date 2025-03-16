@@ -28,7 +28,7 @@ const UserSidebar = () => {
         </li>
         <li>
           <NavLink
-            to="/dashboard/"
+            to="/dashboard/classes"
             className="block p-3 m-2  rounded-xl text-[#8A8E95] hover:text-[#1294F2] duration-300"
           >
             <span className="flex items-center gap-x-2 "><HiOutlineArchiveBox className="size-5" /> <span className="text-[16px]">Classes</span></span>
@@ -36,7 +36,7 @@ const UserSidebar = () => {
         </li>
         <li>
           <NavLink
-            to="/dashboard/"
+            to="/dashboard/groups"
             className="block p-3 m-2  rounded-xl text-[#8A8E95] hover:text-[#1294F2] duration-300"
           >
             <span className="flex items-center gap-x-2 "><HiOutlineUsers className="size-5" /> <span className="text-[16px]">Groups</span></span>
@@ -44,23 +44,23 @@ const UserSidebar = () => {
         </li>
         <li>
           <NavLink
-            to="/dashboard/"
+            to="/dashboard/schedule"
             className="block p-3 m-2  rounded-xl text-[#8A8E95] hover:text-[#1294F2] duration-300"
           >
-            <span className="flex items-center gap-x-2 "><BsCalendar4Week className="size-5" /> <span className="text-[16px]">Groups</span></span>
+            <span className="flex items-center gap-x-2 "><BsCalendar4Week className="size-5" /> <span className="text-[16px]">Schedule</span></span>
           </NavLink>
         </li>
         <li>
           <NavLink
-            to="/dashboard/"
+            to="/dashboard/document"
             className="block p-3 m-2  rounded-xl text-[#8A8E95] hover:text-[#1294F2] duration-300"
           >
-            <span className="flex items-center gap-x-2 "><MdOutlineCloudDownload className="size-5" /> <span className="text-[16px]">Groups</span></span>
+            <span className="flex items-center gap-x-2 "><MdOutlineCloudDownload className="size-5" /> <span className="text-[16px]">Documents</span></span>
           </NavLink>
         </li>
         <li>
           <NavLink
-            to="/dashboard/#"
+            to="/dashboard/logout"
             className="block p-3 m-2  rounded-xl text-[#8A8E95] hover:text-[#1294F2] duration-300"
           >
             <span className="flex items-center gap-x-2 "><IoIosLogOut className="size-5" /> <span className="text-[16px]">Log Out</span></span>
