@@ -1,3 +1,4 @@
+import CoursesData from "./CoursesData";
 import PrograssBar from "./ProgressBar";
 import Statistics from "./Statistics";
 
@@ -7,8 +8,9 @@ const UserDashHome = () => {
         <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
                 <Statistics></Statistics>
-                <PrograssBar></PrograssBar>
+                <PrograssBar></PrograssBar>               
             </div>
+            <CoursesData></CoursesData>
         </div>
     );
 };

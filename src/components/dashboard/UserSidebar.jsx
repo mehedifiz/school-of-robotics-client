@@ -13,10 +13,6 @@ const UserSidebar = () => {
       <Link to="/">
         <img src={logo} className="max-w-20 mx-auto" alt="Logo" />
       </Link>
-      
-{/* <div className="flex items-center  gap-x-1 bg-[#1294F2] rounded-lg py-2  mx-10">
-      <PiSquaresFourFill size={20} className="text-white"/> <p className="text-[16px] font-semibold text-white">Dashboard</p>
-      </div> */}
       <ul className="space-y-2">       
         <li>
           <NavLink

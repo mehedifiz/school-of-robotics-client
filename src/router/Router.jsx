@@ -8,6 +8,8 @@ import ContactUs from "../pages/contactUs/ContactUs";
 import Management from "@/pages/management/Management";
 import Dashboard from "@/layout/Dashboard";
 import DashboardHome from "@/components/dashboard/DashboardHome";
+import Login from "@/pages/auth/Login";
+import Register from "@/pages/auth/Register";
 
 
 const router = createBrowserRouter([
