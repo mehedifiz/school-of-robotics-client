@@ -1,15 +1,14 @@
-// import "@material-tailwind/react/tailwind.css";
+
 import { createBrowserRouter } from "react-router-dom";
 import Root from "../layout/Root";
 import ErrorPage from "../pages/error/ErrorPage";
 import Home from "../pages/home/Home";
- 
+
 import ContactUs from "../pages/contactUs/ContactUs";
-import Management from "@/pages/management/Management";
-import Dashboard from "@/layout/Dashboard";
-import DashboardHome from "@/components/dashboard/DashboardHome";
 import Login from "@/pages/auth/Login";
 import Register from "@/pages/auth/Register";
+import Management from "@/pages/management/Management";
+import Dashboard from "@/pages/dashboard/Dashboard";
 
 
 const router = createBrowserRouter([
@@ -18,21 +17,28 @@ const router = createBrowserRouter([
       errorElement: <ErrorPage />,
       element: <Root />,
       children: [
-         { index: true, element: <Home /> },
- 
          {
-            path:'/contact',
+            index: true,
+            element: <Home />
+         },
+         {
+            path: '/contact',
             element: <ContactUs></ContactUs>
          },
          {
-            path:'/management',
+            path: '/management',
             element: <Management></Management>
          },
- 
-         { path: "login", element: <Login /> },
-         { path: "register", element: <Register /> },
-         
- 
+         {
+            path: "login",
+            element: <Login />
+         },
+         {
+            path: "register",
+            element: <Register />
+         },
+
+
       ]
    },
    {
@@ -40,8 +46,8 @@ const router = createBrowserRouter([
       element: <Dashboard></Dashboard>,
       children: [
          {
-            path: 'user-dashboard',
-            element: <DashboardHome></DashboardHome>
+            path : '',
+            element : <p>I am dashboard home.</p>
          }
       ]
    }
