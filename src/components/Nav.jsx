@@ -6,7 +6,7 @@ import useAuth from "@/Hooks/useAuth";
 const Nav = () => {
    const [isOpen, setIsOpen] = useState(false);
    const navigate = useNavigate();
-   const { user, logoutUser } = useAuth();
+   const { userId, logoutUser } = useAuth();
 
    const handleLogout = () => {
       logoutUser();
@@ -39,16 +39,13 @@ const Nav = () => {
 
                {/* Auth Buttons (Desktop) */}
                <div className="hidden lg:flex space-x-4">
-                  {user ? (
-                     <>
-                        <span className="text-gray-600">Welcome, {user?.name}</span>
-                        <button 
-                           onClick={handleLogout}
-                           className="bg-red-500 px-4 py-2 rounded-full text-white text-sm font-semibold hover:bg-red-600"
-                        >
-                           Logout
-                        </button>
-                     </>
+                  {userId ? (
+                     <button 
+                        onClick={handleLogout}
+                        className="bg-red-500 px-4 py-2 rounded-full text-white text-sm font-semibold hover:bg-red-600"
+                     >
+                        Logout
+                     </button>
                   ) : (
                      <>
                         <Link
@@ -74,7 +71,7 @@ const Nav = () => {
                   <NavLink to="/about" className="hover:text-primary" onClick={() => setIsOpen(false)}>About</NavLink>
                   <NavLink to="/course" className="hover:text-primary" onClick={() => setIsOpen(false)}>Course</NavLink>
                   <NavLink to="/contact" className="hover:text-primary" onClick={() => setIsOpen(false)}>Contact</NavLink>
-                  {user ? (
+                  {userId ? (
                      <button 
                         onClick={() => {
                            handleLogout();

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import useAxios from "@/Hooks/useAxios";
+import { isValidBangladeshiPhone } from "@/utils/validation";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -28,13 +29,27 @@ const Register = () => {
     setLoading(true);
     setError("");
 
+    // Phone validation
+    if (!isValidBangladeshiPhone(formData.phone)) {
+      setError("দয়া করে সঠিক বাংলাদেশী মোবাইল নম্বর দিন (01 দিয়ে শুরু করে ১১ ডিজিট)");
+      setLoading(false);
+      return;
+    }
+
+    // Password length validation
+    if (formData.password.length < 8) {
+      setError("পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে");
+      setLoading(false);
+      return;
+    }
+
     // Password confirmation validation
     if (formData.password !== formData.confirmPassword) {
       setError("পাসওয়ার্ড মিলে নি। অনুগ্রহ করে আবার চেষ্টা করুন।");
       setLoading(false);
       return;
     }
-
+    
     // Remove confirmPassword before sending to API
     const submissionData = {
       name: formData.name,
@@ -58,6 +73,15 @@ const Register = () => {
       console.error("Registration error:", error);
     } finally {
       setLoading(false);
+    }
+  };
+    const handlePhoneChange = (e) => {
+    const value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+    if (value.length <= 11) { // Limit to 11 digits
+      setFormData(prev => ({
+        ...prev,
+        phone: value
+      }));
     }
   };
 
@@ -124,12 +148,12 @@ const Register = () => {
               <input
                 id="phone"
                 name="phone"
-                type="number"
+                type="tel"
                 required
                 className="pl-10 focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 py-3 sm:text-sm border-gray-300 rounded-md"
                 placeholder="01XXXXXXXXX"
                 value={formData.phone}
-                onChange={handleChange}
+                onChange={handlePhoneChange}
               />
             </div>
           </div>
@@ -152,12 +176,16 @@ const Register = () => {
                 name="password"
                 type="password"
                 required
+                minLength={8}
                 className="pl-10 focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 py-3 sm:text-sm border-gray-300 rounded-md"
-                placeholder="পাসওয়ার্ড"
+                placeholder="পাসওয়ার্ড (কমপক্ষে ৮ অক্ষর)"
                 value={formData.password}
                 onChange={handleChange}
               />
             </div>
+            <p className="mt-1 text-sm text-gray-500">
+              পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে
+            </p>
           </div>
           
           <div>

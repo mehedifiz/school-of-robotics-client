@@ -8,8 +8,11 @@ import ContactUs from "../pages/contactUs/ContactUs";
 import Management from "@/pages/management/Management";
 import Dashboard from "@/layout/Dashboard";
 import DashboardHome from "@/components/dashboard/DashboardHome";
-import Login from "@/pages/auth/Login";
-import Register from "@/pages/auth/Register";
+ 
+import Login from "../pages/auth/Login";
+import Register from "../pages/auth/Register";
+import PrivateRoute from "@/routes/PrivateRoute";
+ 
 
 
 const router = createBrowserRouter([
@@ -37,11 +40,11 @@ const router = createBrowserRouter([
    },
    {
       path: '/dashboard',
-      element: <Dashboard></Dashboard>,
+      element: <PrivateRoute><Dashboard/></PrivateRoute>,
       children: [
          {
-            path: 'user-dashboard',
-            element: <DashboardHome></DashboardHome>
+            path: 'student-dashboard',
+            element: <PrivateRoute><DashboardHome></DashboardHome></PrivateRoute>
          }
       ]
    }

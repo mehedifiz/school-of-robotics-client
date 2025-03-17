@@ -3,14 +3,14 @@ import useAuth from "@/Hooks/useAuth";
 import PropTypes from "prop-types";
 
 const PrivateRoute = ({ children }) => {
-    const { user, loading } = useAuth();
+    const { userId, loading } = useAuth();
     const location = useLocation();
 
     if (loading) {
         return <div>Loading...</div>;
     }
 
-    if (!user) {
+    if (!userId) {
         return <Navigate to="/login" state={{ from: location }} replace />;
     }
 

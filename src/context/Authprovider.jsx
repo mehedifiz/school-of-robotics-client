@@ -9,7 +9,7 @@ const AuthProvider = ({ children }) => {
     const axios = useAxios();
     
     const initialState = {
-        user: null,
+        userId: null,
         token: null,
         isLoggedIn: false,
     };
@@ -24,7 +24,7 @@ const AuthProvider = ({ children }) => {
 
             if (response.data.token) {
                 const authData = {
-                    user: response.data.user,
+                    userId: response.data.user._id, // Only storing userId
                     token: response.data.token,
                     isLoggedIn: true,
                 };

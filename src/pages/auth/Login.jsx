@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import useAuth from '@/Hooks/useAuth';
+import { isValidBangladeshiPhone } from '@/utils/validation';
+import { toast } from 'react-hot-toast';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -13,27 +15,48 @@ const Login = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: name === 'phone' ? Number(value) : value
-    });
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handlePhoneChange = (e) => {
+    const value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+    if (value.length <= 11) {
+      setFormData(prev => ({
+        ...prev,
+        phone: value
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
+    // Validate phone number
+    if (!isValidBangladeshiPhone(formData.phone)) {
+      setError("দয়া করে সঠিক বাংলাদেশী মোবাইল নম্বর দিন (01 দিয়ে শুরু করে ১১ ডিজিট)");
+      return;
+    }
+
     try {
-      await loginUser(formData);
-      navigate('/dashboard');
+      const response = await loginUser(formData);
+      if (response) {
+        toast.success('সফলভাবে প্রবেশ করেছেন!');
+        navigate('/dashboard');
+      }
     } catch (error) {
-      setError(error?.response?.data?.message || 'Login failed');
+      setError(error?.response?.data?.message || 'লগইন ব্যর্থ হয়েছে');
+      toast.error(error?.response?.data?.message || 'লগইন ব্যর্থ হয়েছে');
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-6 bg-white rounded-xl shadow-lg p-8 border-t-4 border-indigo-600">
+        {/* Header Section */}
         <div className="text-center">
           <div className="flex justify-center mb-4">
             <div className="w-16 h-16 rounded-full bg-indigo-100 flex items-center justify-center">
@@ -42,23 +65,22 @@ const Login = () => {
               </svg>
             </div>
           </div>
-          <h2 className="text-3xl font-bold text-gray-900">
-            শিক্ষার্থী লগইন
-          </h2>
-          <p className="mt-2 text-sm text-gray-600">
-            রোবোটিক্স শিক্ষার নতুন যুগে স্বাগতম
-          </p>
+          <h2 className="text-3xl font-bold text-gray-900">শিক্ষার্থী লগইন</h2>
+          <p className="mt-2 text-sm text-gray-600">রোবোটিক্স শিক্ষার নতুন যুগে স্বাগতম</p>
         </div>
-        
+
+        {/* Error Alert */}
         {error && (
           <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded" role="alert">
             <p className="font-medium">সতর্কতা!</p>
             <p>{error}</p>
           </div>
         )}
-        
+
+        {/* Login Form */}
         <form className="mt-6 space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">
+            {/* Phone Input */}
             <div>
               <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
                 ফোন নম্বর
@@ -72,15 +94,20 @@ const Login = () => {
                 <input
                   id="phone"
                   name="phone"
-                  type="number"
+                  type="tel"
                   required
-                  className="pl-10 focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 py-3 sm:text-sm border-gray-300 rounded-md"
+                  maxLength={11}
+                  pattern="01[3-9][0-9]{8}"
+                  className="pl-10 focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 py-3 sm:text-sm border-gray-300 rounded-md no-spinners"
                   placeholder="01XXXXXXXXX"
                   value={formData.phone}
-                  onChange={handleChange}
+                  onChange={handlePhoneChange}
                 />
               </div>
+              <p className="mt-1 text-xs text-gray-500">উদাহরণঃ 01712345678</p>
             </div>
+
+            {/* Password Input */}
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                 পাসওয়ার্ড
@@ -105,6 +132,7 @@ const Login = () => {
             </div>
           </div>
 
+          {/* Remember Me & Forgot Password */}
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <input
@@ -119,17 +147,18 @@ const Login = () => {
             </div>
 
             <div className="text-sm">
-              <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+              <Link to="/forgot-password" className="font-medium text-indigo-600 hover:text-indigo-500">
                 পাসওয়ার্ড ভুলে গেছেন?
-              </a>
+              </Link>
             </div>
           </div>
 
+          {/* Submit Button */}
           <div>
             <button
               type="submit"
               disabled={authLoading}
-              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200"
+              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                 {authLoading ? (
@@ -138,7 +167,7 @@ const Login = () => {
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
                 ) : (
-                  <svg className="h-5 w-5 text-indigo-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <svg className="h-5 w-5 text-indigo-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
                   </svg>
                 )}
@@ -146,7 +175,8 @@ const Login = () => {
               {authLoading ? 'প্রবেশ করা হচ্ছে...' : 'প্রবেশ করুন'}
             </button>
           </div>
-          
+
+          {/* Register Link */}
           <div className="text-center">
             <Link to="/register" className="font-medium text-indigo-600 hover:text-indigo-500">
               অ্যাকাউন্ট নেই? রেজিস্টার করুন

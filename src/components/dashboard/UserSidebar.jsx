@@ -16,7 +16,7 @@ const UserSidebar = () => {
       <ul className="space-y-2">       
         <li>
           <NavLink
-            to="/dashboard/user-dashboard"
+            to="/dashboard/student-dashboard"
             className="block py-3 pl-3 m-2 pr-8 rounded-xl text-[#8A8E95] hover:text-[#1294F2] duration-300"
           >
             <span className="flex items-center gap-x-2 "><PiSquaresFourFill className="size-5" /> <span className="text-[16px]">Dashboard</span></span>
