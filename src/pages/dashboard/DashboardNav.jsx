@@ -1,4 +1,3 @@
-// import React, { useState } from "react";
 import { HiSearch } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { IoNotificationsOutline } from "react-icons/io5";
@@ -9,18 +8,17 @@ import { IoMdArrowDropdown } from "react-icons/io";
 
 const DashboardNav = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const role = "user";
   return (
-    <div className="py-6 w-full">
+    <div className="py-3 border-b w-full px-6">
       <div className="flex items-center justify-between ">
-        <div className="hidden  w-full md:w-3/4 bg-[#F0F1F5] py-2 px-6 rounded-full sm:flex items-center gap-2 max-w-[600px]">
+        <div className="hidden  w-full md:w-3/4 bg-slate-50 px-6 rounded-full sm:flex items-center gap-2 max-w-[600px] border">
           <button className="text-[#434E55] hover:text-black text-xl duration-300 cursor-pointer ">
             <HiSearch />
           </button>
           <input
             type="text"
-            className="outline-0 placeholder-[#CBCED3]"
-            placeholder="Search  anything..."
+            className="outline-0 placeholder-[#CBCED3] py-2.5 w-full"
+            placeholder="Search anything..."
           />
         </div>
 
