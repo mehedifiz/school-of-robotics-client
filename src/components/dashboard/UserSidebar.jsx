@@ -9,9 +9,9 @@ import { IoIosLogOut } from "react-icons/io";
 
 const UserSidebar = () => {
   return (
-    <div className="dashboard-side-nav pt-5 min-h-screen flex flex-col items-center gap-y-5 rounded-r-xl my-20">
+    <div className="dashboard-side-nav  min-h-screen flex flex-col items-center gap-y-5 rounded-r-xl py-3 min-w-xs">
       <Link to="/">
-        <img src={logo} className="max-w-20 mx-auto" alt="Logo" />
+        <img src={logo} className="max-w-20 mx-auto border" alt="Logo" />
       </Link>
       <ul className="space-y-2">       
         <li>

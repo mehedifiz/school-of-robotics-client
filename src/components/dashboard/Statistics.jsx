@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import ReactApexChart from "react-apexcharts";
-import { LuFileCheck, LuFileCheck2 } from "react-icons/lu";
+import { LuFileCheck2 } from "react-icons/lu";
 import { GiAlarmClock } from "react-icons/gi";
-import { MdOutlineWorkspacePremium } from "react-icons/md";
-import { BsPatchCheckFill } from "react-icons/bs";
 
 const Statistics = () => {
   const [state, setState] = useState({
@@ -30,14 +28,14 @@ const Statistics = () => {
               show: true,
               fontSize: "12px",
               color: "#333",
-              offsetY: 10, // লেবেল নিচে শিফট
+              offsetY: 10,
             },
             value: {
               show: true,
               fontSize: "30px",
               fontWeight: "bold",
               color: "#46BD84",
-              offsetY: -25, // ভ্যালু উপরে শিফট
+              offsetY: -25, 
               formatter: function (val) {
                 return val + "%";
               },
