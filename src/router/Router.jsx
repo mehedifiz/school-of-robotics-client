@@ -12,6 +12,7 @@ import DashboardHome from "@/components/dashboard/DashboardHome";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import PrivateRoute from "@/routes/PrivateRoute";
+import Profile from "@/pages/profile/Profile";
  
 
 
@@ -45,7 +46,11 @@ const router = createBrowserRouter([
          {
             path: 'student-dashboard',
             element: <PrivateRoute><DashboardHome></DashboardHome></PrivateRoute>
-         }
+         },
+         {
+            path: 'profile',
+            element: <PrivateRoute><Profile /></PrivateRoute>
+         },
       ]
    }
 ]);
