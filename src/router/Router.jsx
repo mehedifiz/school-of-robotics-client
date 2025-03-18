@@ -11,6 +11,8 @@ import Management from "@/pages/management/Management";
 import Dashboard from "@/pages/dashboard/Dashboard";
 import DashboardHome from "@/pages/dashboard/DashboardHome";
 import PrivateRoute from "@/routes/PrivateRoute";
+import Profile from "@/pages/profile/Profile";
+import EditProfile from "@/pages/profile/EditProfile";
 
 
 const router = createBrowserRouter([
@@ -50,7 +52,15 @@ const router = createBrowserRouter([
          {
             index: true,
             element: <DashboardHome />
-         }
+         },
+         {
+            path : 'profile',
+            element : <Profile></Profile>
+         },
+         {
+            path : 'editProfile',
+            element : <EditProfile></EditProfile>
+         },
       ]
    }
 ]);
