@@ -10,6 +10,7 @@ import Register from "@/pages/auth/Register";
 import Management from "@/pages/management/Management";
 import Dashboard from "@/pages/dashboard/Dashboard";
 import DashboardHome from "@/pages/dashboard/DashboardHome";
+import PrivateRoute from "@/routes/PrivateRoute";
 
 
 const router = createBrowserRouter([
