@@ -9,6 +9,9 @@ import Login from "@/pages/auth/Login";
 import Register from "@/pages/auth/Register";
 import Management from "@/pages/management/Management";
 import Dashboard from "@/pages/dashboard/Dashboard";
+import PrivateRoute from "@/routes/PrivateRoute";
+import Profile from "@/pages/profile/Profile";
+import EditProfile from "@/pages/profile/EditProfile";
 
 
 const router = createBrowserRouter([
@@ -48,7 +51,15 @@ const router = createBrowserRouter([
          {
             path : '',
             element : <p>I am dashboard home.</p>
-         }
+         },
+         {
+            path : 'profile',
+            element : <Profile></Profile>
+         },
+         {
+            path : 'editProfile',
+            element : <EditProfile></EditProfile>
+         },
       ]
    }
 ]);

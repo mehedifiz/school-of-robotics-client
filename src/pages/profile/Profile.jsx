@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import photo from "./../../assets/images/photo.png";
 const Profile = () => {
   const user = {
     _id: "65f6a1d8e4b09c7823a1b2c3",
@@ -38,7 +40,47 @@ const Profile = () => {
     updatedAt: "2024-03-17T15:30:45.678Z",
   };
 
-  return <div></div>;
+  return (
+    <div className="bg-white shadow  rounded-2xl p-8 ">
+      <div className="flex flex-col md:flex-row justify-center md:justify-between items-center gap-5">
+        <div className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-x-5 gap-y-2">
+          <img src={photo} alt="photo" />
+          <div>
+            <h2 className="text-2xl font-semibold text-center md:text-start text-[#000]">{user?.name}</h2>
+            <p className="text-[16px] text-center md:text-start text-[#000] opacity-40">{user?.email}</p>
+          </div>
+        </div>
+        <div className="w-full">
+          <div className="flex justify-end items-end">
+          <Link to="/dashboard/editProfile" >
+          <button className="bg-[#00776D] px-7 py-2 hover:bg-[#84f5ee] text-white hover:text-[#00776D] duration-300 rounded-md">
+            Edit
+          </button>
+        </Link>
+          </div>
+        </div>
+        
+      </div>
+      <div className="max-w-lg mt-8 md:mt-12 pb-32">
+        <div className="flex justify-between items-center border-b border-gray-100 pb-4">
+          <h3 className="w-3/8 text-[15px] md:text-lg text-[#000] opacity-60">Full Name</h3>
+          <p className="w-5/8 text-[15px] md:text-lg text-[#000] opacity-60 font-semibold">{user?.name}</p>
+        </div>
+        <div className="flex justify-between items-center border-b border-gray-100 pb-4 pt-4">
+          <h3 className="w-3/8 text-[15px] md:text-lg text-[#000] opacity-60">Email</h3>
+          <p className="w-5/8 text-[15px] md:text-lg text-[#000] opacity-60 font-semibold">{user?.email}</p>
+        </div>
+        <div className="flex justify-between items-center border-b border-gray-100 pb-4 pt-4">
+          <h3 className="w-3/8 text-[15px] md:text-lg text-[#000] opacity-60">Phone</h3>
+          <p className="w-5/8 text-[15px] md:text-lg text-[#000] opacity-60 font-semibold">{user?.phone}</p>
+        </div>
+        <div className="flex justify-between items-center border-b border-gray-100 pb-4 pt-4">
+          <h3 className="w-3/8 text-[15px] md:text-lg text-[#000] opacity-60">Menber Since</h3>
+          <p className="w-5/8 text-[15px] md:text-lg text-[#000] opacity-60 font-semibold">{user?.createdAt.slice(0, 10)}</p>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Profile;
