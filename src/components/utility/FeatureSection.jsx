@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import AOS from "aos";
-import "../assets/aos/aos.css"; // Import AOS styles
-import img from "../assets/images/feature2.png";
+import img from '@/assets/images/feature2.png'
 
 const faqData = [
   {
