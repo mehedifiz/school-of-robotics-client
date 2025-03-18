@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { HiMenu } from "react-icons/hi";
+import { CiMenuBurger } from "react-icons/ci";
+import { VscClose } from "react-icons/vsc";
 import { Link, NavLink } from "react-router-dom";
 import { PiSquaresFourFill } from "react-icons/pi";
 import { HiOutlineArchiveBox } from "react-icons/hi2";
@@ -33,22 +34,22 @@ const DashboardSidebar = () => {
       <div className="">
          {/* Mobile Toggle Button */}
          <button
-            className="md:hidden fixed top-4 left-4 z-50 p-2 bg-white rounded-lg shadow-lg hover:bg-gray-100 transition-colors"
+            className="md:hidden fixed top-4 left-4 z-50 p-2 bg-white border rounded-sm transition-colors cursor-pointer"
             onClick={toggleSidebar}
             aria-label="Toggle sidebar"
          >
-            {isOpen ? <HiX size={24} /> : <HiMenu size={24} />}
+            {isOpen ? <VscClose  size={24} /> : <CiMenuBurger size={24} />}
          </button>
 
          {/* Sidebar */}
          <aside
-            className={`fixed inset-y-0 left-0 w-64 bg-white border-r bor transform transition-transform duration-300 z-40
+            className={`fixed inset-y-0 left-0 w-64 bg-white border-r border-gray-100 transform transition-transform duration-300 z-40
           ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
           md:relative md:h-screen flex flex-col`}
          >
             {/* Logo */}
             <div className="p-4 border-b border-gray-100">
-               <Link to="/" onClick={handleMobileClick}>
+               <Link to="/dashboard" onClick={handleMobileClick}>
                   <img
                      src={logo}
                      alt="Dashboard Logo"
@@ -97,13 +98,12 @@ const DashboardSidebar = () => {
                   </div>
                   <div>
                      <li className="mt-auto">
-                        <p className="flex items-center p-2 space-x-4 text-red-600 cursor-pointer bg-red-600/10 border border-red-500/30 rounded-md" onClick={handleMobileClick}>
+                        <Link to="/logout" className="flex items-center p-2 space-x-4 text-red-600 cursor-pointer bg-red-600/10 border border-red-500/30 rounded-md" onClick={handleMobileClick}>
                            <IoIosLogOut className="text-2xl" />
                            <span>Log Out</span>
-                        </p>
+                        </Link>
                      </li>
                   </div>
-
                </ul>
             </nav>
          </aside>

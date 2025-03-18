@@ -2,30 +2,46 @@ import { HiSearch } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { TfiEmail } from "react-icons/tfi";
-import logo from "./../../assets/home/photo_08.jpeg"
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
+
 
 const DashboardNav = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="py-3 border-b w-full px-6">
       <div className="flex items-center justify-between ">
-        <div className="hidden  w-full md:w-3/4 bg-slate-50 px-6 rounded-full sm:flex items-center gap-2 max-w-[600px] border">
+        <div className="hidden md:flex w-full md:w-3/4 bg-slate-50 px-6 rounded-full items-center gap-2 max-w-[600px] border">
           <button className="text-[#434E55] hover:text-black text-xl duration-300 cursor-pointer ">
             <HiSearch />
           </button>
           <input
             type="text"
-            className="outline-0 placeholder-[#CBCED3] py-2.5 w-full"
+            className="outline-0 placeholder-[#CBCED3] py-2.5 w-full bg-transparent"
             placeholder="Search anything..."
           />
         </div>
 
         <div className="flex items-center justify-end w-full md:w-1/4 gap-5">
           <div className="flex items-center gap-8">
-          <Link
-              to="/dashboard/#"
+            <Link
+              to="/dashboard"
               className="flex items-center gap-2 text-[#C5C5C5] hover:text-blue-600 duration-300"
             >
               <TfiEmail size={20} className="" />
@@ -37,12 +53,14 @@ const DashboardNav = () => {
             >
               <IoNotificationsOutline size={24} className="" />
             </Link>
-            <div className="relative">
+            <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
                 className="relative z-[1] border-2 border-gray-100 max-w-11 max-h-11 rounded-full overflow-hidden focus:outline-none cursor-pointer flex items-center"
+                aria-label="User menu"
+                aria-expanded={dropdownOpen}
               >
-                <img src={logo} alt="profile" className="w-10 h-10 rounded-full" />
+                <img src="https://iili.io/2pLtKmJ.jpg" alt="profile" className="w-10 h-10 rounded-full object-cover" />
                 <IoMdArrowDropdown className="text-gray-600 ml-2" />
               </button>
               
@@ -63,9 +81,7 @@ const DashboardNav = () => {
                 </div>
               )}
             </div>
-            
           </div>
-          
         </div>
       </div>
     </div>
