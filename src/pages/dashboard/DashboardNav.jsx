@@ -25,7 +25,7 @@ const DashboardNav = () => {
   }, []);
 
   return (
-    <div className="py-3 border-b w-full px-6">
+    <div className="py-3 border-b w-full  bg-white ">
       <div className="flex items-center justify-between ">
         <div className="hidden md:flex w-full md:w-3/4 bg-slate-50 px-6 rounded-full items-center gap-2 max-w-[600px] border">
           <button className="text-[#434E55] hover:text-black text-xl duration-300 cursor-pointer ">

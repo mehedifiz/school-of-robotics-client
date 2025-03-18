@@ -98,10 +98,10 @@ const DashboardSidebar = () => {
                   </div>
                   <div>
                      <li className="mt-auto">
-                        <Link to="/logout" className="flex items-center p-2 space-x-4 text-red-600 cursor-pointer bg-red-600/10 border border-red-500/30 rounded-md" onClick={handleMobileClick}>
+                        <button className="flex items-center p-2 space-x-4 text-red-600 cursor-pointer bg-red-600/10 border border-red-500/30 rounded-md w-full" onClick={handleMobileClick}>
                            <IoIosLogOut className="text-2xl" />
                            <span>Log Out</span>
-                        </Link>
+                        </button>
                      </li>
                   </div>
                </ul>

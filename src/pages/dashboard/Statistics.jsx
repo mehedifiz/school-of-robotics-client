@@ -74,7 +74,7 @@ const Statistics = () => {
 
   return (
     <div>
-      <div className="bg-white rounded-xl p-5 shadow-lg ">
+      <div className="bg-white rounded-xl p-5 border">
         <div className="mb-5">
           <h2 className="text-2xl font-semibold text-gray-800">Statistics</h2>
           <p className="text-gray-500 text-sm">January - June 2025</p>
