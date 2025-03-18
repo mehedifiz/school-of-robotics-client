@@ -9,6 +9,7 @@ import Login from "@/pages/auth/Login";
 import Register from "@/pages/auth/Register";
 import Management from "@/pages/management/Management";
 import Dashboard from "@/pages/dashboard/Dashboard";
+import DashboardHome from "@/pages/dashboard/DashboardHome";
 
 
 const router = createBrowserRouter([
@@ -46,8 +47,8 @@ const router = createBrowserRouter([
       element: <Dashboard></Dashboard>,
       children: [
          {
-            path : '',
-            element : <p>I am dashboard home.</p>
+            index: true,
+            element: <DashboardHome />
          }
       ]
    }

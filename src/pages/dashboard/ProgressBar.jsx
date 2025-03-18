@@ -59,7 +59,7 @@ const ProgressBar = () => {
 
  
   return (
-    <div className="w-full h-full bg-white rounded-xl p-5 shadow-lg">
+    <div className="w-full h-full bg-white rounded-xl p-5 border">
       <h2 className="text-2xl font-semibold mb-4">Your Progress</h2>
       {booksData.map((book) => (
         <div key={book._id} className="mb-6">
