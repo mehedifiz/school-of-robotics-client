@@ -51,9 +51,9 @@ const Management = () => {
     },
   ];
   return (
-    <div className="container mx-auto p-4 mt-24">
-      <div className="text-center mb-10 max-w-2xl mx-auto">
-        <h2 className="text-3xl font-bold">Management</h2>
+    <div className="container mx-auto py-16">
+      <div className="text-center  max-w-2xl mx-auto">
+        <h2 className="text-3xl mb-5 font-bold">Management</h2>
         <p className="text-gray-500 text-lg">
           We work under the guidance of team leaders and alongside other team
           members to ensure that organizational goals are met.

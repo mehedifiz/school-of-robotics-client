@@ -23,9 +23,9 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 my-24">
-      <div className="text-center mb-10 max-w-2xl mx-auto">
-        <h2 className="text-2xl font-bold sm:text-3xl  text-center text-gray-900">
+    <div className="container mx-auto p-16">
+      <div className="text-center  max-w-2xl mx-auto">
+        <h2 className="text-2xl font-bold sm:text-3xl mb-5 text-center text-gray-900">
           Contact Us
         </h2>
         <p className="text-center text-gray-500">
