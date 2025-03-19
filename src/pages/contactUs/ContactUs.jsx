@@ -24,11 +24,11 @@ const ContactUs = () => {
 
   return (
     <div className="container mx-auto p-16">
-      <div className="text-center  max-w-2xl mx-auto">
-        <h2 className="text-2xl font-bold sm:text-3xl mb-5 text-center text-gray-900">
+      <div className="text-center mb-16  max-w-2xl mx-auto">
+        <h2 className="text-2xl font-bold sm:text-3xl mb-5 text-center text-teal-950">
           Contact Us
         </h2>
-        <p className="text-center text-gray-500">
+        <p className="text-center text-lg text-teal-950">
           Just send us your questions or concerns by starting a message from the
           contact form and we will give you the help you need.
         </p>

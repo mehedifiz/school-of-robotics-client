@@ -41,10 +41,10 @@ const FeatureSection = () => {
   return (
     <section className="container mx-auto">
       <div className="my-16">
-        <h3 className="text-3xl text-center font-bold mb-4">
+        <h3 className="text-3xl text-center text-teal-950 font-bold mb-4">
           Develop Yourself with Us
         </h3>
-        <p className="text-teal-950 text-center mb-6">
+        <p className="text-teal-950  text-lg text-center mb-6">
           At the School of Robotics (SoR), we provide hands-on learning to help
           you master technology.
         </p>

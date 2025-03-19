@@ -47,8 +47,8 @@ const OurProgram = () => {
       <div className="container mx-auto ">
         {/* Heading */}
         <div className="text-center  mx-auto mb-12">
-          <h2 className="text-4xl font-bold text-gray-800">Our Program</h2>
-          <p className="text-gray-600 mt-3">
+          <h2 className="text-4xl font-bold mb-5 text-teal-950">Our Program</h2>
+          <p className="text-teal-950 text-lg ">
             Explore a variety of cutting-edge courses designed to shape your
             future in technology.
           </p>

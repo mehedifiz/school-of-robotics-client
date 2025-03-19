@@ -5,9 +5,11 @@ const OnlineProgramSection = () => {
   return (
     <div className="container mx-auto px-6 py-12">
       {/* Section Title */}
-      <div className="text-center max-w-2xl mx-auto mb-12">
-        <h3 className="text-4xl font-bold text-[#00635A]">Online Program</h3>
-        <p className="text-gray-700 mt-4">
+      <div className="text-center max-w-2xl mx-auto mb-16">
+        <h3 className="text-4xl mb-5 font-bold text-teal-950">
+          Online Program
+        </h3>
+        <p className="text-teal-950 text-lg ">
           Now that we've aligned the details, it's time to get things mapped out
           and organized. Let's make learning more effective!
         </p>
