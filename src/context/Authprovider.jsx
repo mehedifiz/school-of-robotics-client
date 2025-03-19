@@ -1,6 +1,6 @@
-import { createContext, useEffect, useState } from "react";
-import PropTypes from 'prop-types';
 import useAxios from "@/Hooks/useAxios";
+import PropTypes from 'prop-types';
+import { createContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 
 export const AuthContext = createContext(null);
@@ -52,6 +52,15 @@ const AuthProvider = ({ children }) => {
         const authData = localStorage.getItem("auth");
         if (authData) {
             setAuth(JSON.parse(authData));
+            axios.get(`/user/get-user/${JSON.parse(authData).userId}`).then((response) => {
+                setAuth((prev) => ({
+                    ...prev,
+                    user: response.data.data,
+                }));
+            }
+            ).catch((error) => {
+                console.log(error);
+            });
         }
         setLoading(false);
     }, []);
