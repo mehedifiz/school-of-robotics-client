@@ -55,7 +55,7 @@ const OurProgram = () => {
         </div>
 
         {/* Program Cards */}
-        <div className="grid md:grid-cols-2  gap-8  py-16 ">
+        <div className="grid md:grid-cols-2  grid-cols-1 gap-8  py-16 ">
           {programs.map(({ id, icon, title, description, link }) => (
             <div
               key={id}

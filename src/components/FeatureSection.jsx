@@ -49,9 +49,9 @@ const FeatureSection = () => {
           you master technology.
         </p>
       </div>
-      <div className="flex flex-col  mb-16 md:flex-row items-center rounded-lg justify-between py-16 px-6 md:px-12 bg-gradient-to-r from-gray-900 via-gray-500 to-teal-50 text-white">
+      <div className="flex gap-5 flex-col  mb-16 lg:flex-row items-center rounded-lg justify-between py-16 px-6 md:px-12 bg-gradient-to-r from-gray-900 via-gray-500 to-teal-50 text-white">
         {/* Left Content */}
-        <div className="md:w-1/2 text-start" data-aos="fade-right">
+        <div className="lg:w-1/2 text-start" data-aos="fade-right">
           {/* Accordion Section */}
           <div className="space-y-4">
             {faqData.map((item, index) => (
@@ -94,7 +94,7 @@ const FeatureSection = () => {
         </div>
 
         {/* Right Image */}
-        <div className="md:w-1/2  px-4 mt-10 md:mt-0" data-aos="fade-left">
+        <div className="md:w-1/2  px-4 mt-10 " data-aos="fade-left">
           <img src={img} alt="Feature" className="w-full " />
         </div>
       </div>
