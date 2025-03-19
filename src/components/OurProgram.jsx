@@ -55,13 +55,13 @@ const OurProgram = () => {
         </div>
 
         {/* Program Cards */}
-        <div className="grid md:grid-cols-2 gap-8 ">
+        <div className="grid md:grid-cols-2  gap-8  py-16 ">
           {programs.map(({ id, icon, title, description, link }) => (
             <div
               key={id}
-              className=" bg-white shadow-md rounded-xl  flex items-start transition-transform duration-300 hover:scale-105"
+              className=" bg-white shadow-md  p-10 rounded-xl hover:bg-teal-100  flex items-start transition-transform duration-300 hover:scale-105"
             >
-              <div className="p-5 bg-gray-100 rounded-lg space-y-3  hover:bg-teal-50">
+              <div className="p-5  rounded-lg space-y-3  ">
                 <div className=" flex justify-leftr items-center gap-3">
                   <span>{icon}</span>
 

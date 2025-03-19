@@ -93,7 +93,7 @@ const PricingCard = ({ plan, price, features, highlight }) => {
         </ul>
 
         <div className="absolute bottom-6 left-0 w-full flex p-2 justify-center">
-          <button className=" w-full py-2 px-4 border border-teal-600 text-teal-600 rounded-md hover:bg-teal-600 hover:text-white transition-colors duration-300">
+          <button className=" w-full py-2 px-4 border border-teal-600 text-teal-600 rounded-md group-hover:bg-teal-600 group-hover:text-white transition-colors duration-300">
             Choose Plan
           </button>
         </div>

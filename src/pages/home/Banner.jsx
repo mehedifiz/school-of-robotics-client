@@ -6,7 +6,7 @@ import image_1 from "../../assets/images/home-4.png";
 
 const Banner = () => {
   return (
-    <div className="max-w-7xl mx-auto px-6 md:px-16 lg:mt-[60px] mt-14 flex flex-col-reverse md:flex-row items-center gap-12 bg-gradient-to-r from-gray-900 via-gray-500 to-teal-50 rounded-b-xl shadow-lg py-12">
+    <div className=" mx-auto px-6 md:px-16 lg:mt-[60px] mt-14 flex flex-col-reverse md:flex-row items-center gap-12 bg-gradient-to-r from-gray-900 via-gray-500 to-teal-50 rounded-b-xl shadow-lg py-12">
       {/* Left Section */}
       <div className="md:w-1/2 space-y-6 text-center md:text-left">
         <h1 className="text-4xl md:text-5xl font-bold text-white">

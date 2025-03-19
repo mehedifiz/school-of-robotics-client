@@ -14,10 +14,10 @@ const OnlineProgramSection = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col lg:flex-row items-center justify-center gap-12 bg-gradient-to-l from-gray-900 via-gray-500 to-teal-50 rounded-xl shadow-lg p-8">
+      <div className="flex flex-col  p-8 lg:flex-row    justify-between items-center gap-12 bg-gradient-to-l from-gray-900 via-gray-500 to-teal-50 rounded-xl shadow-lg ">
         {/* Image Section */}
         <div
-          className="w-full lg:w-1/2 flex justify-center"
+          className="w-full lg:w-1/2 flex gap-5 justify-center"
           data-aos="fade-right"
           data-aos-duration="1800"
         >
@@ -34,7 +34,7 @@ const OnlineProgramSection = () => {
           data-aos="fade-left"
           data-aos-duration="1800"
         >
-          <ul className="space-y-4">
+          <ul className="space-y-4 w-11/12">
             {[
               "IQ-based Customized curriculum",
               "Well-qualified & trained faculties",
@@ -51,7 +51,7 @@ const OnlineProgramSection = () => {
           </ul>
           <a
             href="#"
-            className="inline-block bg-[#00635A] hover:bg-[#004d40]  text-white px-6 py-3 rounded-lg transition duration-300 shadow-md"
+            className="inline-flex justify-center items-center bg-[#00635A] w-1/2 hover:bg-[#004d40] text-white px-6 py-3 rounded-lg transition duration-300 shadow-md"
           >
             Learn More
           </a>
