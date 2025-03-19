@@ -13,6 +13,7 @@ import DashboardHome from "@/pages/dashboard/DashboardHome";
 import PrivateRoute from "@/routes/PrivateRoute";
 import Profile from "@/pages/profile/Profile";
 import EditProfile from "@/pages/profile/EditProfile";
+import Books from "@/pages/books/Books";
 
 
 const router = createBrowserRouter([
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
             path: "register",
             element: <Register />
          },
+         {
+            path : 'books',
+            element : <Books></Books>
+         },
 
 
       ]
@@ -61,6 +66,7 @@ const router = createBrowserRouter([
             path : 'editProfile',
             element : <EditProfile></EditProfile>
          },
+        
       ]
    }
 ]);
