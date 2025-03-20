@@ -128,7 +128,7 @@ const Register = () => {
               className="block w-full px-3 py-3 sm:text-sm bg-gray-50 shadow-2xl border rounded-md"
               placeholder="Enter Phone Number"
               value={formData.phone}
-              onChange={handleChange}
+              onChange={handlePhoneChange}
             />
           </div>
 
