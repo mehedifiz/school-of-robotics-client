@@ -14,6 +14,7 @@ import PrivateRoute from "@/routes/PrivateRoute";
 import Profile from "@/pages/profile/Profile";
 import EditProfile from "@/pages/profile/EditProfile";
 import Books from "@/pages/books/Books";
+import StudentBooks from "@/pages/dashboard/studentBook/StudentBooks";
 
 
 const router = createBrowserRouter([
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
          {
             path : 'editProfile',
             element : <EditProfile></EditProfile>
+         },
+         {
+            path : 'student-book',
+            element : <StudentBooks></StudentBooks>
          },
         
       ]

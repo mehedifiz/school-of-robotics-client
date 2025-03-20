@@ -9,6 +9,7 @@ import { BsCalendar4Week } from "react-icons/bs";
 import { MdOutlineCloudDownload } from "react-icons/md";
 import { IoIosLogOut } from "react-icons/io";
 import logo from '@/assets/logo.png'
+import { BookOpen } from "lucide-react";
 
 const DashboardSidebar = () => {
    const [isOpen, setIsOpen] = useState(false);
@@ -75,6 +76,12 @@ const DashboardSidebar = () => {
                         <NavLink to="/dashboard/classes" className={linkStyles} onClick={handleMobileClick}>
                            <HiOutlineArchiveBox size={20} />
                            <span>Classes</span>
+                        </NavLink>
+                     </li>
+                     <li>
+                        <NavLink to="/dashboard/student-book" className={linkStyles} onClick={handleMobileClick}>
+                           <BookOpen size={20} />
+                           <span>Books</span>
                         </NavLink>
                      </li>
                      <li>
