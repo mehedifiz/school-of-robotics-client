@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import photo from "./../../assets/images/photo.png";
+import photo from "./../../../../assets/images/photo.png";
 const Profile = () => {
   const user = {
     _id: "65f6a1d8e4b09c7823a1b2c3",

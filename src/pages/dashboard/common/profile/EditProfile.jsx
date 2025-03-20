@@ -1,5 +1,5 @@
 import { Pencil } from "lucide-react";
-import photo from "./../../assets/images/photo.png";
+import photo from "./../../../../assets/images/photo.png";
 import { Link } from "react-router-dom";
 
 const EditProfile = () => {
