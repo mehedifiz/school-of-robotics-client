@@ -13,6 +13,8 @@ import DashboardHome from "@/pages/dashboard/DashboardHome";
 import PrivateRoute from "@/routes/PrivateRoute";
 import Profile from "@/pages/profile/Profile";
 import EditProfile from "@/pages/profile/EditProfile";
+import Books from "@/pages/books/Books";
+import StudentBooks from "@/pages/dashboard/studentBook/StudentBooks";
 
 
 const router = createBrowserRouter([
@@ -41,6 +43,10 @@ const router = createBrowserRouter([
             path: "register",
             element: <Register />
          },
+         {
+            path : 'books',
+            element : <Books></Books>
+         },
 
 
       ]
@@ -61,6 +67,11 @@ const router = createBrowserRouter([
             path : 'editProfile',
             element : <EditProfile></EditProfile>
          },
+         {
+            path : 'student-book',
+            element : <StudentBooks></StudentBooks>
+         },
+        
       ]
    }
 ]);
