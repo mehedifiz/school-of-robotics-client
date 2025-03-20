@@ -3,7 +3,6 @@ import { createBrowserRouter } from "react-router-dom";
 import Root from "../layout/Root";
 import ErrorPage from "../pages/error/ErrorPage";
 import Home from "../pages/home/Home";
-
 import ContactUs from "../pages/contactUs/ContactUs";
 import Login from "@/pages/auth/Login";
 import Register from "@/pages/auth/Register";
@@ -15,6 +14,7 @@ import Profile from "@/pages/profile/Profile";
 import EditProfile from "@/pages/profile/EditProfile";
 import Books from "@/pages/books/Books";
 import StudentBooks from "@/pages/dashboard/studentBook/StudentBooks";
+import ManageBooks from "@/pages/dashboard/admin/ManageBooks/ManageBooks";
 
 
 const router = createBrowserRouter([
@@ -55,10 +55,7 @@ const router = createBrowserRouter([
       path: '/dashboard',
       element: <PrivateRoute><Dashboard/></PrivateRoute>,
       children: [
-         {
-            index: true,
-            element: <DashboardHome />
-         },
+         // common routes
          {
             path : 'profile',
             element : <Profile></Profile>
@@ -66,6 +63,22 @@ const router = createBrowserRouter([
          {
             path : 'editProfile',
             element : <EditProfile></EditProfile>
+         },
+
+         // admin routes
+         {
+            path : 'admin-dashboard',
+            element: <DashboardHome />
+         },
+         {
+            path : 'manage-books',
+            element : <ManageBooks></ManageBooks>
+         },
+
+         // student routes
+         {
+            path : 'student-dashboard',
+            element: <DashboardHome />
          },
          {
             path : 'student-book',

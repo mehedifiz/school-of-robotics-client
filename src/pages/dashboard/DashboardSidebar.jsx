@@ -71,7 +71,7 @@ const DashboardSidebar = () => {
             {role === "admin" && (
               <div className="space-y-3 grow">
                 <li>
-                  <NavLink to="/dashboard" className={linkStyles} onClick={handleMobileClick}>
+                  <NavLink to="/dashboard/admin-dashboard" className={linkStyles} onClick={handleMobileClick}>
                     <PiSquaresFourFill size={20} />
                     <span>Dashboard</span>
                   </NavLink>
@@ -85,7 +85,7 @@ const DashboardSidebar = () => {
                 <li>
                   <NavLink to="/dashboard/manage-books" className={linkStyles} onClick={handleMobileClick}>
                     <BookOpen size={20} />
-                    <span>Books</span>
+                    <span>Manage Books</span>
                   </NavLink>
                 </li>
               </div>
@@ -95,7 +95,7 @@ const DashboardSidebar = () => {
             {role === "student" && (
               <div className="space-y-3 grow">
                 <li>
-                  <NavLink to="/dashboard" className={linkStyles} onClick={handleMobileClick}>
+                  <NavLink to="/dashboard/student-dashboard" className={linkStyles} onClick={handleMobileClick}>
                     <PiSquaresFourFill size={20} />
                     <span>Dashboard</span>
                   </NavLink>
