@@ -2,7 +2,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
-import img from "../assets/images/feature2.png";
+import img from "../../assets/images/feature2.png";
 
 const faqData = [
   {

@@ -2,8 +2,8 @@ import useAuth from "@/Hooks/useAuth";
 import { useEffect, useState } from "react";
 import { HiMenu, HiSearch, HiX } from "react-icons/hi";
 import { Link, NavLink } from "react-router-dom";
-import logoDark from "../assets/home/logo-dark.png";
-import logoLight from "../assets/home/logo-light.png";
+import logoDark from "../../assets/home/logo-dark.png";
+import logoLight from "../../assets/home/logo-light.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
