@@ -10,12 +10,13 @@ import { IoIosLogOut } from "react-icons/io";
 import { LiaUserLockSolid } from "react-icons/lia";
 import { MdOutlineCloudDownload } from "react-icons/md";
 import { PiSquaresFourFill } from "react-icons/pi";
-import { VscClose } from "react-icons/vsc";
 import { TbBrandPlanetscale } from "react-icons/tb";
+import { VscClose } from "react-icons/vsc";
 import { Link, NavLink } from "react-router-dom";
 
 const DashboardSidebar = () => {
-  const role = useAuth()?.user?.role;
+  const { user, logoutUser } = useAuth();
+  const role = user?.role;
   console.log(role);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -25,7 +26,7 @@ const DashboardSidebar = () => {
 
   const linkStyles = ({ isActive }) =>
     `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${
-      isActive ? "bg-blue-100 text-blue-600 font-medium" : "text-gray-600 hover:bg-gray-100 hover:text-blue-500"
+      isActive ? "bg-primary/10 text-primary font-medium" : "text-gray-600 hover:bg-gray-100 hover:text-primary"
     }`;
 
   const handleMobileClick = () => {
@@ -53,7 +54,13 @@ const DashboardSidebar = () => {
       >
         {/* Logo */}
         <div className="p-4 border-b border-gray-100">
-          <Link to="/" onClick={handleMobileClick}>
+          <Link
+            to="/"
+            onClick={() => {
+              logoutUser();
+              handleMobileClick();
+            }}
+          >
             <img
               src={logo}
               alt="Dashboard Logo"
