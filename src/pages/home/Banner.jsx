@@ -6,18 +6,18 @@ import image_1 from "../../assets/images/home-4.png";
 
 const Banner = () => {
   return (
-    <div className=" mx-auto px-6 md:px-16 lg:mt-[60px] mt-14 flex flex-col-reverse md:flex-row items-center gap-12 bg-gradient-to-r from-gray-900 via-gray-500 to-teal-50 rounded-b-xl shadow-lg py-12">
+    <div className="mx-auto px-6 md:px-16 lg:mt-[60px] mt-14 flex flex-col-reverse md:flex-row items-center gap-12 bg-gradient-to-r from-[#1d4252] via-[#203a43] to-[#2c5364] rounded-b-xl shadow-xl py-12">
       {/* Left Section */}
       <div className="md:w-1/2 space-y-6 text-center md:text-left">
         <h1 className="text-4xl md:text-5xl font-bold text-white">
-          School of Robotics <span className="text-orange-300">Bangladesh</span>
+          School of Robotics <span className="text-yellow-400">Bangladesh</span>
         </h1>
-        <p className="md:text-lg text-white font-light animate-fade-up animate-once animate-duration-[3000ms]">
+        <p className="md:text-lg text-gray-200 font-light animate-fade-up animate-once animate-duration-[3000ms]">
           Explore and learn more about everything from machine learning and
           global networking to scaling your team.
         </p>
         <div className="flex justify-center md:justify-start">
-          <Button className="bg-[#00635A] hover:bg-[#004d40] text-white px-6 py-3 rounded-lg transition duration-300 shadow-lg">
+          <Button className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 px-6 py-3 rounded-lg transition duration-300 shadow-lg font-semibold">
             Explore Courses
           </Button>
         </div>
@@ -28,7 +28,7 @@ const Banner = () => {
         <img
           src={image_1}
           alt="Main Visual"
-          className="w-full max-w-md rounded-xl animate-fade-right animate-once animate-duration-[1500ms]"
+          className="w-full max-w-md rounded-xl animate-fade-right animate-once animate-duration-[1500ms] shadow-2xl"
         />
 
         {/* Floating Circular Images */}
@@ -37,7 +37,7 @@ const Banner = () => {
             <img
               src={parth1}
               alt="Circle 1"
-              className="w-full h-full rounded-full shadow-md border-2 border-white"
+              className="w-full h-full rounded-full shadow-md border-2 border-yellow-300"
             />
           </div>
 
@@ -45,7 +45,7 @@ const Banner = () => {
             <img
               src={parth2}
               alt="Circle 2"
-              className="w-full h-full rounded-full shadow-md border-2 border-white"
+              className="w-full h-full rounded-full shadow-md border-2 border-yellow-300"
             />
           </div>
 
@@ -53,7 +53,7 @@ const Banner = () => {
             <img
               src={parth3}
               alt="Circle 3"
-              className="w-full h-full rounded-full shadow-md border-2 border-white"
+              className="w-full h-full rounded-full shadow-md border-2 border-yellow-300"
             />
           </div>
         </div>

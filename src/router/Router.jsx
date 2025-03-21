@@ -14,6 +14,7 @@ import Root from "../layout/Root";
 import ContactUs from "../pages/contactUs/ContactUs";
 import ErrorPage from "../pages/error/ErrorPage";
 import Home from "../pages/home/Home";
+import VerifyOtp from "@/pages/auth/VerifyOtp";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "books",
         element: <Books></Books>,
+      },
+      {
+        path: "verify-otp",
+        element: <VerifyOtp/> ,
       },
     ],
   },

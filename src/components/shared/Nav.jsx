@@ -23,7 +23,7 @@ const Navbar = () => {
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-white "
-          : "bg-gradient-to-r from-gray-900 via-gray-500 to-teal-50"
+          : "bg-gradient-to-r "
       }`}
     >
       <div className=" mx-auto px-6 py-3 flex items-center justify-between">
