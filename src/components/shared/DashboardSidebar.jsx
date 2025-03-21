@@ -11,6 +11,7 @@ import { LiaUserLockSolid } from "react-icons/lia";
 import { MdOutlineCloudDownload } from "react-icons/md";
 import { PiSquaresFourFill } from "react-icons/pi";
 import { VscClose } from "react-icons/vsc";
+import { TbBrandPlanetscale } from "react-icons/tb";
 import { Link, NavLink } from "react-router-dom";
 
 const DashboardSidebar = () => {
@@ -128,6 +129,12 @@ const DashboardSidebar = () => {
                   <NavLink to="/dashboard/documents" className={linkStyles} onClick={handleMobileClick}>
                     <MdOutlineCloudDownload size={20} />
                     <span>Documents</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/plan" className={linkStyles} onClick={handleMobileClick}>
+                    <TbBrandPlanetscale size={20} />
+                    <span>Plan</span>
                   </NavLink>
                 </li>
               </div>
