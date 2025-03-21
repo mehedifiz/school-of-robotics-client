@@ -1,18 +1,21 @@
 import useAuth from "@/Hooks/useAuth";
 import { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import DashboardNav from "../components/shared/DashboardNav";
 import DashboardSidebar from "../components/shared/DashboardSidebar";
 
 const Dashboard = () => {
   const role = useAuth()?.user?.role;
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    if (role === "student") {
-      navigate("/dashboard/student-dashboard");
-    } else if (role === "admin") {
-      navigate("/dashboard/admin-dashboard");
+    if (location.pathname === "/dashboard") {
+      if (role === "student") {
+        navigate("/dashboard/student-dashboard");
+      } else if (role === "admin") {
+        navigate("/dashboard/admin-dashboard");
+      }
     }
   }, [role, navigate]);
   return (
