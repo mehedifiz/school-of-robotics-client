@@ -8,7 +8,6 @@ const axiosPublic = axios.create({
     Authorization: `${token?.token}`
   }
 });
-console.log("token " , token)
 const useAxios = () => {
   return axiosPublic;
 };
