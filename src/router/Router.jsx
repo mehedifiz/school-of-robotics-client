@@ -14,6 +14,7 @@ import Root from "../layout/Root";
 import ContactUs from "../pages/contactUs/ContactUs";
 import ErrorPage from "../pages/error/ErrorPage";
 import Home from "../pages/home/Home";
+import AllAdmin from "@/pages/dashboard/admin/ManageAllAdmin/AllAdmin";
 
 const router = createBrowserRouter([
   {
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
         path: "student-book",
         element: <StudentBooks></StudentBooks>,
       },
+      {
+        path: "allAdmins",
+        element: <AllAdmin />
+      }
     ],
   },
 ]);
