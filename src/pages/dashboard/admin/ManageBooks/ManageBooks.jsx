@@ -1,15 +1,19 @@
 import Loader from "@/components/shared/Loader";
 import useAxios from "@/Hooks/useAxios";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { FaEdit, FaEye, FaPlus, FaSearch, FaTrash } from "react-icons/fa";
+import Swal from "sweetalert2";
 import AddBookModal from "./AddBookModal";
 
 const ManageBooks = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedPlan, setSelectedPlan] = useState("all");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [deletingBookId, setDeletingBookId] = useState(null);
   const axios = useAxios();
+
+  const queryClient = useQueryClient();
 
   const { data: books = [], isLoading } = useQuery({
     queryKey: ["books"],
@@ -20,15 +24,84 @@ const ManageBooks = () => {
     },
   });
 
-  if (!isLoading) {
-    return <Loader />;
-  }
+  // Create a delete mutation
+  const { mutate: deleteBook, isPending: isDeleting } = useMutation({
+    mutationFn: async (bookId) => {
+      const response = await axios.delete(`/book/${bookId}`);
+      return response.data;
+    },
+    onSuccess: (data) => {
+      // Close any open loading alerts
+      Swal.close();
+
+      // Show success alert
+      Swal.fire({
+        title: "Deleted!",
+        text: "The book has been deleted successfully.",
+        icon: "success",
+        confirmButtonColor: "#10B981", // Your primary color
+        timer: 2000,
+        timerProgressBar: true,
+      });
+
+      queryClient.invalidateQueries({ queryKey: ["books"] });
+    },
+    onError: (error) => {
+      // Close any open loading alerts
+      Swal.close();
+
+      // Show error alert
+      Swal.fire({
+        title: "Error!",
+        text: error.response?.data?.message || "Failed to delete book",
+        icon: "error",
+        confirmButtonColor: "#10B981", // Your primary color
+      });
+
+      console.error("Error deleting book:", error);
+    },
+    onSettled: () => {
+      setDeletingBookId(null);
+    },
+  });
 
   // Handle book deletion
-  const handleDeleteBook = (id) => {
-    if (window.confirm("Are you sure you want to delete this book?")) {
-      console.log("Deleting book with id:", id);
-    }
+  const handleDeleteBook = (id, bookName) => {
+    Swal.fire({
+      title: "Are you sure?",
+      html: `<p>You are about to delete <strong>${bookName}</strong>.</p><p class="text-sm text-gray-500 mt-2">This action cannot be undone!</p>`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#10B981", // Your primary color
+      cancelButtonColor: "#EF4444",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "Cancel",
+      iconColor: "#F87171",
+      customClass: {
+        confirmButton: "px-4 py-2 text-sm font-medium",
+        cancelButton: "px-4 py-2 text-sm font-medium",
+        title: "text-xl text-gray-800",
+        popup: "rounded-lg shadow-lg",
+      },
+      buttonsStyling: true,
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setDeletingBookId(id);
+        deleteBook(id);
+
+        // Show a loading state while deleting
+        Swal.fire({
+          title: "Deleting...",
+          html: "Please wait while we remove this book.",
+          allowOutsideClick: false,
+          showConfirmButton: false,
+          willOpen: () => {
+            Swal.showLoading();
+          },
+        });
+      }
+    });
   };
 
   // Filter books based on search term and filter
@@ -53,6 +126,9 @@ const ManageBooks = () => {
     setIsModalOpen(true);
   };
 
+  if (isLoading || isDeleting) {
+    return <Loader />;
+  }
   return (
     <div className="bg-white p-6 rounded-lg">
       <div className="flex justify-between items-center mb-6">
@@ -160,7 +236,11 @@ const ManageBooks = () => {
                     <button className="text-gray-500 hover:text-blue-600">
                       <FaEdit />
                     </button>
-                    <button className="text-gray-500 hover:text-red-600" onClick={() => handleDeleteBook(book._id)}>
+                    <button
+                      className={`text-gray-500 hover:text-red-600 ${deletingBookId === book._id ? "opacity-50" : ""}`}
+                      onClick={() => handleDeleteBook(book._id, book.name)}
+                      disabled={isDeleting && deletingBookId === book._id}
+                    >
                       <FaTrash />
                     </button>
                   </div>
