@@ -56,10 +56,7 @@ const DashboardSidebar = () => {
         <div className="p-4 border-b border-gray-100">
           <Link
             to="/"
-            onClick={() => {
-              logoutUser();
-              handleMobileClick();
-            }}
+            onClick={handleMobileClick}
           >
             <img
               src={logo}
@@ -150,7 +147,10 @@ const DashboardSidebar = () => {
               <li className="mt-auto">
                 <button
                   className="flex items-center p-2 space-x-4 text-red-600 cursor-pointer bg-red-600/10 border border-red-500/30 rounded-md w-full"
-                  onClick={handleMobileClick}
+                  onClick={() => {
+                    logoutUser();
+                    handleMobileClick();
+                  }}
                 >
                   <IoIosLogOut className="text-2xl" />
                   <span>Log Out</span>
