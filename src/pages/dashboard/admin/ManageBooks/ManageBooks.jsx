@@ -5,12 +5,15 @@ import { useState } from "react";
 import { FaEdit, FaEye, FaPlus, FaSearch, FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
 import AddBookModal from "./AddBookModal";
+import UpdateBookModal from "./UpdateBookModal";
 
 const ManageBooks = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedPlan, setSelectedPlan] = useState("all");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deletingBookId, setDeletingBookId] = useState(null);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [selectedBook, setSelectedBook] = useState(null);
   const axios = useAxios();
 
   const queryClient = useQueryClient();
@@ -126,7 +129,13 @@ const ManageBooks = () => {
     setIsModalOpen(true);
   };
 
-  if (isLoading || isDeleting) {
+  // handle edit button click
+  const handleEditBook = (book) => {
+    setSelectedBook(book);
+    setIsUpdateModalOpen(true);
+  };
+
+  if (isLoading) {
     return <Loader />;
   }
   return (
@@ -233,7 +242,7 @@ const ManageBooks = () => {
                     <button className="text-gray-500 hover:text-indigo-600">
                       <FaEye />
                     </button>
-                    <button className="text-gray-500 hover:text-blue-600">
+                    <button className="text-gray-500 hover:text-blue-600" onClick={() => handleEditBook(book)}>
                       <FaEdit />
                     </button>
                     <button
@@ -296,6 +305,15 @@ const ManageBooks = () => {
             setIsModalOpen,
           }}
         ></AddBookModal>
+      )}
+
+      {isUpdateModalOpen && selectedBook && (
+        <UpdateBookModal
+          props={{
+            setIsUpdateModalOpen,
+            book: selectedBook,
+          }}
+        />
       )}
     </div>
   );
