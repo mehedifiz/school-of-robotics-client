@@ -3,19 +3,19 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Toaster } from "react-hot-toast";
 import { RouterProvider } from "react-router-dom";
-import AuthProvider from "./context/Authprovider";
-import "./index.css";
-import router from "./router/Router.jsx";
+import router from './router/Router.jsx';
+import AuthProvider from './context/AuthProvider';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient()
+
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
         <Toaster />
-      </AuthProvider>
-    </QueryClientProvider>
-  </StrictMode>
-);
+      </QueryClientProvider>
+    </AuthProvider>
+  </StrictMode>,
+)
