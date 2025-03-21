@@ -14,7 +14,9 @@ import Root from "../layout/Root";
 import ContactUs from "../pages/contactUs/ContactUs";
 import ErrorPage from "../pages/error/ErrorPage";
 import Home from "../pages/home/Home";
-import VerifyOtp from "@/pages/auth/VerifyOtp";
+import AllAdmin from "@/pages/dashboard/admin/ManageAllAdmin/AllAdmin";
+import Plan from "@/pages/dashboard/student/plan/Plan";
+import VerifyOTP from "@/pages/auth/VerifyOtp";
 
 const router = createBrowserRouter([
   {
@@ -48,7 +50,7 @@ const router = createBrowserRouter([
       },
       {
         path: "verify-otp",
-        element: <VerifyOtp/> ,
+        element: <VerifyOTP/> ,
       },
     ],
   },
@@ -79,6 +81,10 @@ const router = createBrowserRouter([
         path: "manage-books",
         element: <ManageBooks></ManageBooks>,
       },
+      {
+        path: "allAdmins",
+        element: <AllAdmin />
+      },
 
       // student routes
       {
@@ -89,6 +95,11 @@ const router = createBrowserRouter([
         path: "student-book",
         element: <StudentBooks></StudentBooks>,
       },
+      {
+        path: 'plan',
+        element: <Plan />
+      }
+
     ],
   },
 ]);

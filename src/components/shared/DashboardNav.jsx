@@ -1,3 +1,4 @@
+import useAuth from "@/Hooks/useAuth";
 import { useEffect, useRef, useState } from "react";
 import { HiSearch } from "react-icons/hi";
 import { IoMdArrowDropdown } from "react-icons/io";
@@ -6,6 +7,7 @@ import { TfiEmail } from "react-icons/tfi";
 import { Link } from "react-router-dom";
 
 const DashboardNav = () => {
+  const { logoutUser } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -58,7 +60,12 @@ const DashboardNav = () => {
                   <Link to="/dashboard/profile" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                     Profile
                   </Link>
-                  <button className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">Logout</button>
+                  <button
+                  onClick={() => {
+                    setDropdownOpen(false);
+                    logoutUser();
+                  }}
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">Logout</button>
                 </div>
               )}
             </div>

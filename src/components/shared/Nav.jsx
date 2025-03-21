@@ -22,8 +22,8 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-white "
-          : "bg-gradient-to-r "
+          ? "bg-white  "
+          : " bg-teal-50  "
       }`}
     >
       <div className=" mx-auto px-6 py-3 flex items-center justify-between">
@@ -89,13 +89,13 @@ const Navbar = () => {
           className="lg:hidden text-3xl text-white"
           onClick={() => setIsOpen(!isOpen)}
         >
-          {isOpen ? <HiX /> : <HiMenu />}
+          {isOpen ? <HiX className="text-gray-800" /> : <HiMenu  className="text-gray-800" />}
         </button>
       </div>
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="fixed top-0 right-0 w-64 h-full bg-teal-800 text-white flex flex-col p-6 shadow-lg transform transition-transform duration-300 lg:hidden">
+        <div className="fixed top-0 right-0 w-64 h-full bg-[#1D3F4E] text-white flex flex-col p-6 shadow-lg transform transition-transform duration-300 lg:hidden">
           <button
             className="absolute top-5 right-5 text-2xl"
             onClick={() => setIsOpen(false)}
@@ -108,7 +108,7 @@ const Navbar = () => {
             <input
               type="text"
               placeholder="Search..."
-              className="w-full pl-10 pr-4 py-2 border border-teal-300 rounded-full focus:ring-2 focus:ring-teal-500 text-gray-900"
+              className="w-full pl-10 pr-4 py-2 border border-teal-300 rounded-full focus:ring-2 focus:ring-teal-500 text-gray-100"
             />
             <HiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-teal-500 w-5 h-5" />
           </div>

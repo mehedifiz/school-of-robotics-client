@@ -10,11 +10,13 @@ import { IoIosLogOut } from "react-icons/io";
 import { LiaUserLockSolid } from "react-icons/lia";
 import { MdOutlineCloudDownload } from "react-icons/md";
 import { PiSquaresFourFill } from "react-icons/pi";
+import { TbBrandPlanetscale } from "react-icons/tb";
 import { VscClose } from "react-icons/vsc";
 import { Link, NavLink } from "react-router-dom";
 
 const DashboardSidebar = () => {
-  const role = useAuth()?.user?.role;
+  const { user, logoutUser } = useAuth();
+  const role = user?.role;
   console.log(role);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -24,7 +26,7 @@ const DashboardSidebar = () => {
 
   const linkStyles = ({ isActive }) =>
     `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${
-      isActive ? "bg-blue-100 text-blue-600 font-medium" : "text-gray-600 hover:bg-gray-100 hover:text-blue-500"
+      isActive ? "bg-primary/10 text-primary font-medium" : "text-gray-600 hover:bg-gray-100 hover:text-primary"
     }`;
 
   const handleMobileClick = () => {
@@ -52,7 +54,10 @@ const DashboardSidebar = () => {
       >
         {/* Logo */}
         <div className="p-4 border-b border-gray-100">
-          <Link to="/" onClick={handleMobileClick}>
+          <Link
+            to="/"
+            onClick={handleMobileClick}
+          >
             <img
               src={logo}
               alt="Dashboard Logo"
@@ -130,13 +135,22 @@ const DashboardSidebar = () => {
                     <span>Documents</span>
                   </NavLink>
                 </li>
+                <li>
+                  <NavLink to="/dashboard/plan" className={linkStyles} onClick={handleMobileClick}>
+                    <TbBrandPlanetscale size={20} />
+                    <span>Plan</span>
+                  </NavLink>
+                </li>
               </div>
             )}
             <div>
               <li className="mt-auto">
                 <button
                   className="flex items-center p-2 space-x-4 text-red-600 cursor-pointer bg-red-600/10 border border-red-500/30 rounded-md w-full"
-                  onClick={handleMobileClick}
+                  onClick={() => {
+                    logoutUser();
+                    handleMobileClick();
+                  }}
                 >
                   <IoIosLogOut className="text-2xl" />
                   <span>Log Out</span>

@@ -43,7 +43,6 @@ const Login = () => {
     try {
       const response = await loginUser(formData);
       if (response) {
-        toast.success("Login successful!");
         navigate("/dashboard");
       }
     } catch (error) {
