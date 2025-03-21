@@ -1,3 +1,4 @@
+import Loader from "@/components/shared/Loader";
 import useAxios from "@/Hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -19,8 +20,8 @@ const ManageBooks = () => {
     },
   });
 
-  if (isLoading) {
-    return <div>Loading...</div>;
+  if (!isLoading) {
+    return <Loader />;
   }
 
   // Handle book deletion
