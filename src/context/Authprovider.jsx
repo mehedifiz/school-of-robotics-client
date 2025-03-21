@@ -23,7 +23,9 @@ const AuthProvider = ({ children }) => {
       const response = await axios.post("/auth/login", formData);
 
       if (response.data.token) {
+        const {data} = await axios.get(`/user/get-user/${response.data.user._id}`)
         const authData = {
+        user: data.data ,
           userId: response.data.user._id, // Only storing userId
           token: response.data.token,
           isLoggedIn: true,
