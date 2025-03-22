@@ -65,14 +65,14 @@ const ManageChapters = () => {
     <div>
       <h1 className="text-2xl font-bold text-gray-800 mb-6">Manage Chapters</h1>
 
-      <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-6 gap-6">
         {/* Left side - Book selection */}
-        <div className="xl:col-span-1 bg-white p-5 rounded-xl shadow-sm">
+        <div className="xl:col-span-2 bg-white p-5 rounded-xl shadow-sm">
           <BookSelector books={books} selectedBook={selectedBook} onSelectBook={handleBookSelect} />
         </div>
 
         {/* Right side - Chapters management */}
-        <div className="xl:col-span-3 bg-white p-5 rounded-xl shadow-sm">
+        <div className="xl:col-span-4 bg-white p-5 rounded-xl shadow-sm">
           {!selectedBook ? (
             <div className="flex flex-col items-center justify-center py-12 text-center">
               <FaBook className="text-6xl text-gray-300 mb-4" />

@@ -195,7 +195,7 @@ const ManageBooks = () => {
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Book
               </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="lg:hidden 2xl:inline-block px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Author
               </th>
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -226,7 +226,7 @@ const ManageBooks = () => {
                     </div>
                   </Link>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
+                <td className="lg:hidden 2xl:inline px-6 py-4 whitespace-nowrap">
                   <div className="text-sm text-gray-900">{book.author}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">

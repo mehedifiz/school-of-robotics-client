@@ -23,11 +23,11 @@ const Dashboard = () => {
       <div className="md:fixed">
         <DashboardSidebar />
       </div>
-      <div className="md:ml-[255px] w-full">
-        <div className="fixed md:max-w-7xl mx-auto px-8 right-0 md:left-[255px] w-full md:w-auto">
+      <div className="md:ml-[255px] w-full bg-white">
+        <div className="fixed md:max-w-[1280px] mx-auto px-8 right-0 md:left-[255px] w-full md:w-auto">
           <DashboardNav />
         </div>
-        <div className=" md:max-w-7xl md:pt-8 w-full mx-auto p-8 mt-20">
+        <div className=" md:max-w-[1280px] md:pt-8 w-full mx-auto p-8 mt-20">
           <Outlet />
         </div>
       </div>
