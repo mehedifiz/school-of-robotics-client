@@ -67,7 +67,7 @@ const PricingSection = () => {
 const PricingCard = ({ plan, price, features, highlight }) => {
   return (
     <div
-      className={`relative group ${highlight ? "border-2 border-teal-400" : ""}
+      className={`relative group ${highlight ? "border-2 border-teal-700" : ""}
      text-black rounded-lg border overflow-hidden mx-1 mt-4 
       hover:shadow-lg hover:scale-105 transition-transform duration-300`}
     >
