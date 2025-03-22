@@ -68,7 +68,7 @@ const PricingCard = ({ plan, price, features, highlight }) => {
   return (
     <div
       className={`relative group ${highlight ? "border-2 border-teal-400" : ""}
-      bg-gray-800 text-white rounded-lg shadow-md overflow-hidden mx-1 mt-4 
+     text-black rounded-lg border overflow-hidden mx-1 mt-4 
       hover:shadow-lg hover:scale-105 transition-transform duration-300`}
     >
       {highlight && (
@@ -77,11 +77,11 @@ const PricingCard = ({ plan, price, features, highlight }) => {
         </span>
       )}
 
-      <div className="p-6 border-b border-gray-700 group-hover:bg-teal-700 group-hover:text-white transition-colors duration-300">
+      <div className={`p-6 border-b group-hover:bg-teal-700 group-hover:text-white transition-colors duration-300 ${highlight ? "bg-teal-700 text-white" : ""}`}>
         <h6 className="text-lg font-medium">{plan}</h6>
         <h1 className="text-3xl font-bold mt-2">
           {price}{" "}
-          <span className="text-sm font-normal text-gray-300">/-Monthly</span>
+          <span className={`text-sm font-normal group-hover:text-gray-300 transition-colors duration-300 ${highlight ? "text-gray-300" : "text-gray-500"}`}>/-Monthly</span>
         </h1>
       </div>
 
@@ -92,8 +92,8 @@ const PricingCard = ({ plan, price, features, highlight }) => {
           ))}
         </ul>
 
-        <div className="absolute bottom-6 left-0 w-full flex p-2 justify-center">
-          <button className=" w-full py-2 px-4 border border-teal-600 text-teal-600 rounded-md group-hover:bg-teal-600 group-hover:text-white transition-colors duration-300">
+        <div className="w-full flex justify-center">
+          <button className={`w-full py-2 px-4 border border-teal-600 text-teal-600 rounded-md group-hover:bg-teal-600 group-hover:text-white transition-colors duration-300 ${highlight ? "bg-teal-600 text-white" : ""}`}>
             Choose Plan
           </button>
         </div>
@@ -137,7 +137,7 @@ const PricingFeature = ({ text, checked }) => {
         </div>
       </div>
       <div className="ml-3">
-        <p className="text-sm text-gray-300 group-hover:text-white">{text}</p>
+        <p className="text-sm text-gray-600">{text}</p>
       </div>
     </li>
   );

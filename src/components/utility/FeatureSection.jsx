@@ -49,7 +49,7 @@ const FeatureSection = () => {
           you master technology.
         </p>
       </div>
-      <div className="flex gap-5 flex-col  mb-16 lg:flex-row items-center rounded-lg justify-between py-16 px-6 md:px-12 bg-gradient-to-r from-gray-900 via-gray-500 to-teal-50 text-white">
+      <div className="flex gap-5 flex-col  mb-16 lg:flex-row items-center rounded-lg justify-between py-16 px-6 md:px-12 text-white">
         {/* Left Content */}
         <div className="lg:w-1/2 text-start" data-aos="fade-right">
           {/* Accordion Section */}
@@ -62,7 +62,7 @@ const FeatureSection = () => {
                 data-aos-delay={index * 100}
               >
                 <button
-                  className="w-full text-left px-6 py-4 flex justify-between items-center bg-gray-100 hover:bg-gray-200 transition-all focus:outline-none"
+                  className="w-full text-left px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition-all focus:outline-none"
                   onClick={() =>
                     setOpenIndex(openIndex === index ? null : index)
                   }

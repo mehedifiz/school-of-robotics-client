@@ -16,7 +16,7 @@ const OnlineProgramSection = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col  p-8 lg:flex-row    justify-between items-center gap-12 bg-gradient-to-l from-gray-900 via-gray-500 to-teal-50 rounded-xl shadow-lg ">
+      <div className="flex flex-col p-8 lg:flex-row justify-between items-center gap-12 rounded-xl">
         {/* Image Section */}
         <div
           className="w-full lg:w-1/2 flex gap-5 justify-center"

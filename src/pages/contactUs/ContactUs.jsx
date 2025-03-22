@@ -49,15 +49,15 @@ const ContactUs = () => {
         <div className="" data-aos="fade-left" data-aos-duration="1800">
           <form
             onSubmit={handleContact}
-            className="p-10 border  bg-gray-800 border-gray-300 rounded-lg space-y-6"
+            className="p-10 border border-gray-300 rounded-lg space-y-6"
           >
-            <h4 className="text-2xl text-teal-50 font-semibold">Contact Us</h4>
+            <h4 className="text-2xl font-semibold">Contact Us</h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="space-y-1">
                 <input
                   type="text"
                   name="name"
-                  className="p-3 border text-teal-50 border-gray-300 outline-none w-full rounded-md"
+                  className="p-3 border border-gray-300 outline-none w-full rounded-md"
                   placeholder="Enter your name*"
                   required
                 />
@@ -67,7 +67,7 @@ const ContactUs = () => {
                 <input
                   type="text"
                   name="email"
-                  className="p-3 border text-teal-50 border-gray-300 outline-none w-full rounded-md"
+                  className="p-3 border border-gray-300 outline-none w-full rounded-md"
                   placeholder="Enter your email*"
                   required
                 />
@@ -78,7 +78,7 @@ const ContactUs = () => {
               <input
                 type="text"
                 name="subject"
-                className="p-3 border text-teal-50 border-gray-300 outline-none w-full rounded-md"
+                className="p-3 border border-gray-300 outline-none w-full rounded-md"
                 placeholder="Subject"
                 required
               />
@@ -88,14 +88,14 @@ const ContactUs = () => {
               <textarea
                 rows={5}
                 name="comments"
-                className="p-3 border text-teal-50 border-gray-300 outline-none w-full rounded-md"
+                className="p-3 border border-gray-300 outline-none w-full rounded-md"
                 placeholder="Enter your message*"
                 required
               ></textarea>
             </div>
             <div className="flex items-center space-x-3">
               <input type="checkbox" required />
-              <p className="text-sm text-gray-50 font-light">
+              <p className="text-sm font-light">
                 I accepts all terms and conditions.
               </p>
             </div>
@@ -103,7 +103,7 @@ const ContactUs = () => {
               type="submit"
               id="submit"
               name="send"
-              className="py-3 px-10 bg-teal-800 text-teal-50 hover:text-white hover:bg-teal-600 rounded-md font-semibold duration-300"
+              className="py-3 px-10 bg-teal-800 cursor-pointer text-white hover:bg-teal-600 rounded-md font-semibold duration-300"
               value="Send Message"
             ></input>
           </form>
