@@ -18,6 +18,7 @@ import AllAdmin from "@/pages/dashboard/admin/ManageAllAdmin/AllAdmin";
 import Plan from "@/pages/dashboard/student/plan/Plan";
 import VerifyOTP from "@/pages/auth/VerifyOtp";
 import BookDetails from "@/pages/books/BookDetails/BookDetails";
+import ManageChapters from "@/pages/dashboard/admin/ManageChapters/ManageChapters";
 
 const router = createBrowserRouter([
   {
@@ -89,6 +90,10 @@ const router = createBrowserRouter([
       {
         path: "allAdmins",
         element: <AllAdmin />
+      },
+      {
+        path: "manage-chapters",
+        element: <ManageChapters></ManageChapters>,
       },
 
       // student routes

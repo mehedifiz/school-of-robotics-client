@@ -5,7 +5,7 @@ import { useState } from "react";
 import { BsCalendar4Week } from "react-icons/bs";
 import { CiMenuBurger } from "react-icons/ci";
 import { HiOutlineUsers } from "react-icons/hi";
-import { HiOutlineArchiveBox } from "react-icons/hi2";
+import { HiOutlineArchiveBox, HiOutlineDocumentText } from "react-icons/hi2";
 import { IoIosLogOut } from "react-icons/io";
 import { LiaUserLockSolid } from "react-icons/lia";
 import { MdOutlineCloudDownload } from "react-icons/md";
@@ -54,10 +54,7 @@ const DashboardSidebar = () => {
       >
         {/* Logo */}
         <div className="p-4 border-b border-gray-100">
-          <Link
-            to="/"
-            onClick={handleMobileClick}
-          >
+          <Link to="/" onClick={handleMobileClick}>
             <img
               src={logo}
               alt="Dashboard Logo"
@@ -91,6 +88,12 @@ const DashboardSidebar = () => {
                   <NavLink to="/dashboard/manage-books" className={linkStyles} onClick={handleMobileClick}>
                     <BookOpen size={20} />
                     <span>Manage Books</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/manage-chapters" className={linkStyles} onClick={handleMobileClick}>
+                    <HiOutlineDocumentText size={20} />
+                    <span>Manage Chapters</span>
                   </NavLink>
                 </li>
               </div>
