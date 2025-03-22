@@ -1,31 +1,49 @@
+import { FaArrowRight, FaBookOpen } from "react-icons/fa";
+import { Link } from "react-router-dom";
+
 const BooksCard = ({ book }) => {
-  const { thumbnail, name, description, plan, author } = book;
+  const { _id, thumbnail, name, description, plan, author, chapters } = book;
+
+  // Determine plan badge style
+  const planBadgeStyle = {
+    basic: "bg-blue-100 text-blue-800 border border-blue-200",
+    standard: "bg-green-100 text-green-800 border border-green-200",
+    premium: "bg-purple-100 text-purple-800 border border-purple-200",
+  };
+
   return (
-    <div className="border rounded-lg h-full shadow-md ">
-      <div className="bg-gray-50 py-5  flex justify-center items-center">
-        <div className="w-34 h-62">
-          <img
-            src={thumbnail}
-            alt={name}
-            className=" h-full w-fit object-fill  rounded-md"
-          />
+    <div className="bg-white rounded-xl overflow-hidden border transition-shadow duration-300 flex flex-col h-full group">
+      {/* Thumbnail with plan badge */}
+      <div className="relative">
+        <img src={thumbnail} alt={name} className="w-full h-48 object-cover object-center" />
+        <div className="absolute top-0 right-0 m-3">
+          <span className={`capitalize text-xs font-semibold px-2.5 py-1 rounded-full ${planBadgeStyle[plan]}`}>{plan}</span>
         </div>
       </div>
-      <div className="p-4">
-        <span
-          className={`inline-block mt-2 px-3 py-1 text-sm font-semibold rounded ${
-            plan === "basic"
-              ? "bg-green-200 text-green-700"
-              : plan === "standard"
-              ? "bg-blue-200 text-blue-700"
-              : "bg-purple-200 text-purple-700"
-          }`}
-        >
-          {plan.charAt(0).toUpperCase() + plan.slice(1)}
-        </span>
-        <h3 className="pt-1 text-lg text-[#5c52f4] font-bold">{name}</h3>
-        <h3 className="py-1 text-lg font-medium">{author}</h3>
-        <p className="text-[#858890] text-sm">{description}</p>
+
+      {/* Content */}
+      <div className="p-5 flex flex-col flex-grow">
+        <h3 className="text-xl font-bold text-gray-800 mb-2 line-clamp-2">{name}</h3>
+
+        <p className="text-sm text-gray-500 mb-2">By {author}</p>
+
+        <p className="text-gray-600 mb-4 line-clamp-3">{description}</p>
+
+        <div className="flex items-center mt-auto">
+          <div className="flex items-center text-gray-500 text-sm">
+            <FaBookOpen className="mr-1" />
+            <span>
+              {chapters.length} {chapters.length === 1 ? "Chapter" : "Chapters"}
+            </span>
+          </div>
+
+          <Link
+            to={`/books/${_id}`}
+            className="ml-auto inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors group-hover:bg-blue-700"
+          >
+            Details <FaArrowRight className="ml-2 transform group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </div>
       </div>
     </div>
   );

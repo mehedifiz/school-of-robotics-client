@@ -1,156 +1,180 @@
-import React, { useState } from "react";
+import Loader from "@/components/shared/Loader";
+import useAxios from "@/Hooks/useAxios";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import { FaFilter, FaSearch } from "react-icons/fa";
 import BooksCard from "./BooksCard";
-import { HiSearch } from "react-icons/hi";
 
 const Books = () => {
+  const [searchTerm, setSearchTerm] = useState("");
   const [selectedPlan, setSelectedPlan] = useState("all");
-  const books = [
-    {
-      _id: "67d76fd3453a676f2e7ed681",
-      name: "Introduction to Robotics",
-      author:"Md. Yamin Hossain",
-      description:
-        "Learn robotics from scratch with practical examples and build your first robot",
-      thumbnail:
-        "https://media.springernature.com/w316/springer-static/cover-hires/book/978-981-19-1983-1?as=webp",
-      plan: "basic",
-      chapters: [
-        "65f8a1d8e4b09c7823a1b2c4",
-        "65f8a1d8e4b09c7823a1b2c5",
-        "65f8a1d8e4b09c7823a1b2c6",
-      ],
-      createdAt: "2025-03-17T00:41:55.890Z",
-      updatedAt: "2025-03-17T00:41:55.890Z",
-      __v: 0,
-    },
-    {
-      _id: "67d76fd3453a676f2e7ed682",
-      name: "Arduino Programming Essentials",
-      author:"Mehedi Hasan Santo",
-      description:
-        "Master Arduino programming fundamentals for robotics applications with step-by-step tutorials",
-      thumbnail:
-        "https://media.springernature.com/w316/springer-static/cover-hires/book/978-981-19-1983-1?as=webp",
-      plan: "basic",
-      chapters: ["65f8a1d8e4b09c7823a1b2c7", "65f8a1d8e4b09c7823a1b2c8"],
-      createdAt: "2025-03-17T01:15:22.430Z",
-      updatedAt: "2025-03-17T01:15:22.430Z",
-      __v: 0,
-    },
-    {
-      _id: "67d76fd3453a676f2e7ed683",
-      name: "Advanced Sensor Integration",
-      author:"Arman khan",
-      description:
-        "Learn to integrate various sensors for your robotics projects with real-world applications",
-      thumbnail:
-        "https://media.springernature.com/w316/springer-static/cover-hires/book/978-981-19-1983-1?as=webp",
-      plan: "standard",
-      chapters: [
-        "65f8a1d8e4b09c7823a1b2c9",
-        "65f8a1d8e4b09c7823a1b2ca",
-        "65f8a1d8e4b09c7823a1b2cb",
-        "65f8a1d8e4b09c7823a1b2cc",
-      ],
-      createdAt: "2025-03-17T02:23:41.712Z",
-      updatedAt: "2025-03-17T02:23:41.712Z",
-      __v: 0,
-    },
-    {
-      _id: "67d76fd3453a676f2e7ed684",
-      name: "Mobile Robot Navigation",
-      author:"MD. MUKTER HOSSAIN",
-      description:
-        "Comprehensive guide to path planning, obstacle avoidance, and autonomous navigation techniques",
-      thumbnail:
-        "https://media.springernature.com/w316/springer-static/cover-hires/book/978-981-19-1983-1?as=webp",
-      plan: "standard",
-      chapters: [
-        "65f8a1d8e4b09c7823a1b2cd",
-        "65f8a1d8e4b09c7823a1b2ce",
-        "65f8a1d8e4b09c7823a1b2cf",
-      ],
-      createdAt: "2025-03-17T03:37:19.265Z",
-      updatedAt: "2025-03-17T03:37:19.265Z",
-      __v: 0,
-    },
-    {
-      _id: "67d76fd3453a676f2e7ed685",
-      name: "Computer Vision for Robotics",
-      author:"Md. Yamin Hossain",
-      description:
-        "Advanced techniques for implementing computer vision in robotic systems with Python and OpenCV",
-      thumbnail:
-        "https://media.springernature.com/w316/springer-static/cover-hires/book/978-981-19-1983-1?as=webp",
-      plan: "premium",
-      chapters: [
-        "65f8a1d8e4b09c7823a1b2d0",
-        "65f8a1d8e4b09c7823a1b2d1",
-        "65f8a1d8e4b09c7823a1b2d2",
-        "65f8a1d8e4b09c7823a1b2d3",
-        "65f8a1d8e4b09c7823a1b2d4",
-      ],
-      createdAt: "2025-03-17T04:52:08.931Z",
-      updatedAt: "2025-03-17T04:52:08.931Z",
-      __v: 0,
-    },
-    {
-      _id: "67d76fd3453a676f2e7ed686",
-      name: "Artificial Intelligence for Autonomous Robots",
-      author:"Md. Yamin Hossain",
-      description:
-        "Cutting-edge AI techniques and algorithms for building intelligent robotic systems",
-      thumbnail:
-        "https://media.springernature.com/w316/springer-static/cover-hires/book/978-981-19-1983-1?as=webp",
-      plan: "premium",
-      chapters: [],
-      createdAt: "2025-03-17T05:43:27.518Z",
-      updatedAt: "2025-03-17T05:43:27.518Z",
-      __v: 0,
-    },
-  ];
+  const axios = useAxios();
 
-  const filteredBooks =
-    selectedPlan === "all"
-      ? books
-      : books.filter((book) => book.plan === selectedPlan);
+  const { data: books = [], isLoading } = useQuery({
+    queryKey: ["books"],
+    queryFn: async () => {
+      const res = await axios.get("/book/get-books");
+      console.log(res.data);
+      return res.data.data;
+    },
+  });
+
+  // Filter books based on search term and selected plan
+  const filteredBooks = books.filter((book) => {
+    const matchesSearch =
+      book?.name?.toLowerCase()?.includes(searchTerm?.toLowerCase()) ||
+      book?.author?.toLowerCase()?.includes(searchTerm?.toLowerCase()) ||
+      book?.description?.toLowerCase()?.includes(searchTerm?.toLowerCase());
+
+    const matchesPlan = selectedPlan === "all" || book?.plan === selectedPlan;
+
+    return matchesSearch && matchesPlan;
+  });
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
-    <div className="max-w-7xl mt-20 mb-10 bg-white mx-auto p-5">
-      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-5">
-        <div className="flex flex-col sm:flex-row sm:items-center gap-x-3">
-          <h3 className="text-lg font-medium text-[#606875]">Sort by : </h3>
-          <div className="flex items-center  shadow gap-x-1 p-2 max-w-fit rounded-md">
-            {["all", "basic", "standard", "premium"].map((plan) => (
-              <button
-                key={plan}
-                className={`px-3 py-1 text-[13px] sm:text-[16px] rounded-md duration-300 ${
-                  selectedPlan === plan
-                    ? "bg-[#00776D] text-white"
-                    : " text-black"
-                }`}
-                onClick={() => setSelectedPlan(plan)}
-              >
-                {plan.charAt(0).toUpperCase() + plan.slice(1)}
-              </button>
+    <div className="bg-gray-50 min-h-screen mt-[3.5rem] lg:mt-[4rem]">
+      {/* Hero Banner */}
+      <div className="relative bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white">
+        <div className="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1589254065909-b7086229d08c?q=80&w=1974')] bg-cover bg-center"></div>
+        <div className="container mx-auto px-4 py-20 relative z-10">
+          <div className="max-w-3xl">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">Robotics Learning Library</h1>
+            <p className="text-xl text-blue-100 mb-8">
+              Explore our comprehensive collection of robotics books and tutorials to master the art and science of building intelligent machines.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <div className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm flex items-center gap-2">
+                <span className="h-2 w-2 bg-green-400 rounded-full"></span>
+                <span>Self-paced learning</span>
+              </div>
+              <div className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm flex items-center gap-2">
+                <span className="h-2 w-2 bg-green-400 rounded-full"></span>
+                <span>Expert-curated content</span>
+              </div>
+              <div className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm flex items-center gap-2">
+                <span className="h-2 w-2 bg-green-400 rounded-full"></span>
+                <span>Hands-on projects</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Search and Filter Section */}
+      <div className="container mx-auto px-4 py-8">
+        <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
+          <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
+            <div className="relative w-full lg:w-1/2">
+              <input
+                type="text"
+                placeholder="Search books by title, author or keyword..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full bg-gray-50 border border-gray-200 rounded-lg pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+              <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            </div>
+
+            <div className="flex flex-wrap md:flex-nowrap items-center gap-3 w-full lg:w-auto">
+              <FaFilter className="text-gray-500" />
+              <span className="text-gray-600 font-medium">Filter by:</span>
+              <div className="flex flex-wrap md:flex-nowrap gap-2">
+                <button
+                  onClick={() => setSelectedPlan("all")}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                    selectedPlan === "all"
+                      ? "bg-gray-100 text-gray-800 border border-gray-300"
+                      : "bg-white text-gray-500 border border-gray-200 hover:bg-gray-50"
+                  }`}
+                >
+                  All Plans
+                </button>
+                <button
+                  onClick={() => setSelectedPlan("basic")}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                    selectedPlan === "basic"
+                      ? "bg-blue-100 text-blue-800 border border-blue-300"
+                      : "bg-white text-gray-500 border border-gray-200 hover:bg-gray-50"
+                  }`}
+                >
+                  Basic
+                </button>
+                <button
+                  onClick={() => setSelectedPlan("standard")}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                    selectedPlan === "standard"
+                      ? "bg-green-100 text-green-800 border border-green-300"
+                      : "bg-white text-gray-500 border border-gray-200 hover:bg-gray-50"
+                  }`}
+                >
+                  Standard
+                </button>
+                <button
+                  onClick={() => setSelectedPlan("premium")}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                    selectedPlan === "premium"
+                      ? "bg-purple-100 text-purple-800 border border-purple-300"
+                      : "bg-white text-gray-500 border border-gray-200 hover:bg-gray-50"
+                  }`}
+                >
+                  Premium
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* Books Grid */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">
+            {filteredBooks.length > 0 ? `Showing ${filteredBooks.length} ${filteredBooks.length === 1 ? "book" : "books"}` : "No books found"}
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredBooks.map((book) => (
+              <BooksCard key={book._id} book={book} />
             ))}
           </div>
         </div>
-        <div className=" flex  shadow  bg-white px-3 py-2 rounded-md items-center justify-end gap-x-2 max-w-[275px] border">
-          <button className="text-[#515e67] hover:text-black duration-300 cursor-pointer ">
-            <HiSearch  size={18}/>
-          </button>
-          <input
-            type="text"
-            className="outline-0 placeholder-[#CBCED3]  w-full bg-transparent"
-            placeholder="Search..."
-          />
+        {/* Empty state */}
+        {filteredBooks.length === 0 && (
+          <div className="text-center py-16">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1}
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+              />
+            </svg>
+            <h3 className="mt-4 text-lg font-medium text-gray-900">No books found</h3>
+            <p className="mt-1 text-gray-500">Try adjusting your search or filter to find what you're looking for.</p>
+          </div>
+        )}
+        {/* Pagination */}
+        <div className="mt-6 flex flex-col-reverse gap-4 sm:flex-row items-center justify-between">
+          <div className="text-sm text-gray-700">
+            Showing <span className="font-medium">{filteredBooks.length}</span> of <span className="font-medium">{books.length}</span> books
+          </div>
+          <div className="flex items-center space-x-2">
+            <button
+              className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+              disabled
+            >
+              Previous
+            </button>
+            <span className="relative inline-flex items-center px-4 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700">1</span>
+            <button
+              className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+              disabled
+            >
+              Next
+            </button>
+          </div>
         </div>
-      </div>
-      {/* card section */}
-      <div className="grid grid-cols-1 mt-8 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filteredBooks.map((book) => (
-          <BooksCard key={book._id} book={book}></BooksCard>
-        ))}
       </div>
     </div>
   );
