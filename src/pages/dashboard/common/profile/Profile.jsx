@@ -75,7 +75,7 @@ const Profile = () => {
           <p className="w-5/8 text-[15px] md:text-lg text-[#000] opacity-60 font-semibold">{user?.phone}</p>
         </div>
         <div className="flex justify-between items-center border-b border-gray-100 pb-4 pt-4">
-          <h3 className="w-3/8 text-[15px] md:text-lg text-[#000] opacity-60">Menber Since</h3>
+          <h3 className="w-3/8 text-[15px] md:text-lg text-[#000] opacity-60">Member Since</h3>
           <p className="w-5/8 text-[15px] md:text-lg text-[#000] opacity-60 font-semibold">{user?.createdAt.slice(0, 10)}</p>
         </div>
       </div>
