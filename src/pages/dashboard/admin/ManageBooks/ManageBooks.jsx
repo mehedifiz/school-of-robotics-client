@@ -3,6 +3,7 @@ import useAxios from "@/Hooks/useAxios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { FaEdit, FaEye, FaPlus, FaSearch, FaTrash } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import AddBookModal from "./AddBookModal";
 import UpdateBookModal from "./UpdateBookModal";
@@ -239,9 +240,9 @@ const ManageBooks = () => {
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{formatDate(book.createdAt)}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                   <div className="flex items-center space-x-3">
-                    <button className="text-gray-500 hover:text-indigo-600">
+                    <Link to={`/book-details/${book._id}`} className="text-gray-500 hover:text-indigo-600">
                       <FaEye />
-                    </button>
+                    </Link>
                     <button className="text-gray-500 hover:text-blue-600" onClick={() => handleEditBook(book)}>
                       <FaEdit />
                     </button>

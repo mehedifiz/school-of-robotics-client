@@ -103,10 +103,10 @@ const BookDetails = () => {
       <div className="container mx-auto px-4 pb-[4rem]">
         {/* Back navigation */}
         <div className="mb-6">
-          <Link to="/books" className="inline-flex items-center text-gray-600 hover:text-primary transition-colors">
+          <button onClick={() => navigate(-1)} className="inline-flex items-center text-gray-600 hover:text-primary transition-colors">
             <FaArrowLeft className="mr-2" />
-            <span>Back to Books</span>
-          </Link>
+            <span>Back</span>
+          </button>
         </div>
 
         {/* Book header section */}
