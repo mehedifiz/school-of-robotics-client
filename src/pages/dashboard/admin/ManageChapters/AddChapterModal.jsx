@@ -9,7 +9,7 @@ import { FaTimes, FaUpload } from "react-icons/fa";
 const AddChapterModal = ({ book, onClose, onSuccess, refetchBooks }) => {
   const [formData, setFormData] = useState({
     title: "",
-    chapterNo: "",
+    chapterNo: book.chapters.length + 1,
     pdfUrl: "",
   });
   const [errors, setErrors] = useState({});
@@ -230,7 +230,8 @@ const AddChapterModal = ({ book, onClose, onSuccess, refetchBooks }) => {
               min="1"
               className={`w-full px-3 py-2 border ${
                 errors.chapterNo ? "border-red-500" : "border-gray-300"
-              } rounded-md focus:outline-none focus:ring-1 focus:ring-primary`}
+              } rounded-md focus:outline-none focus:ring-1 focus:ring-primary disabled:bg-gray-100 disabled:cursor-not-allowed`}
+              disabled
             />
             {errors.chapterNo && <p className="mt-1 text-sm text-red-500">{errors.chapterNo}</p>}
           </div>
