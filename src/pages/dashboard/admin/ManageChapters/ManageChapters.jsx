@@ -1,9 +1,10 @@
 import Loader from "@/components/shared/Loader";
 import useAxios from "@/Hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaBook, FaPlus } from "react-icons/fa";
 import { FiAlertCircle } from "react-icons/fi";
+import { useLocation } from "react-router-dom";
 import AddChapterModal from "./AddChapterModal";
 import BookSelector from "./BookSelector";
 import ChaptersList from "./ChaptersList";
@@ -12,6 +13,7 @@ const ManageChapters = () => {
   const [selectedBook, setSelectedBook] = useState(null);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const axios = useAxios();
+  const { state } = useLocation();
 
   // Fetch books
   const {
@@ -47,6 +49,13 @@ const ManageChapters = () => {
   const handleBookSelect = (book) => {
     setSelectedBook(book);
   };
+
+  // Set selected book from location state
+  useEffect(() => {
+    if (state?.book) {
+      setSelectedBook(state.book);
+    }
+  }, [state]);
 
   if (booksLoading) {
     return <Loader size="default" text="Loading books..." />;

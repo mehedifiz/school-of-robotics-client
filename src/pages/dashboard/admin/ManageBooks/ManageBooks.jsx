@@ -2,8 +2,9 @@ import Loader from "@/components/shared/Loader";
 import useAxios from "@/Hooks/useAxios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { FaEdit, FaEye, FaPlus, FaSearch, FaTrash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { FaEdit, FaPlus, FaSearch, FaTrash } from "react-icons/fa";
+import { IoMdSettings } from "react-icons/io";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import AddBookModal from "./AddBookModal";
 import UpdateBookModal from "./UpdateBookModal";
@@ -16,6 +17,7 @@ const ManageBooks = () => {
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
   const axios = useAxios();
+  const navigate = useNavigate();
 
   const queryClient = useQueryClient();
 
@@ -139,6 +141,11 @@ const ManageBooks = () => {
   if (isLoading) {
     return <Loader />;
   }
+
+  // handle chapter navigation
+  const handleChapterNavigation = (book) => {
+    navigate("/dashboard/manage-chapters", { state: { book } });
+  };
   return (
     <div className="bg-white p-6 rounded-lg">
       <div className="flex justify-between items-center mb-6">
@@ -209,7 +216,7 @@ const ManageBooks = () => {
             {filteredBooks.map((book) => (
               <tr key={book._id} className="hover:bg-gray-50">
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="flex items-center">
+                  <Link to={`/book-details/${book._id}`} className="flex items-center">
                     <div className="h-10 w-10 flex-shrink-0">
                       <img className="h-10 w-10 rounded-sm object-cover" src={book.thumbnail} alt={book.name} />
                     </div>
@@ -217,7 +224,7 @@ const ManageBooks = () => {
                       <div className="text-sm font-medium text-gray-900">{book.name}</div>
                       <div className="text-sm text-gray-500 line-clamp-1 max-w-xs">{book.description}</div>
                     </div>
-                  </div>
+                  </Link>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm text-gray-900">{book.author}</div>
@@ -240,9 +247,9 @@ const ManageBooks = () => {
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{formatDate(book.createdAt)}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                   <div className="flex items-center space-x-3">
-                    <Link to={`/book-details/${book._id}`} className="text-gray-500 hover:text-indigo-600">
-                      <FaEye />
-                    </Link>
+                    <button onClick={() => handleChapterNavigation(book)} className="text-gray-500 hover:text-indigo-600">
+                      <IoMdSettings />
+                    </button>
                     <button className="text-gray-500 hover:text-blue-600" onClick={() => handleEditBook(book)}>
                       <FaEdit />
                     </button>

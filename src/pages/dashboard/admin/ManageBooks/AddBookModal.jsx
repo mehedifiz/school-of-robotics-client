@@ -5,12 +5,14 @@ import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { CgSpinner } from "react-icons/cg";
 import { FaTimes } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const AddBookModal = ({ props }) => {
   const { setIsModalOpen } = props;
   const axios = useAxios();
   const queryClient = useQueryClient();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   // Image upload states
   const [image, setImage] = useState(null);
@@ -131,6 +133,8 @@ const AddBookModal = ({ props }) => {
         queryClient.invalidateQueries(["books"]);
         // Close the modal
         setIsModalOpen(false);
+        // Navigate to the new book's chapters management page
+        navigate("/dashboard/manage-chapters", { state: { book: response?.data?.data } });
       } else {
         toast.error(response.data.message || "Failed to add book");
       }
