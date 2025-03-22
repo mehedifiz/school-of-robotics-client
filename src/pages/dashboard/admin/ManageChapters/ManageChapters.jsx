@@ -67,7 +67,7 @@ const ManageChapters = () => {
 
       <div className="grid grid-cols-1 xl:grid-cols-6 gap-6">
         {/* Left side - Book selection */}
-        <div className="xl:col-span-2 bg-white p-5 rounded-xl shadow-sm">
+        <div className="xl:col-span-2 bg-white h-fit p-5 rounded-xl shadow-sm">
           <BookSelector books={books} selectedBook={selectedBook} onSelectBook={handleBookSelect} />
         </div>
 
