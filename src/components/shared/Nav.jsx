@@ -39,15 +39,15 @@ const Navbar = () => {
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center space-x-8">
           <ul className="flex space-x-6 text-l text-sm font-sm">
-            {["home", "about", "course", "contact", "dashboard"].map((link) => (
+            {["home", "about", "books", "contact", "dashboard"].map((link) => (
               <NavLink
                 key={link}
                 to={`/${link}`}
                 className={({ isActive }) =>
-                  `px-3 py-2 transition duration-300 ${
+                  `px-3 py-2 transition duration-300 text-teal-950 font-semibold ${
                     isActive
-                      ? "text-white hover:text-teal-200 underline underline-offset-4"
-                      : "text-teal-950 font-semibold "
+                      ? "hover:text-teal-700 underline underline-offset-4"
+                      : ""
                   }`
                 }
               >
