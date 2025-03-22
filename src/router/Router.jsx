@@ -20,6 +20,7 @@ import Settings from "@/pages/dashboard/common/profile/Settings";
 import VerifyOTP from "@/pages/auth/VerifyOtp";
 import BookDetails from "@/pages/books/BookDetails/BookDetails";
 import ManageChapters from "@/pages/dashboard/admin/ManageChapters/ManageChapters";
+import ManageChaptersQuiz from "@/pages/dashboard/admin/ManageChaptersQuiz/ManageChaptersQuiz";
 
 
 const router = createBrowserRouter([
@@ -100,6 +101,10 @@ const router = createBrowserRouter([
       {
         path: "manage-chapters",
         element: <ManageChapters></ManageChapters>,
+      },
+      {
+        path: "manage-chapter-quizzes",
+        element: <ManageChaptersQuiz />,
       },
 
       // student routes

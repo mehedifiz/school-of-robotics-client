@@ -96,6 +96,12 @@ const DashboardSidebar = () => {
                     <span>Manage Chapters</span>
                   </NavLink>
                 </li>
+                <li>
+                  <NavLink to="/dashboard/manage-chapter-quizzes" className={linkStyles} onClick={handleMobileClick}>
+                    <HiOutlineDocumentText size={20} />
+                    <span>Manage Chapters Quizzes</span>
+                  </NavLink>
+                </li>
               </div>
             )}
 
