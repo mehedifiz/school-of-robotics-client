@@ -1,21 +1,12 @@
+import useAxios from "@/Hooks/useAxios";
 import { useMutation } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { FaPlus, FaTrash } from "react-icons/fa";
-import { CgSpinner } from "react-icons/cg";
 import toast from "react-hot-toast";
-import useAxios from "@/Hooks/useAxios";
+import { CgSpinner } from "react-icons/cg";
+import { FaPlus, FaTrash } from "react-icons/fa";
 import QuestionForm from "./QuestionForm";
 
-const QuizForm = ({ 
-  mode, 
-  chapterId, 
-  bookName, 
-  chapterTitle, 
-  chapterNo, 
-  initialData, 
-  onCancel, 
-  onSuccess 
-}) => {
+const QuizForm = ({ mode, chapterId, bookName, chapterTitle, chapterNo, initialData, onCancel, onSuccess }) => {
   const [formData, setFormData] = useState({
     title: "",
     questions: [createEmptyQuestion()],
@@ -105,7 +96,7 @@ const QuizForm = ({
   const handleQuestionChange = (index, updatedQuestion) => {
     const updatedQuestions = [...formData.questions];
     updatedQuestions[index] = updatedQuestion;
-    
+
     setFormData({
       ...formData,
       questions: updatedQuestions,
@@ -135,7 +126,7 @@ const QuizForm = ({
     }
 
     const updatedQuestions = formData.questions.filter((_, i) => i !== index);
-    
+
     setFormData({
       ...formData,
       questions: updatedQuestions,
@@ -165,13 +156,13 @@ const QuizForm = ({
       }
 
       // Check if options are filled
-      const emptyOptions = question.options.filter(option => !option.text.trim());
+      const emptyOptions = question.options.filter((option) => !option.text.trim());
       if (emptyOptions.length > 0) {
         errors[`question-${index}-options`] = "All options must have text";
       }
 
       // Check if at least one option is marked as correct
-      const hasCorrectOption = question.options.some(option => option.isCorrect);
+      const hasCorrectOption = question.options.some((option) => option.isCorrect);
       if (!hasCorrectOption) {
         errors[`question-${index}-correct`] = "At least one option must be marked as correct";
       }
@@ -234,9 +225,7 @@ const QuizForm = ({
               validationErrors.title ? "border-red-500" : "border-gray-300"
             } rounded-md focus:outline-none focus:ring-1 focus:ring-primary`}
           />
-          {validationErrors.title && (
-            <p className="mt-1 text-sm text-red-500">{validationErrors.title}</p>
-          )}
+          {validationErrors.title && <p className="mt-1 text-sm text-red-500">{validationErrors.title}</p>}
         </div>
 
         {/* Questions section */}
@@ -302,8 +291,10 @@ const QuizForm = ({
                 <CgSpinner className="animate-spin mr-2" />
                 {mode === "create" ? "Creating..." : "Updating..."}
               </span>
+            ) : mode === "create" ? (
+              "Create Quiz"
             ) : (
-              mode === "create" ? "Create Quiz" : "Update Quiz"
+              "Update Quiz"
             )}
           </button>
         </div>

@@ -81,7 +81,7 @@ const ManageChapters = () => {
             </div>
           ) : (
             <div>
-              <div className="flex justify-between items-center mb-6">
+              <div className="flex flex-col sm:flex-row gap-y-4 justify-between sm:items-center mb-6">
                 <div>
                   <h2 className="text-xl font-semibold text-gray-800">
                     Chapters for: <span className="text-primary">{selectedBook.name}</span>

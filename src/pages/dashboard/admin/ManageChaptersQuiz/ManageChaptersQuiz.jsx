@@ -1,9 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
-import { FaBook, FaList, FaPlus, FaQuestionCircle } from "react-icons/fa";
-import { FiAlertCircle } from "react-icons/fi";
 import Loader from "@/components/shared/Loader";
 import useAxios from "@/Hooks/useAxios";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import { FaBook, FaList, FaPlus } from "react-icons/fa";
+import { FiAlertCircle } from "react-icons/fi";
 import BookSelector from "./BookSelector";
 import ChapterSelector from "./ChapterSelector";
 import QuizForm from "./QuizForm";
@@ -106,20 +106,11 @@ const ManageChaptersQuiz = () => {
         {/* Left sidebar - Book and Chapter selection */}
         <div className="lg:col-span-5 xl:col-span-5">
           <div className="bg-white rounded-xl shadow-sm p-5">
-            <BookSelector 
-              books={books} 
-              selectedBook={selectedBook} 
-              onSelectBook={handleBookSelect} 
-            />
+            <BookSelector books={books} selectedBook={selectedBook} onSelectBook={handleBookSelect} />
 
             {selectedBook && (
               <div className="mt-6">
-                <ChapterSelector
-                  chapters={chapters}
-                  selectedChapter={selectedChapter}
-                  onSelectChapter={handleChapterSelect}
-                  isLoading={chaptersLoading}
-                />
+                <ChapterSelector chapters={chapters} selectedChapter={selectedChapter} onSelectChapter={handleChapterSelect} isLoading={chaptersLoading} />
               </div>
             )}
           </div>
@@ -146,48 +137,36 @@ const ManageChaptersQuiz = () => {
               </div>
             ) : currentView === "view" ? (
               <>
-                <div className="flex justify-between items-center mb-6">
+                <div className="flex flex-col sm:flex-row gap-y-4 justify-between sm:items-center mb-6">
                   <div>
                     <h2 className="text-xl font-semibold text-gray-800">
-                      Quiz for: <span className="text-primary">Chapter {selectedChapter.chapterNo}: {selectedChapter.title}</span>
+                      Quiz for:{" "}
+                      <span className="text-primary">
+                        Chapter {selectedChapter.chapterNo}: {selectedChapter.title}
+                      </span>
                     </h2>
-                    <p className="text-gray-500 text-sm mt-1">
-                      From book: {selectedBook.name}
-                    </p>
+                    <p className="text-gray-500 text-sm mt-1">From book: {selectedBook.name}</p>
                   </div>
-                  
+
                   {quizData ? (
-                    <button
-                      onClick={handleEditQuiz}
-                      className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg"
-                    >
+                    <button onClick={handleEditQuiz} className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
                       Edit Quiz
                     </button>
                   ) : (
-                    <button
-                      onClick={handleCreateQuiz}
-                      className="px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg flex items-center"
-                    >
+                    <button onClick={handleCreateQuiz} className="px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg flex items-center">
                       <FaPlus className="mr-2" /> Create Quiz
                     </button>
                   )}
                 </div>
 
                 {quizData ? (
-                  <QuizPreview 
-                    quiz={quizData} 
-                    onEdit={handleEditQuiz} 
-                    onDeleteSuccess={handleQuizSuccess}
-                    chapterId={selectedChapter._id}
-                  />
+                  <QuizPreview quiz={quizData} onEdit={handleEditQuiz} onDeleteSuccess={handleQuizSuccess} chapterId={selectedChapter._id} />
                 ) : (
                   <div className="bg-blue-50 border border-blue-100 rounded-lg p-4 flex items-start">
                     <FiAlertCircle className="text-blue-500 mt-0.5 mr-3 flex-shrink-0" />
                     <div>
                       <h4 className="font-medium text-blue-800">No quiz found</h4>
-                      <p className="text-blue-600 mt-1">
-                        This chapter doesn't have a quiz yet. Click "Create Quiz" to add one.
-                      </p>
+                      <p className="text-blue-600 mt-1">This chapter doesn't have a quiz yet. Click "Create Quiz" to add one.</p>
                     </div>
                   </div>
                 )}
