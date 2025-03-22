@@ -28,7 +28,7 @@ const Navbar = () => {
     >
       <div className=" mx-auto px-6 py-3 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center shadow-lg">
+        <Link to="/" className="flex items-center">
           <img
             src={isScrolled ? logoDark : logoLight}
             alt="Logo"
