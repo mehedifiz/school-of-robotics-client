@@ -1,5 +1,5 @@
 import { FaCheckCircle } from "react-icons/fa";
-import img1 from "../assets/home/feature1.png";
+import img1 from "../../assets/home/feature1.png";
 
 const OnlineProgramSection = () => {
   return (
