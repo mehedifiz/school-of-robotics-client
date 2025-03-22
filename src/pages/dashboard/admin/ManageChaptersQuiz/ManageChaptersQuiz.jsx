@@ -104,7 +104,7 @@ const ManageChaptersQuiz = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left sidebar - Book and Chapter selection */}
-        <div className="lg:col-span-4 xl:col-span-3">
+        <div className="lg:col-span-5 xl:col-span-5">
           <div className="bg-white rounded-xl shadow-sm p-5">
             <BookSelector 
               books={books} 
@@ -126,7 +126,7 @@ const ManageChaptersQuiz = () => {
         </div>
 
         {/* Right content area - Quiz management */}
-        <div className="lg:col-span-8 xl:col-span-9">
+        <div className="lg:col-span-7 xl:col-span-7">
           <div className="bg-white rounded-xl shadow-sm p-5">
             {!selectedBook ? (
               <div className="flex flex-col items-center justify-center py-16 text-center">
