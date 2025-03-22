@@ -1,7 +1,7 @@
 import Dashboard from "@/layout/Dashboard";
 import Login from "@/pages/auth/Login";
 import Register from "@/pages/auth/Register";
-import Books from "@/pages/books/Books";
+import Books from "@/pages/books/Books/Books";
 import ManageBooks from "@/pages/dashboard/admin/ManageBooks/ManageBooks";
 import DashboardHome from "@/pages/dashboard/common/DashboardHome/DashboardHome";
 import EditProfile from "@/pages/dashboard/common/profile/EditProfile";
@@ -17,6 +17,7 @@ import Home from "../pages/home/Home";
 import AllAdmin from "@/pages/dashboard/admin/ManageAllAdmin/AllAdmin";
 import Plan from "@/pages/dashboard/student/plan/Plan";
 import VerifyOTP from "@/pages/auth/VerifyOtp";
+import BookDetails from "@/pages/books/BookDetails/BookDetails";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: "books",
         element: <Books></Books>,
+      },
+      {
+        path: "/book-details/:id",
+        element: <BookDetails></BookDetails>,
       },
       {
         path: "verify-otp",

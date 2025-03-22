@@ -38,7 +38,7 @@ const Books = () => {
   return (
     <div className="bg-gray-50 min-h-screen mt-[3.5rem] lg:mt-[4rem]">
       {/* Hero Banner */}
-      <div className="relative bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white">
+      <div className="relative bg-gradient-to-r from-[#00776d] via-[#00776d] to-[#00776d] text-white">
         <div className="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1589254065909-b7086229d08c?q=80&w=1974')] bg-cover bg-center"></div>
         <div className="container mx-auto px-4 py-20 relative z-10">
           <div className="max-w-3xl">
@@ -74,7 +74,7 @@ const Books = () => {
                 placeholder="Search books by title, author or keyword..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-gray-50 border border-gray-200 rounded-lg pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full bg-gray-50 border border-gray-200 rounded-lg pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
               />
               <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
             </div>

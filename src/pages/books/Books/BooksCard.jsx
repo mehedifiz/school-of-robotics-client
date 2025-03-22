@@ -38,8 +38,8 @@ const BooksCard = ({ book }) => {
           </div>
 
           <Link
-            to={`/books/${_id}`}
-            className="ml-auto inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors group-hover:bg-blue-700"
+            to={`/book-details/${_id}`}
+            className="ml-auto inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-[#00776dd5] transition-colors"
           >
             Details <FaArrowRight className="ml-2 transform group-hover:translate-x-1 transition-transform" />
           </Link>
