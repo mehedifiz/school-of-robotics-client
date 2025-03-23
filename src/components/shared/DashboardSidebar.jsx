@@ -9,7 +9,7 @@ import { HiOutlineArchiveBox, HiOutlineDocumentText } from "react-icons/hi2";
 import { IoIosLogOut } from "react-icons/io";
 import { LiaUserLockSolid } from "react-icons/lia";
 import { MdOutlineCloudDownload } from "react-icons/md";
-import { PiSquaresFourFill } from "react-icons/pi";
+import { PiSealQuestion, PiSquaresFourFill } from "react-icons/pi";
 import { TbBrandPlanetscale } from "react-icons/tb";
 import { VscClose } from "react-icons/vsc";
 import { Link, NavLink } from "react-router-dom";
@@ -98,8 +98,8 @@ const DashboardSidebar = () => {
                 </li>
                 <li>
                   <NavLink to="/dashboard/manage-chapter-quizzes" className={linkStyles} onClick={handleMobileClick}>
-                    <HiOutlineDocumentText size={20} />
-                    <span>Manage Chapters Quizzes</span>
+                    <PiSealQuestion size={20} />
+                    <span className="max-w-[165px]">Manage Chapters Quizzes</span>
                   </NavLink>
                 </li>
               </div>

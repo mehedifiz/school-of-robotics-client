@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import AddBookModal from "./AddBookModal";
 import UpdateBookModal from "./UpdateBookModal";
+import { HiDocumentText } from "react-icons/hi2";
 
 const ManageBooks = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -248,7 +249,7 @@ const ManageBooks = () => {
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                   <div className="flex items-center space-x-3">
                     <button onClick={() => handleChapterNavigation(book)} className="text-gray-500 hover:text-indigo-600">
-                      <IoMdSettings />
+                      <HiDocumentText />
                     </button>
                     <button className="text-gray-500 hover:text-blue-600" onClick={() => handleEditBook(book)}>
                       <FaEdit />
