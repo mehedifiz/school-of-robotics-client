@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { FaPen, FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
 
-const QuizPreview = ({ quiz, onEdit, onDeleteSuccess, chapterId }) => {
+const QuizPreview = ({ quiz, onEdit, onDeleteSuccess, chapterId, refetchChapters }) => {
   const [activeQuestion, setActiveQuestion] = useState(0);
   const axios = useAxios();
 
@@ -18,6 +18,7 @@ const QuizPreview = ({ quiz, onEdit, onDeleteSuccess, chapterId }) => {
     onSuccess: () => {
       toast.success("Quiz deleted successfully");
       onDeleteSuccess();
+      refetchChapters();
     },
     onError: (error) => {
       toast.error(error.response?.data?.message || "Failed to delete quiz");

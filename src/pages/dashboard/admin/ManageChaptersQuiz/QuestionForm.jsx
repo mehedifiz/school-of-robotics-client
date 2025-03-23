@@ -64,25 +64,37 @@ const QuestionForm = ({ question, onChange, errors }) => {
         <div className="space-y-3">
           {question.options.map((option, index) => (
             <div key={index} className="flex items-start">
-              <div className="flex items-center mt-1 mr-3">
-                <input
-                  type="radio"
-                  id={`option-${index}`}
-                  name={`correct-option-${question.questionNo || "new"}`}
-                  checked={option.isCorrect}
-                  onChange={() => handleCorrectOptionChange(index)}
-                  className="w-4 h-4 text-primary focus:ring-primary border-gray-300"
-                />
+              <div className="flex items-center mt-3 mr-3">
+                <button
+                  type="button"
+                  onClick={() => handleCorrectOptionChange(index)}
+                  className={`w-5 h-5 rounded-full flex items-center justify-center border-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary ${
+                    option.isCorrect ? "border-primary bg-primary/10" : "border-gray-300 hover:border-gray-400"
+                  }`}
+                  aria-checked={option.isCorrect}
+                  role="radio"
+                >
+                  {option.isCorrect && <div className="w-2.5 h-2.5 rounded-full bg-primary"></div>}
+                </button>
               </div>
+
               <div className="flex-grow">
                 <div className="flex items-center">
-                  <span className="w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center text-xs mr-2">{String.fromCharCode(65 + index)}</span>
+                  <span
+                    className={`w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2 ${
+                      option.isCorrect ? "bg-primary/20 text-primary font-medium" : "bg-gray-100 text-gray-700"
+                    }`}
+                  >
+                    {String.fromCharCode(65 + index)}
+                  </span>
                   <input
                     type="text"
                     value={option.text}
                     onChange={(e) => handleOptionTextChange(index, e.target.value)}
                     placeholder={`Option ${String.fromCharCode(65 + index)}`}
-                    className="flex-grow px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+                    className={`flex-grow px-3 py-2 border ${
+                      option.isCorrect ? "border-primary/30" : "border-gray-300"
+                    } rounded-md focus:outline-none focus:ring-1 focus:ring-primary ${option.isCorrect ? "bg-primary/5" : ""}`}
                   />
                 </div>
               </div>

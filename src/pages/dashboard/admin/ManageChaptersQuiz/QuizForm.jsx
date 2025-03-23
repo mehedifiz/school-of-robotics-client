@@ -3,10 +3,10 @@ import { useMutation } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { CgSpinner } from "react-icons/cg";
-import { FaPlus, FaTrash } from "react-icons/fa";
+import { FaExclamationTriangle, FaPlus, FaTrash } from "react-icons/fa";
 import QuestionForm from "./QuestionForm";
 
-const QuizForm = ({ mode, chapterId, bookName, chapterTitle, chapterNo, initialData, onCancel, onSuccess }) => {
+const QuizForm = ({ mode, chapterId, bookName, chapterTitle, chapterNo, initialData, onCancel, onSuccess, refetchChapters }) => {
   const [formData, setFormData] = useState({
     title: "",
     questions: [createEmptyQuestion()],
@@ -26,7 +26,9 @@ const QuizForm = ({ mode, chapterId, bookName, chapterTitle, chapterNo, initialD
       // Suggest a title for new quiz
       setFormData({
         title: `Quiz for Chapter ${chapterNo}: ${chapterTitle}`,
-        questions: [createEmptyQuestion()],
+        questions: Array(3)
+          .fill()
+          .map(() => createEmptyQuestion()), // Start with 3 questions to make it easier
       });
     }
   }, [mode, initialData, chapterTitle, chapterNo]);
@@ -54,6 +56,7 @@ const QuizForm = ({ mode, chapterId, bookName, chapterTitle, chapterNo, initialD
     onSuccess: () => {
       toast.success("Quiz created successfully");
       onSuccess();
+      refetchChapters()
     },
     onError: (error) => {
       toast.error(error.response?.data?.message || "Failed to create quiz");
@@ -112,6 +115,11 @@ const QuizForm = ({ mode, chapterId, bookName, chapterTitle, chapterNo, initialD
 
   // Add new question
   const handleAddQuestion = () => {
+    if (formData.questions.length >= 10) {
+      toast.error("A quiz can have a maximum of 10 questions");
+      return;
+    }
+
     setFormData({
       ...formData,
       questions: [...formData.questions, createEmptyQuestion()],
@@ -120,6 +128,7 @@ const QuizForm = ({ mode, chapterId, bookName, chapterTitle, chapterNo, initialD
 
   // Remove question
   const handleRemoveQuestion = (index) => {
+    // Always require at least 1 question as a minimum
     if (formData.questions.length <= 1) {
       toast.error("Quiz must have at least one question");
       return;
@@ -147,6 +156,11 @@ const QuizForm = ({ mode, chapterId, bookName, chapterTitle, chapterNo, initialD
     // Validate quiz title
     if (!formData.title.trim()) {
       errors.title = "Quiz title is required";
+    }
+
+    // Validate question count - must have exactly 10 questions
+    if (formData.questions.length !== 10) {
+      errors.questionCount = `Quiz must have exactly 10 questions. Currently has ${formData.questions.length}.`;
     }
 
     // Validate each question
@@ -202,6 +216,9 @@ const QuizForm = ({ mode, chapterId, bookName, chapterTitle, chapterNo, initialD
     }
   };
 
+  const questionCount = formData.questions.length;
+  const hasRequiredQuestions = questionCount === 10;
+
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
@@ -231,17 +248,39 @@ const QuizForm = ({ mode, chapterId, bookName, chapterTitle, chapterNo, initialD
         {/* Questions section */}
         <div className="mb-6">
           <div className="flex justify-between items-center mb-3">
-            <h4 className="font-medium text-gray-800">
-              Questions <span className="text-red-500">*</span>
-            </h4>
+            <div>
+              <h4 className="font-medium text-gray-800">
+                Questions <span className="text-red-500">*</span>
+              </h4>
+
+              {/* Question count indicator */}
+              <div className="flex items-center mt-1.5">
+                <div className="bg-gray-100 h-2 w-48 rounded-full overflow-hidden">
+                  <div
+                    className={`h-full ${hasRequiredQuestions ? "bg-green-500" : "bg-blue-500"}`}
+                    style={{ width: `${Math.min(100, (questionCount / 10) * 100)}%` }}
+                  ></div>
+                </div>
+                <span className={`ml-2 text-sm ${hasRequiredQuestions ? "text-green-600" : "text-blue-600"}`}>{questionCount}/10 questions</span>
+              </div>
+            </div>
+
             <button
               type="button"
               onClick={handleAddQuestion}
-              className="px-3 py-1 bg-primary hover:bg-primary/90 text-white rounded-md flex items-center text-sm"
+              disabled={questionCount >= 10}
+              className="px-3 py-1 bg-primary hover:bg-primary/90 text-white rounded-md flex items-center text-sm disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <FaPlus className="mr-1" size={12} /> Add Question
             </button>
           </div>
+
+          {validationErrors.questionCount && (
+            <div className="flex items-center p-3 bg-yellow-50 text-yellow-800 border border-yellow-200 rounded-md mb-4">
+              <FaExclamationTriangle className="flex-shrink-0 mr-2" />
+              <p className="text-sm">{validationErrors.questionCount}</p>
+            </div>
+          )}
 
           <div className="space-y-6">
             {formData.questions.map((question, index) => (
@@ -251,7 +290,7 @@ const QuizForm = ({ mode, chapterId, bookName, chapterTitle, chapterNo, initialD
                   <button
                     type="button"
                     onClick={() => handleRemoveQuestion(index)}
-                    className="text-red-600 hover:text-red-800"
+                    className="text-red-600 hover:text-red-800 disabled:opacity-50 disabled:cursor-not-allowed"
                     disabled={formData.questions.length <= 1}
                   >
                     <FaTrash />

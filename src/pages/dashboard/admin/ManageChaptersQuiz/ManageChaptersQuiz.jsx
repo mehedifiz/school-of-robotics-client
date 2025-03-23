@@ -52,7 +52,7 @@ const ManageChaptersQuiz = () => {
       if (!selectedChapter) return null;
       try {
         const res = await axios.get(`/quiz/get-quiz-by-chapter/${selectedChapter._id}`);
-        return res.data.data;
+        return res.data.data.quiz;
       } catch (error) {
         // Quiz might not exist for this chapter
         if (error.response?.status === 404) {
@@ -160,7 +160,13 @@ const ManageChaptersQuiz = () => {
                 </div>
 
                 {quizData ? (
-                  <QuizPreview quiz={quizData} onEdit={handleEditQuiz} onDeleteSuccess={handleQuizSuccess} chapterId={selectedChapter._id} />
+                  <QuizPreview
+                    quiz={quizData}
+                    onEdit={handleEditQuiz}
+                    onDeleteSuccess={handleQuizSuccess}
+                    chapterId={selectedChapter._id}
+                    refetchChapters={refetchChapters}
+                  />
                 ) : (
                   <div className="bg-blue-50 border border-blue-100 rounded-lg p-4 flex items-start">
                     <FiAlertCircle className="text-blue-500 mt-0.5 mr-3 flex-shrink-0" />
@@ -181,6 +187,7 @@ const ManageChaptersQuiz = () => {
                 initialData={currentView === "edit" ? quizData : null}
                 onCancel={() => setCurrentView("view")}
                 onSuccess={handleQuizSuccess}
+                refetchChapters={refetchChapters}
               />
             )}
           </div>
