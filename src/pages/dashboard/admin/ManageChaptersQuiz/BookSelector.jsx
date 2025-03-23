@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaBook, FaChevronDown, FaChevronUp, FaSearch } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
 
 const BookSelector = ({ books, selectedBook, onSelectBook }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedPlan, setSelectedPlan] = useState("all");
   const [isExpanded, setIsExpanded] = useState(true);
+  const { state } = useLocation();
 
   // Filter books based on search and plan
   const filteredBooks = books.filter((book) => {
@@ -31,6 +33,12 @@ const BookSelector = ({ books, selectedBook, onSelectBook }) => {
   const toggleExpansion = () => {
     setIsExpanded(!isExpanded);
   };
+
+  useEffect(() => {
+    if (state?.book) {
+      setIsExpanded(false);
+    }
+  }, [state]);
 
   return (
     <div>

@@ -3,12 +3,11 @@ import useAxios from "@/Hooks/useAxios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { FaEdit, FaPlus, FaSearch, FaTrash } from "react-icons/fa";
-import { IoMdSettings } from "react-icons/io";
+import { HiDocumentText } from "react-icons/hi2";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import AddBookModal from "./AddBookModal";
 import UpdateBookModal from "./UpdateBookModal";
-import { HiDocumentText } from "react-icons/hi2";
 
 const ManageBooks = () => {
   const [searchTerm, setSearchTerm] = useState("");

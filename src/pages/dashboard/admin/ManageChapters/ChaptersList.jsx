@@ -3,13 +3,16 @@ import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { FaEdit, FaFileAlt, FaTrash } from "react-icons/fa";
+import { PiSealQuestionBold } from "react-icons/pi";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import EditChapterModal from "./EditChapterModal";
 
-const ChaptersList = ({ chapters, bookId, refetchChapters, refetchBooks }) => {
+const ChaptersList = ({ chapters, bookId, refetchChapters, refetchBooks, selectedBook }) => {
   const [editingChapter, setEditingChapter] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const axios = useAxios();
+  const navigate = useNavigate();
 
   // Delete chapter mutation
   const { mutate: deleteChapter, isPending: isDeleting } = useMutation({
@@ -61,6 +64,10 @@ const ChaptersList = ({ chapters, bookId, refetchChapters, refetchBooks }) => {
     });
   };
 
+  // handle chapter navigation
+  const handleQuizNavigation = (chapter) => {
+    navigate("/dashboard/manage-chapter-quizzes", { state: { book: selectedBook, chapter } });
+  };
   return (
     <div>
       <div className="overflow-x-auto">
@@ -97,6 +104,10 @@ const ChaptersList = ({ chapters, bookId, refetchChapters, refetchBooks }) => {
                   <div className="text-sm text-gray-500">{formatDate(chapter.createdAt)}</div>
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <button onClick={() => handleQuizNavigation(chapter)} className="text-purple-600 hover:text-purple-900 mr-3">
+                    <PiSealQuestionBold />
+                  </button>
+
                   <button onClick={() => handleEditChapter(chapter)} className="text-blue-600 hover:text-blue-900 mr-3">
                     <FaEdit />
                   </button>

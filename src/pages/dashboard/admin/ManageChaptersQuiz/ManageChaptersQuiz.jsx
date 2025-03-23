@@ -1,9 +1,10 @@
 import Loader from "@/components/shared/Loader";
 import useAxios from "@/Hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaBook, FaList, FaPlus } from "react-icons/fa";
 import { FiAlertCircle } from "react-icons/fi";
+import { useLocation } from "react-router-dom";
 import BookSelector from "./BookSelector";
 import ChapterSelector from "./ChapterSelector";
 import QuizForm from "./QuizForm";
@@ -14,6 +15,7 @@ const ManageChaptersQuiz = () => {
   const [selectedChapter, setSelectedChapter] = useState(null);
   const [currentView, setCurrentView] = useState("view"); // view, create, edit
   const axios = useAxios();
+  const { state } = useLocation();
 
   // Fetch books
   const { data: books = [], isLoading: booksLoading } = useQuery({
@@ -93,6 +95,15 @@ const ManageChaptersQuiz = () => {
     refetchChapters();
     setCurrentView("view");
   };
+
+  useEffect(() => {
+    if (state?.book) {
+      setSelectedBook(state.book);
+    }
+    if (state?.chapter) {
+      setSelectedChapter(state.chapter);
+    }
+  }, [state]);
 
   if (booksLoading) {
     return <Loader size="default" text="Loading books..." />;

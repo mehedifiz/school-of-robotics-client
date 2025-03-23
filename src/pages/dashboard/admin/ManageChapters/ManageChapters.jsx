@@ -101,7 +101,13 @@ const ManageChapters = () => {
                   <Loader size="small" showText={false} />
                 </div>
               ) : chapters.length > 0 ? (
-                <ChaptersList chapters={chapters} bookId={selectedBook._id} refetchChapters={refetchChapters} refetchBooks={refetchBooks} />
+                <ChaptersList
+                  chapters={chapters}
+                  bookId={selectedBook._id}
+                  refetchChapters={refetchChapters}
+                  refetchBooks={refetchBooks}
+                  selectedBook={selectedBook}
+                />
               ) : (
                 <div className="bg-blue-50 border border-blue-100 rounded-lg p-4 flex items-start">
                   <FiAlertCircle className="text-blue-500 mt-0.5 mr-3 flex-shrink-0" />

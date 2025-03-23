@@ -1,10 +1,12 @@
 import Loader from "@/components/shared/Loader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaCheckCircle, FaChevronDown, FaChevronUp, FaList, FaQuestionCircle, FaSearch } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
 
 const ChapterSelector = ({ chapters, selectedChapter, onSelectChapter, isLoading }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isExpanded, setIsExpanded] = useState(true);
+  const { state } = useLocation();
 
   // Filter chapters based on search
   const filteredChapters = chapters.filter((chapter) => {
@@ -18,6 +20,12 @@ const ChapterSelector = ({ chapters, selectedChapter, onSelectChapter, isLoading
   };
 
   console.log(filteredChapters);
+
+  useEffect(() => {
+    if (state?.chapter) {
+      setIsExpanded(false);
+    }
+  }, [state]);
 
   return (
     <div>
