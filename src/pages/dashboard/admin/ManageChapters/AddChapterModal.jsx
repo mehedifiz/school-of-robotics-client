@@ -7,10 +7,10 @@ import { CgSpinner } from "react-icons/cg";
 import { FaTimes, FaUpload } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-const AddChapterModal = ({ book, onClose, onSuccess, refetchBooks }) => {
+const AddChapterModal = ({chapters, book, onClose, onSuccess, refetchBooks }) => {
   const [formData, setFormData] = useState({
     title: "",
-    chapterNo: book.chapters.length + 1,
+    chapterNo: chapters.length + 1,
     pdfUrl: "",
   });
   const [errors, setErrors] = useState({});

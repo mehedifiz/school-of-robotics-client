@@ -103,7 +103,7 @@ const ManageChapters = () => {
               ) : chapters.length > 0 ? (
                 <ChaptersList
                   chapters={chapters}
-                  bookId={selectedBook._id}
+                  book={selectedBook}
                   refetchChapters={refetchChapters}
                   refetchBooks={refetchBooks}
                   selectedBook={selectedBook}
@@ -125,6 +125,7 @@ const ManageChapters = () => {
       {/* Add Chapter Modal */}
       {isAddModalOpen && selectedBook && (
         <AddChapterModal
+          chapters={chapters}
           book={selectedBook}
           onClose={() => setIsAddModalOpen(false)}
           onSuccess={() => {

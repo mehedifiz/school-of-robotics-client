@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import EditChapterModal from "./EditChapterModal";
 
-const ChaptersList = ({ chapters, bookId, refetchChapters, refetchBooks, selectedBook }) => {
+const ChaptersList = ({ chapters, book, refetchChapters, refetchBooks, selectedBook }) => {
   const [editingChapter, setEditingChapter] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const axios = useAxios();
@@ -125,7 +125,7 @@ const ChaptersList = ({ chapters, bookId, refetchChapters, refetchBooks, selecte
       {isEditModalOpen && editingChapter && (
         <EditChapterModal
           chapter={editingChapter}
-          bookId={bookId}
+          bookId={book?._id}
           onClose={() => setIsEditModalOpen(false)}
           onSuccess={() => {
             refetchChapters();
