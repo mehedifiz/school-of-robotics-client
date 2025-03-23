@@ -64,7 +64,7 @@ const ChaptersList = ({ chapters, bookId, refetchChapters, refetchBooks, selecte
     });
   };
 
-  // handle chapter navigation
+  // handle chapter quiz navigation
   const handleQuizNavigation = (chapter) => {
     navigate("/dashboard/manage-chapter-quizzes", { state: { book: selectedBook, chapter } });
   };

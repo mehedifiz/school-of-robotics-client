@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { CgSpinner } from "react-icons/cg";
 import { FaTimes, FaUpload } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const AddChapterModal = ({ book, onClose, onSuccess, refetchBooks }) => {
   const [formData, setFormData] = useState({
@@ -20,11 +21,18 @@ const AddChapterModal = ({ book, onClose, onSuccess, refetchBooks }) => {
   const [isDragging, setIsDragging] = useState(false); // Add this state
   const fileInputRef = useRef(null);
   const axios = useAxios();
+  const navigate = useNavigate();
+
+  // handle chapter quiz navigation
+  const handleQuizNavigation = (chapter) => {
+    navigate("/dashboard/manage-chapter-quizzes", { state: { book, chapter } });
+  };
 
   // Create chapter mutation
   const { mutate: createChapter } = useMutation({
     mutationFn: async (chapterData) => {
       const response = await axios.post("/book/add-chapter", chapterData);
+      handleQuizNavigation(response.data.data);
       return response.data;
     },
     onSuccess: () => {
