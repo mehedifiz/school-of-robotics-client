@@ -3,6 +3,7 @@ import { MdOutlineDone } from 'react-icons/md';
 import { RxCross1 } from 'react-icons/rx';
 
 const Plan = () => {
+  
   return (
     <section className="w-full rounded-xl p-5">
       {/* Header */}

@@ -7,6 +7,7 @@ import { CiMenuBurger } from "react-icons/ci";
 import { HiOutlineUsers } from "react-icons/hi";
 import { HiOutlineArchiveBox, HiOutlineDocumentText } from "react-icons/hi2";
 import { IoIosLogOut } from "react-icons/io";
+import { AiOutlineFileAdd } from "react-icons/ai";
 import { LiaUserLockSolid } from "react-icons/lia";
 import { MdOutlineCloudDownload } from "react-icons/md";
 import { PiSealQuestion, PiSquaresFourFill } from "react-icons/pi";
@@ -100,6 +101,12 @@ const DashboardSidebar = () => {
                   <NavLink to="/dashboard/manage-chapter-quizzes" className={linkStyles} onClick={handleMobileClick}>
                     <PiSealQuestion size={20} />
                     <span className="max-w-[165px]">Manage Chapters Quizzes</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/addPlan" className={linkStyles} onClick={handleMobileClick}>
+                    <AiOutlineFileAdd size={20} />
+                    <span className="max-w-[165px]">Add a Plan</span>
                   </NavLink>
                 </li>
               </div>

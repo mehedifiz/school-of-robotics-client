@@ -21,6 +21,7 @@ import VerifyOTP from "@/pages/auth/VerifyOtp";
 import BookDetails from "@/pages/books/BookDetails/BookDetails";
 import ManageChapters from "@/pages/dashboard/admin/ManageChapters/ManageChapters";
 import ManageChaptersQuiz from "@/pages/dashboard/admin/ManageChaptersQuiz/ManageChaptersQuiz";
+import AddPlan from "@/pages/dashboard/admin/ManagePlan/AddPlan";
 
 
 const router = createBrowserRouter([
@@ -59,7 +60,7 @@ const router = createBrowserRouter([
       },
       {
         path: "verify-otp",
-        element: <VerifyOTP/> ,
+        element: <VerifyOTP />,
       },
     ],
   },
@@ -105,6 +106,10 @@ const router = createBrowserRouter([
       {
         path: "manage-chapter-quizzes",
         element: <ManageChaptersQuiz />,
+      },
+      {
+        path: 'addPlan',
+        element: <AddPlan />
       },
 
       // student routes
