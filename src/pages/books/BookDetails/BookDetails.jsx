@@ -48,7 +48,7 @@ const BookDetails = () => {
     // This would need to be updated based on your actual subscription logic
     const planLevels = { basic: 1, standard: 2, premium: 3 };
     const bookPlanLevel = planLevels[book.plan] || 0;
-    const userPlanLevel = planLevels[user.plan] || 0;
+    const userPlanLevel = planLevels[user.subscription.plan] || 0;
 
     return userPlanLevel >= bookPlanLevel;
   };
@@ -74,7 +74,7 @@ const BookDetails = () => {
 
     // Navigate to first chapter or reading view
     if (book.chapters && book.chapters.length > 0) {
-      navigate(`/book-reading/${book._id}/chapter/${book.chapters[0]}`);
+      navigate(`/dashboard/book-reading/${book._id}/chapter/${book.chapters[0]}`);
     }
   };
 
@@ -249,7 +249,7 @@ const BookDetails = () => {
 
                                 {userCanAccess() ? (
                                   <Link
-                                    to={`/book-reading/${book._id}/chapter/${chapter}`}
+                                    to={`/dashboard/book-reading/${book._id}/chapter/${chapter}`}
                                     className="inline-flex items-center text-blue-600 hover:text-blue-800"
                                   >
                                     Start reading <FaArrowLeft className="ml-2 transform rotate-180" />

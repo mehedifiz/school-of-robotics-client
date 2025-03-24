@@ -6,7 +6,7 @@ import ManageBooks from "@/pages/dashboard/admin/ManageBooks/ManageBooks";
 import DashboardHome from "@/pages/dashboard/common/DashboardHome/DashboardHome";
 import EditProfile from "@/pages/dashboard/common/profile/EditProfile";
 import Profile from "@/pages/dashboard/common/profile/Profile";
-import StudentBooks from "@/pages/dashboard/student/studentBook/StudentBooks";
+import StudentBooks from "@/pages/dashboard/student/studentBook/Books";
 import Management from "@/pages/management/Management";
 import PrivateRoute from "@/routes/PrivateRoute";
 import { createBrowserRouter } from "react-router-dom";
@@ -23,6 +23,8 @@ import ManageChapters from "@/pages/dashboard/admin/ManageChapters/ManageChapter
 import ManageChaptersQuiz from "@/pages/dashboard/admin/ManageChaptersQuiz/ManageChaptersQuiz";
 import AddPlan from "@/pages/dashboard/admin/ManagePlan/AddPlan";
 import ManagePlans from "@/pages/dashboard/admin/ManagePlan/ManagePlan";
+import BookReading from "@/pages/dashboard/student/BookReading/BookReading";
+import BookQuiz from "@/pages/dashboard/student/BookQuiz/BookQuiz";
 
 
 const router = createBrowserRouter([
@@ -125,6 +127,18 @@ const router = createBrowserRouter([
       {
         path: "student-book",
         element: <StudentBooks></StudentBooks>,
+      },
+      {
+        path: "book-reading/:bookId/chapter/:chapterId",
+        element: (
+            <BookReading />
+        ),
+      },
+      {
+        path: "book-quiz/:bookId/chapter/:chapterId",
+        element: (
+            <BookQuiz />
+        ),
       },
       {
         path: 'plan',
