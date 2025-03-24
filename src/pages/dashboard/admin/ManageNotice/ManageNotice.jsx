@@ -2,37 +2,15 @@ import React, { useState } from 'react';
 import { Bell, Tag, Trash2, Edit } from 'lucide-react';
 import { IoAddOutline } from 'react-icons/io5';
 import AddNoticeModal from './AddNoticeModal';
+import { useQuery } from '@tanstack/react-query';
+import useAxios from '@/Hooks/useAxios';
+import Swal from 'sweetalert2';
 
-// Mock data to simulate notices from backend
-const initialNotices = [
-    {
-        _id: '1',
-        title: 'System Maintenance',
-        description: 'Our platform will undergo routine maintenance on April 15th from 2-4 AM EST.',
-        targetPlans: ['premium', 'standard'],
-        createdAt: new Date('2024-03-20T10:30:00Z')
-    },
-    {
-        _id: '2',
-        title: 'New Feature Rollout',
-        description: 'We\'ve added advanced analytics to all standard and premium plans.',
-        targetPlans: ['standard', 'premium'],
-        createdAt: new Date('2024-03-22T15:45:00Z')
-    },
-    {
-        _id: '3',
-        title: 'Free Tier Update',
-        description: 'Free tier users can now access basic reporting features.',
-        targetPlans: ['free'],
-        createdAt: new Date('2024-03-24T09:15:00Z')
-    }
-];
 
 const ManageNotice = () => {
-    const [notices, setNotices] = useState(initialNotices);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const axiosPublic = useAxios();
 
-    // Format date to be more readable
     const formatDate = (date) => {
         return new Date(date).toLocaleDateString('en-US', {
             year: 'numeric',
@@ -43,13 +21,57 @@ const ManageNotice = () => {
         });
     };
 
+    const { data: notices = [], refetch } = useQuery({
+        queryKey: ['notices'],
+        queryFn: async () => {
+            const res = await axiosPublic.get('/notice/get-notices');
+            return res.data.data;
+        }
+    })
 
-    // Delete notice handler
     const handleDeleteNotice = (id) => {
-        setNotices(notices.filter(notice => notice._id !== id));
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const res = await axiosPublic.delete(`/notice/delete/${id}`);
+                    console.log(res.data);
+
+                    if (res.data.success) {
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Plan has been deleted.",
+                            icon: "success"
+                        });
+
+                        refetch()
+                    } else {
+                        Swal.fire({
+                            title: "Error!",
+                            text: res.data.message || "Failed to delete the plan.",
+                            icon: "error"
+                        });
+                    }
+                } catch (error) {
+                    console.error("Error deleting plan:", error);
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Something went wrong while deleting the plan.",
+                        icon: "error"
+                    });
+                }
+            }
+        });
     };
 
-    // Plan color mapping
+
     const getPlanColor = (plan) => {
         const colorMap = {
             'free': 'bg-green-100 text-green-800',
@@ -68,7 +90,7 @@ const ManageNotice = () => {
                     Notices
                 </h1>
                 <div className="flex space-x-2">
-                    
+
                     <button onClick={() => setIsModalOpen(true)} className='flex items-center space-x-3 py-2 px-6 bg-indigo-700 text-white hover:bg-indigo-800 duration-300 rounded-sm'>
                         <IoAddOutline className='text-xl' />
                         <span>Add Notice</span>
@@ -104,20 +126,12 @@ const ManageNotice = () => {
                                 </div>
                             </div>
 
-                            <div className="flex space-x-2">
-                                <button
-                                    className="text-blue-500 hover:bg-blue-100 p-2 rounded-full"
-                                    onClick={() => {/* Edit logic */ }}
-                                >
-                                    <Edit className="w-5 h-5" />
-                                </button>
-                                <button
-                                    className="text-red-500 hover:bg-red-100 p-2 rounded-full"
-                                    onClick={() => handleDeleteNotice(notice._id)}
-                                >
-                                    <Trash2 className="w-5 h-5" />
-                                </button>
-                            </div>
+                            <button
+                                onClick={() => handleDeleteNotice(notice._id)}
+                                className="text-red-500 hover:bg-red-100 p-2 rounded-full"
+                            >
+                                <Trash2 className="w-5 h-5" />
+                            </button>
                         </div>
                     </div>
                 ))}
@@ -126,6 +140,7 @@ const ManageNotice = () => {
             <AddNoticeModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
+                refetch={refetch}
             />
 
         </div >

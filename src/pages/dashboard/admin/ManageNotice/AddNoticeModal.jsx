@@ -3,7 +3,7 @@ import { Plus, X } from 'lucide-react';
 import useAxios from '@/Hooks/useAxios';
 import toast from 'react-hot-toast';
 
-const AddNoticeModal = ({ isOpen, onClose }) => {
+const AddNoticeModal = ({ isOpen, onClose, refetch }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [targetPlans, setTargetPlans] = useState([]);
@@ -18,6 +18,10 @@ const AddNoticeModal = ({ isOpen, onClose }) => {
     if (res.data.success) {
       toast.success('Notice has been created successfully!');
       onClose(true)
+      refetch()
+      setTitle('')
+      setDescription('')
+      setTargetPlans([])
     }
   };
 
