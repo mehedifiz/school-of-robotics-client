@@ -22,6 +22,7 @@ import BookDetails from "@/pages/books/BookDetails/BookDetails";
 import ManageChapters from "@/pages/dashboard/admin/ManageChapters/ManageChapters";
 import ManageChaptersQuiz from "@/pages/dashboard/admin/ManageChaptersQuiz/ManageChaptersQuiz";
 import AddPlan from "@/pages/dashboard/admin/ManagePlan/AddPlan";
+import ManagePlans from "@/pages/dashboard/admin/ManagePlan/ManagePlan";
 
 
 const router = createBrowserRouter([
@@ -110,6 +111,10 @@ const router = createBrowserRouter([
       {
         path: 'addPlan',
         element: <AddPlan />
+      },
+      {
+        path: 'managePlan',
+        element: <ManagePlans />
       },
 
       // student routes
