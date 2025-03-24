@@ -24,6 +24,7 @@ import ManageChaptersQuiz from "@/pages/dashboard/admin/ManageChaptersQuiz/Manag
 import AddPlan from "@/pages/dashboard/admin/ManagePlan/AddPlan";
 import ManagePlans from "@/pages/dashboard/admin/ManagePlan/ManagePlan";
 import UpdatePlan from "@/pages/dashboard/admin/ManagePlan/UpdatePlan";
+import ManageNotice from "@/pages/dashboard/admin/ManageNotice/ManageNotice";
 
 
 const router = createBrowserRouter([
@@ -122,7 +123,11 @@ const router = createBrowserRouter([
         element: <UpdatePlan />,
         loader: ({ params }) => fetch(`http://localhost:7000/api/plan/${params.id}`)
       },
-
+      {
+        path: 'manageNotice',
+        element: <ManageNotice />
+      },
+      
       // student routes
       {
         path: "student-dashboard",

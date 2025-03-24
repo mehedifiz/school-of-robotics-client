@@ -41,7 +41,7 @@ const DashboardNav = () => {
               <TfiEmail size={20} className="" />
             </Link>
 
-            <Link to="/dashboard/#" className="flex items-center gap-2 text-[#C5C5C5] hover:text-blue-600 duration-300">
+            <Link to="/dashboard/manageNotice" className="flex items-center gap-2 text-[#C5C5C5] hover:text-blue-600 duration-300">
               <IoNotificationsOutline size={24} className="" />
             </Link>
             <div className="relative" ref={dropdownRef}>
