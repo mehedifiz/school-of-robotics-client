@@ -2,12 +2,14 @@ import { useState } from "react";
 import { Trash2, Edit, Search, RefreshCw } from "lucide-react";
 import useAxios from "@/Hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const ManagePlans = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const axiosPublic = useAxios();
 
-  const { data: plans = [] } = useQuery({
+  const { data: plans = [], refetch } = useQuery({
     queryKey: ["plans"],
     queryFn: async () => {
       const res = await axiosPublic.get("/plan/all");
@@ -26,11 +28,54 @@ const ManagePlans = () => {
     }).format(date);
   };
 
+  const handleDeletePlan = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then(async (result) => { 
+      if (result.isConfirmed) {
+        try {
+          const res = await axiosPublic.delete(`/plan/delete/${id}`); 
+          console.log(res.data);
+  
+          if (res.data.success) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Plan has been deleted.",
+              icon: "success"
+            });
+
+            refetch()
+          } else {
+            Swal.fire({
+              title: "Error!",
+              text: res.data.message || "Failed to delete the plan.",
+              icon: "error"
+            });
+          }
+        } catch (error) {
+          console.error("Error deleting plan:", error);
+          Swal.fire({
+            title: "Error!",
+            text: "Something went wrong while deleting the plan.",
+            icon: "error"
+          });
+        }
+      }
+    });
+  };
+  
+
   return (
     <div className="max-w-7xl mx-auto p-4 sm:p-6">
       {/* Header Section */}
       <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <h1 className="text-2xl font-bold text-gray-800">
+        <h1 className="text-2xl font-bold text-indigo-700">
           Manage Subscription Plans
         </h1>
         <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-4">
@@ -86,10 +131,10 @@ const ManagePlans = () => {
                   {formatDate(plan.updatedAt)}
                 </td>
                 <td className="px-6 py-4 flex gap-2 justify-end whitespace-nowrap">
-                  <button className="bg-green-600 text-white py-1 px-4 rounded-md hover:bg-green-700 transition">
+                  <Link to={`/dashboard/updatePlan/${plan._id}`} className="bg-green-600 text-white py-1 px-4 rounded-md hover:bg-green-700 transition">
                     Update Plan
-                  </button>
-                  <button className="bg-red-600 text-white py-1 px-4 rounded-md hover:bg-red-700 transition">
+                  </Link>
+                  <button onClick={() => handleDeletePlan(plan._id)} className="bg-red-600 text-white py-1 px-4 rounded-md hover:bg-red-700 transition">
                     Delete Plan
                   </button>
                 </td>
