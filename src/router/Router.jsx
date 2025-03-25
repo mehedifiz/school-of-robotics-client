@@ -25,6 +25,7 @@ import AddPlan from "@/pages/dashboard/admin/ManagePlan/AddPlan";
 import ManagePlans from "@/pages/dashboard/admin/ManagePlan/ManagePlan";
 import UpdatePlan from "@/pages/dashboard/admin/ManagePlan/UpdatePlan";
 import ManageNotice from "@/pages/dashboard/admin/ManageNotice/ManageNotice";
+import Notice from "@/pages/dashboard/student/notice/Notice";
 
 
 const router = createBrowserRouter([
@@ -140,6 +141,10 @@ const router = createBrowserRouter([
       {
         path: 'plan',
         element: <Plan />
+      },
+      {
+        path: 'notice',
+        element: <Notice/>
       }
 
     ],
