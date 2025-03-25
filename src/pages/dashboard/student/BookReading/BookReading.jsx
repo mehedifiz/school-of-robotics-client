@@ -1,6 +1,6 @@
 // src/pages/books/BookReading/BookReading.jsx
 import { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
 import { FaArrowLeft, FaBook, FaCheckCircle, FaChevronRight, FaLock, FaQuestionCircle } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
@@ -17,6 +17,7 @@ const BookReading = () => {
   const navigate = useNavigate();
   const axios = useAxios();
   const { user } = useAuth();
+  const location = useLocation();
 
   // Fetch book details
   const { data: bookData, isLoading: bookLoading } = useQuery({
@@ -119,6 +120,13 @@ const BookReading = () => {
 
   // Protect Unlocked Chapters from Direct URL Access
   useEffect(() => {
+    // Skip protection if coming from quiz completion
+    if (location.state?.justCompletedQuiz) {
+      // Optionally force refetch progress to update the local state
+      refetchProgress();
+      return;
+    }
+
     // Check if the current chapter is unlocked
     if (activeChapter && chapters.length > 0 && !isChapterUnlocked(activeChapter)) {
       toast.error("This chapter is locked. Complete the previous chapters first.");
@@ -131,7 +139,15 @@ const BookReading = () => {
         navigate("/dashboard/student-book", { replace: true });
       }
     }
-  }, [activeChapter, chapters, bookProgress]);
+  }, [activeChapter, chapters, bookProgress, location.state]);
+
+  useEffect(() => {
+    // Clean up the navigation state after it's been used
+    if (location.state?.justCompletedQuiz) {
+      // This will clear the state after using it
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
 
   // security measures
   useSecurityMeasures();

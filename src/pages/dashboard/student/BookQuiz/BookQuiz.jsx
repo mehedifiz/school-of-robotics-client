@@ -239,11 +239,13 @@ const BookQuiz = () => {
       .then((res) => {
         const chapters = res.data.data;
         const currentIndex = chapters.findIndex((ch) => ch._id === chapterId);
-
+  
         if (currentIndex < chapters.length - 1) {
-          // Navigate directly to the next chapter
+          // Navigate directly to the next chapter WITH STATE
           const nextChapter = chapters[currentIndex + 1];
-          navigate(`/dashboard/book-reading/${bookId}/chapter/${nextChapter._id}`);
+          navigate(`/dashboard/book-reading/${bookId}/chapter/${nextChapter._id}`, { 
+            state: { justCompletedQuiz: true, completedChapterId: chapterId }
+          });
         } else {
           // If this is the last chapter, go to the dashboard
           navigate(`/dashboard/student/books`);
