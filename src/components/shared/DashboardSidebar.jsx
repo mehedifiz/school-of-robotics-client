@@ -143,7 +143,7 @@ const DashboardSidebar = () => {
                 <li>
                   <NavLink to="/dashboard/student-book" className={linkStyles} onClick={handleMobileClick}>
                     <BookOpen size={20} />
-                    <span>Books</span>
+                    <span>My Books</span>
                   </NavLink>
                 </li>
                 <li>
