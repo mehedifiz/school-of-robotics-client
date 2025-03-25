@@ -13,9 +13,8 @@ const Books = () => {
   const { data: books = [], isLoading } = useQuery({
     queryKey: ["books"],
     queryFn: async () => {
-      const res = await axios.get("/book/get-books");
-      console.log(res.data);
-      return res.data.data;
+      const res = await axios.get("/book/getAllBooksFree");
+      return res.data.books;
     },
   });
 
