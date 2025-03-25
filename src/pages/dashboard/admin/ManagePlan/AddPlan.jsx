@@ -97,7 +97,7 @@ export default function AddPlan() {
     };
 
     return (
-        <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+        <div className=" p-8 bg-white rounded-lg border">
             <h1 className="text-2xl font-bold mb-6 text-indigo-700">Create New Subscription Plan</h1>
 
             {submitSuccess && (

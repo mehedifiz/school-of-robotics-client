@@ -23,6 +23,8 @@ import ManageChapters from "@/pages/dashboard/admin/ManageChapters/ManageChapter
 import ManageChaptersQuiz from "@/pages/dashboard/admin/ManageChaptersQuiz/ManageChaptersQuiz";
 import AddPlan from "@/pages/dashboard/admin/ManagePlan/AddPlan";
 import ManagePlans from "@/pages/dashboard/admin/ManagePlan/ManagePlan";
+import UpdatePlan from "@/pages/dashboard/admin/ManagePlan/UpdatePlan";
+import ManageNotice from "@/pages/dashboard/admin/ManageNotice/ManageNotice";
 import BookReading from "@/pages/dashboard/student/BookReading/BookReading";
 import BookQuiz from "@/pages/dashboard/student/BookQuiz/BookQuiz";
 
@@ -118,7 +120,16 @@ const router = createBrowserRouter([
         path: 'managePlan',
         element: <ManagePlans />
       },
-
+      {
+        path: 'updatePlan/:id',
+        element: <UpdatePlan />,
+        loader: ({ params }) => fetch(`http://localhost:7000/api/plan/${params.id}`)
+      },
+      {
+        path: 'manageNotice',
+        element: <ManageNotice />
+      },
+      
       // student routes
       {
         path: "student-dashboard",

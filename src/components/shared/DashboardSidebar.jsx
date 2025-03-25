@@ -12,7 +12,7 @@ import { AiOutlineFileAdd } from "react-icons/ai";
 import { LiaUserLockSolid } from "react-icons/lia";
 import { MdOutlineCloudDownload } from "react-icons/md";
 import { PiSealQuestion, PiSquaresFourFill } from "react-icons/pi";
-import { TbBrandPlanetscale } from "react-icons/tb";
+import { TbBrandAppleNews, TbBrandPlanetscale } from "react-icons/tb";
 import { VscClose } from "react-icons/vsc";
 import { Link, NavLink } from "react-router-dom";
 
@@ -114,6 +114,12 @@ const DashboardSidebar = () => {
                   <NavLink to="/dashboard/managePlan" className={linkStyles} onClick={handleMobileClick}>
                     <SiGoogletagmanager size={20} />
                     <span className="max-w-[165px]">Manage Plan</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/manageNotice" className={linkStyles} onClick={handleMobileClick}>
+                    <TbBrandAppleNews size={20} />
+                    <span className="max-w-[165px]">Manage Notice</span>
                   </NavLink>
                 </li>
               </div>
