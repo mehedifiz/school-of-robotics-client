@@ -6,6 +6,7 @@ import { toast } from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "@/Hooks/useAxios";
 import useAuth from "@/Hooks/useAuth";
+import useSecurityMeasures from "@/Hooks/useSecurityMeasures";
 import Loader from "@/components/shared/Loader";
 import PDFViewer from "@/components/utility/PDFViewer";
 
@@ -112,6 +113,9 @@ const BookReading = () => {
       }
     }
   }, [activeChapter, chapters, bookProgress]);
+
+  // security measures
+  useSecurityMeasures();
 
   // Check if a chapter is unlocked
   const isChapterUnlocked = (chapter) => {
