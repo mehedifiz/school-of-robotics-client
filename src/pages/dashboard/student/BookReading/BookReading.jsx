@@ -55,6 +55,25 @@ const BookReading = () => {
     enabled: !!bookId && !!user?._id,
   });
 
+  // Add a new query to fetch quiz submission data
+  const { data: quizData, isLoading: quizLoading } = useQuery({
+    queryKey: ["chapter-quiz", activeChapter?.quizId, user?._id],
+    queryFn: async () => {
+      if (!activeChapter?.quizId) return null;
+      try {
+        const res = await axios.get(`/quiz/get-quiz-by-chapter/${activeChapter._id}`);
+        return res.data.data;
+      } catch (error) {
+        // Quiz might not exist for this chapter
+        if (error.response?.status === 404) {
+          return null;
+        }
+        throw error;
+      }
+    },
+    enabled: !!activeChapter?.quizId && !!user?._id,
+  });
+
   // Set active chapter based on route params or default to first chapter
   useEffect(() => {
     if (chapters.length > 0) {
@@ -140,7 +159,13 @@ const BookReading = () => {
   // Handle take quiz button click
   const handleTakeQuiz = () => {
     if (activeChapter && activeChapter.quizId) {
-      navigate(`/dashboard/book-quiz/${bookId}/chapter/${activeChapter._id}`);
+      if (quizData?.userSubmission) {
+        // If quiz is already submitted, go to details view
+        navigate(`/dashboard/quiz-details/${bookId}/chapter/${activeChapter._id}/submission/${quizData.userSubmission._id}`);
+      } else {
+        // If quiz is not submitted, go to quiz page
+        navigate(`/dashboard/book-quiz/${bookId}/chapter/${activeChapter._id}`);
+      }
     } else {
       toast.error("No quiz available for this chapter.");
     }
@@ -205,9 +230,33 @@ const BookReading = () => {
 
           {/* Actions */}
           <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-between">
-            <button onClick={handleTakeQuiz} className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-lg flex items-center justify-center gap-2">
-              <FaQuestionCircle /> Take Chapter Quiz
-            </button>
+            {quizData?.userSubmission ? (
+              <div className="bg-white border border-gray-200 rounded-lg px-6 py-3 flex items-center gap-3">
+                <div className={`p-2 rounded-full ${quizData.userSubmission.passed ? "bg-green-100" : "bg-amber-100"}`}>
+                  {quizData.userSubmission.passed ? (
+                    <FaCheckCircle className="text-green-600 text-lg" />
+                  ) : (
+                    <FaQuestionCircle className="text-amber-600 text-lg" />
+                  )}
+                </div>
+                <div>
+                  <div className="font-medium text-gray-800">{quizData.userSubmission.passed ? "Quiz Passed" : "Quiz Attempted"}</div>
+                  <div className="text-sm text-gray-500">
+                    Score: {quizData.userSubmission.score * (100 / 10)}% •{new Date(quizData.userSubmission.createdAt).toLocaleDateString()}
+                  </div>
+                </div>
+                <button onClick={handleTakeQuiz} className="ml-4 text-primary text-sm hover:underline">
+                  View Details
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={handleTakeQuiz}
+                className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-lg flex items-center justify-center gap-2"
+              >
+                <FaQuestionCircle /> Take Chapter Quiz
+              </button>
+            )}
 
             <button
               onClick={handleNextChapter}

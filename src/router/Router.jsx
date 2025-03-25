@@ -27,6 +27,7 @@ import UpdatePlan from "@/pages/dashboard/admin/ManagePlan/UpdatePlan";
 import ManageNotice from "@/pages/dashboard/admin/ManageNotice/ManageNotice";
 import BookReading from "@/pages/dashboard/student/BookReading/BookReading";
 import BookQuiz from "@/pages/dashboard/student/BookQuiz/BookQuiz";
+import QuizDetails from "@/pages/dashboard/student/BookQuiz/QuizDetails";
 
 
 const router = createBrowserRouter([
@@ -149,6 +150,12 @@ const router = createBrowserRouter([
         path: "book-quiz/:bookId/chapter/:chapterId",
         element: (
             <BookQuiz />
+        ),
+      },
+      {
+        path: "quiz-details/:bookId/chapter/:chapterId/submission/:submissionId",
+        element: (
+            <QuizDetails />
         ),
       },
       {
