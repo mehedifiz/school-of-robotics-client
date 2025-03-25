@@ -1,5 +1,5 @@
 // src/pages/books/BookQuiz/BookQuiz.jsx
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { FaArrowLeft, FaCheck, FaChevronRight, FaTimes } from "react-icons/fa";
 import { toast } from "react-hot-toast";
@@ -22,6 +22,7 @@ const BookQuiz = () => {
   const navigate = useNavigate();
   const axios = useAxios();
   const { user } = useAuth();
+  const isSubmittingRef = useRef(false);
 
   // Fetch quiz for the chapter
   const { data: quizData, isLoading: quizLoading } = useQuery({
@@ -70,6 +71,7 @@ const BookQuiz = () => {
       });
     },
     onSuccess: (data) => {
+      isSubmittingRef.current = false;
       const result = data.data.data;
       setScore(result.percentageScore);
       setShowResults(true);
@@ -98,6 +100,7 @@ const BookQuiz = () => {
       toast.success("Quiz submitted successfully!");
     },
     onError: (error) => {
+      isSubmittingRef.current = false;
       console.error("Error submitting quiz:", error);
       toast.error(error.response?.data?.message || "Failed to submit quiz");
     },
@@ -105,25 +108,64 @@ const BookQuiz = () => {
 
   // Initialize timer when quiz loads
   useEffect(() => {
-    if (quiz && !quizCompleted) {
-      // Set time limit to 2 minutes per question
-      const timeLimit = quiz.questions.length * 120;
-      setTimeLeft(timeLimit);
+    if (!quiz || quizCompleted || isSubmitting) return;
 
-      const timer = setInterval(() => {
-        setTimeLeft((prev) => {
-          if (prev <= 1) {
-            clearInterval(timer);
-            handleSubmitQuiz();
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
+    const timeLimit = quiz.questions.length * 120;
+    setTimeLeft(timeLimit);
 
-      return () => clearInterval(timer);
-    }
-  }, [quiz, quizCompleted]);
+    // Create timer reference to access in closure
+    const timerRef = { current: null };
+
+    timerRef.current = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          // Clear interval immediately to prevent further calls
+          clearInterval(timerRef.current);
+
+          // Execute submission in a setTimeout to escape the current execution context
+          setTimeout(() => {
+            if (!isSubmittingRef.current) {
+              console.log("Timer expired - submitting quiz automatically");
+              isSubmittingRef.current = true;
+
+              // Prepare final answers
+              const finalAnswers = [...userAnswers];
+              while (finalAnswers.length < quiz.questions.length) {
+                finalAnswers.push(null);
+              }
+
+              // Add current question's selection if it exists
+              if (selectedOption !== null) {
+                finalAnswers[currentQuestion] = selectedOption;
+              }
+
+              const selectedOptions = finalAnswers
+                .map((optionIndex, index) => {
+                  const questionNo = index + 1;
+                  const question = quiz.questions[index];
+
+                  return {
+                    questionNo,
+                    text: optionIndex !== null ? question.options[optionIndex].text : null,
+                  };
+                })
+                .filter((option) => option.text !== null);
+
+              // Submit quiz directly rather than calling handleSubmitQuiz
+              submitQuiz(selectedOptions);
+            }
+          }, 0);
+
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [quiz, quizCompleted, isSubmitting, quiz?.questions?.length]);
 
   // Format time left as minutes:seconds
   const formatTime = (seconds) => {
@@ -153,7 +195,15 @@ const BookQuiz = () => {
 
   // Handle quiz submission
   const handleSubmitQuiz = () => {
-    // Format answers as expected by the backend
+    // Check the ref as well as the state
+    if (isSubmitting || quizCompleted || isSubmittingRef.current) {
+      return;
+    }
+
+    // Set ref to true to prevent parallel calls
+    isSubmittingRef.current = true;
+
+    // Rest of your existing function remains the same
     const finalAnswers = [...userAnswers.slice(0, currentQuestion), selectedOption, ...userAnswers.slice(currentQuestion + 1)];
 
     // Fill in null for unanswered questions
@@ -161,7 +211,6 @@ const BookQuiz = () => {
       finalAnswers.push(null);
     }
 
-    // Format the selected options as the backend expects them
     const selectedOptions = finalAnswers
       .map((optionIndex, index) => {
         const questionNo = index + 1;
@@ -172,7 +221,7 @@ const BookQuiz = () => {
           text: optionIndex !== null ? question.options[optionIndex].text : null,
         };
       })
-      .filter((option) => option.text !== null); // Remove null answers
+      .filter((option) => option.text !== null);
 
     submitQuiz(selectedOptions);
   };
