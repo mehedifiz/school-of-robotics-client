@@ -301,22 +301,20 @@ const BookReading = () => {
                       isActive ? "border-primary bg-primary/5" : isUnlocked ? "border-gray-200 hover:bg-gray-50" : "border-gray-200 bg-gray-50 opacity-70"
                     }`}
                   >
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between" title={chapter.title}>
                       {isUnlocked ? (
                         <Link
                           to={`/dashboard/book-reading/${bookId}/chapter/${chapter._id}`}
                           className={`flex-1 ${isActive ? "font-medium text-primary" : ""}`}
                         >
                           <div className="flex items-center">
-                            <span className="mr-2">Chapter {chapter.chapterNo}:</span>
-                            <span className="truncate">{chapter.title}</span>
+                            <span className="mr-2">Chapter {chapter.chapterNo}</span>
                           </div>
                         </Link>
                       ) : (
                         <div className="flex-1 text-gray-500">
                           <div className="flex items-center">
-                            <span className="mr-2">Chapter {chapter.chapterNo}:</span>
-                            <span className="truncate">{chapter.title}</span>
+                            <span className="mr-2">Chapter {chapter.chapterNo}</span>
                           </div>
                         </div>
                       )}
