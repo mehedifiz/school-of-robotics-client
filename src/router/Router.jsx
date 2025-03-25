@@ -6,7 +6,7 @@ import ManageBooks from "@/pages/dashboard/admin/ManageBooks/ManageBooks";
 import DashboardHome from "@/pages/dashboard/common/DashboardHome/DashboardHome";
 import EditProfile from "@/pages/dashboard/common/profile/EditProfile";
 import Profile from "@/pages/dashboard/common/profile/Profile";
-import StudentBooks from "@/pages/dashboard/student/studentBook/Books";
+import StudentBooks from "@/pages/dashboard/student/studentBooks/StudentBooks";
 import Management from "@/pages/management/Management";
 import PrivateRoute from "@/routes/PrivateRoute";
 import { createBrowserRouter } from "react-router-dom";
