@@ -1,65 +1,49 @@
-import { FaCheckCircle } from "react-icons/fa";
+import { useEffect } from "react";
 import img1 from "../../assets/home/feature1.png";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { Button } from "@/components/ui/button";
+import { CheckCircle2 } from "lucide-react";
 
 const OnlineProgramSection = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: true,
+      easing: "ease-out",
+    });
+  }, []);
+
+  const features = ["IQ-based Customized curriculum", "Well-qualified & trained faculties", "Well-equipped hi-tech lab facilities"];
+
   return (
-    <div className="container mx-auto px-6 py-12">
-      {/* Section Title */}
-      <div className="text-center max-w-2xl mx-auto mb-16">
-        <h3 className="text-4xl mb-5 font-bold text-teal-950">
-          Online Program
-        </h3>
-        <p className="text-teal-950 text-lg ">
-          Now that we've aligned the details, it's time to get things mapped out
-          and organized. Let's make learning more effective!
-        </p>
-      </div>
+    <section id="online-courses" className="bg-gray-50 py-16 md:py-28 px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div data-aos="fade-right">
+            <img src={img1} alt="Online Learning Illustration" className="w-full max-w-md mx-auto rounded-xl" />
+          </div>
 
-      {/* Main Content */}
-      <div className="flex flex-col p-8 lg:flex-row justify-between items-center gap-12 rounded-xl">
-        {/* Image Section */}
-        <div
-          className="w-full lg:w-1/2 flex gap-5 justify-center"
-          data-aos="fade-right"
-          data-aos-duration="1800"
-        >
-          <img
-            src={img1}
-            alt="Online Program"
-            className="rounded-lg  w-full max-w-md"
-          />
-        </div>
+          <div className="space-y-6" data-aos="fade-left">
+            <h2 className="text-3xl md:text-4xl font-bold">Online Program</h2>
+            <p className="text-gray-600">
+              Now that we've aligned the details, it's time to get things mapped out and organized. Let's make learning more effective!
+            </p>
 
-        {/* Content Section */}
-        <div
-          className="w-full lg:w-1/2 flex flex-col items-center lg:items-start space-y-5"
-          data-aos="fade-left"
-          data-aos-duration="1800"
-        >
-          <ul className="space-y-4 w-11/12">
-            {[
-              "IQ-based Customized curriculum",
-              "Well-qualified & trained faculties",
-              "Well-equipped hi-tech lab facilities",
-            ].map((text, index) => (
-              <li
-                key={index}
-                className="flex items-center bg-white px-4 py-3 rounded-lg shadow-sm hover:shadow-md transition duration-300"
-              >
-                <FaCheckCircle className="text-[#00635A] mr-3" />
-                <span className="text-[#00635A] font-medium">{text}</span>
-              </li>
-            ))}
-          </ul>
-          <a
-            href="#"
-            className="inline-flex justify-center items-center bg-[#00635A] w-1/2 hover:bg-[#004d40] text-white px-6 py-3 rounded-lg transition duration-300 shadow-md"
-          >
-            Learn More
-          </a>
+            <div className="space-y-4 py-4">
+              {features.map((feature, index) => (
+                <div key={index} className="flex items-start">
+                  <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mr-3" />
+                  <p>{feature}</p>
+                </div>
+              ))}
+            </div>
+
+            <Button className="bg-primary hover:bg-primary-600 text-white">Learn More</Button>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

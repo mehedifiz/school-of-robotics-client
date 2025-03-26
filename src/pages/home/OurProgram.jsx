@@ -1,82 +1,82 @@
-import {
-  FaArrowRight,
-  FaCode,
-  FaLaptop,
-  FaRobot,
-  FaShieldAlt,
-} from "react-icons/fa";
+import { useState, useEffect } from "react";
+import { ArrowRight, Computer, Code, Cpu, Globe } from "lucide-react";
+import { cn } from "@/lib/utils";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import SectionHeader from "@/components/utility/SectionHeader";
 
 const programs = [
   {
-    id: 1,
-    icon: <FaLaptop className="text-teal-500 text-4xl" />,
+    id: "basic-computing",
     title: "Basic Computing",
-    description:
-      "Learn fundamental computer skills including software, applications, and hardware functions.",
-    link: "#",
+    description: "Learn fundamental computer skills including software, applications, and hardware functions.",
+    icon: <Computer className="h-6 w-6" />,
+    color: "bg-blue-500",
   },
   {
-    id: 2,
-    icon: <FaRobot className="text-green-500 text-4xl" />,
+    id: "robotics",
     title: "Robotics",
-    description:
-      "Explore the design, construction, operation, and application of robotics in various fields.",
-    link: "#",
+    description: "Explore the design, construction, operation, and application of robotics in various fields.",
+    icon: <Cpu className="h-6 w-6" />,
+    color: "bg-primary",
   },
   {
-    id: 3,
-    icon: <FaCode className="text-purple-500 text-4xl" />,
+    id: "programming",
     title: "Programming",
-    description:
-      "Master coding techniques, algorithm design, and software development fundamentals.",
-    link: "#",
+    description: "Master coding techniques, algorithm design, and software development fundamentals.",
+    icon: <Code className="h-6 w-6" />,
+    color: "bg-purple-500",
   },
   {
-    id: 4,
-    icon: <FaShieldAlt className="text-red-500 text-4xl" />,
+    id: "freelancing",
     title: "Freelancing",
-    description:
-      "Discover how to build a successful freelance career and find high-paying clients.",
-    link: "#",
+    description: "Discover how to build a successful freelance career and find high-paying clients.",
+    icon: <Globe className="h-6 w-6" />,
+    color: "bg-red-500",
   },
 ];
 
 const OurProgram = () => {
+  const [hoveredCard, setHoveredCard] = useState(null);
+
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: true,
+      easing: "ease-out",
+    });
+  }, []);
+
   return (
-    <section className="py-16" id="features">
-      <div className="container mx-auto ">
-        {/* Heading */}
-        <div className="text-center  mx-auto mb-12">
-          <h2 className="text-4xl font-bold mb-5 text-teal-950">Our Program</h2>
-          <p className="text-teal-950 text-lg ">
-            Explore a variety of cutting-edge courses designed to shape your
-            future in technology.
-          </p>
-        </div>
+    <section id="programs" className="bg-white py-16 px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <SectionHeader
+          badge="Programs"
+          title="Our Programs"
+          description="Explore a variety of cutting-edge courses designed to shape your future in technology."
+          className="mb-16"
+        />
 
-        {/* Program Cards */}
-        <div className="grid md:grid-cols-2  grid-cols-1 gap-8  py-16 ">
-          {programs.map(({ id, icon, title, description, link }) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {programs.map((program, index) => (
             <div
-              key={id}
-              className=" bg-white shadow-md  p-10 rounded-xl hover:bg-teal-100  flex items-start transition-transform duration-300 hover:scale-105"
+              key={program.id}
+              className="glass-card p-6 transition-all duration-300 group cursor-pointer flex flex-col justify-between"
+              onMouseEnter={() => setHoveredCard(program.id)}
+              onMouseLeave={() => setHoveredCard(null)}
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
             >
-              <div className="p-5  rounded-lg space-y-3  ">
-                <div className=" flex justify-leftr items-center gap-3">
-                  <span>{icon}</span>
+              <div>
+                <div className={cn("w-12 h-12 rounded-lg flex items-center justify-center text-white mb-4", program.color)}>{program.icon}</div>
 
-                  <h5 className="text-xl font-semibold text-gray-800 mb-2">
-                    {title}
-                  </h5>
-                </div>
+                <h3 className="text-xl font-bold mb-2">{program.title}</h3>
+                <p className="text-gray-600 mb-4">{program.description}</p>
+              </div>
 
-                <p className="text-gray-600 mb-3">{description}</p>
-                <a
-                  href={link}
-                  className="text-teal-600 hover:text-teal-800 flex items-center font-medium"
-                >
-                  Read More <FaArrowRight className="ml-2" />
-                </a>
+              <div className="flex items-center text-primary font-medium">
+                <span>Read More</span>
+                <ArrowRight className={cn("ml-2 h-4 w-4 transition-transform", hoveredCard === program.id ? "translate-x-1" : "")} />
               </div>
             </div>
           ))}

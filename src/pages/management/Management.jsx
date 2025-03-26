@@ -1,107 +1,130 @@
-import AOS from "aos";
 import { useEffect } from "react";
-import { BsInstagram } from "react-icons/bs";
-import { FaFacebookF, FaLinkedinIn } from "react-icons/fa";
-import { IoLogoTwitter } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Mail } from "lucide-react";
+import { FaTwitter, FaLinkedin, FaQuoteLeft } from "react-icons/fa";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import SectionHeader from "@/components/utility/SectionHeader";
 
 const Management = () => {
   useEffect(() => {
     AOS.init({
-      duration: 1000,
+      duration: 800,
       once: true,
+      easing: "ease-out",
     });
   }, []);
+
   const manageData = [
     {
       name: "Md Kamrul Hasan",
-      position: "Team Leader",
-      details: "Joint Secretary, Planning & Budget Branch, Cabinet Division",
-      image: "/src/assets/home/photo_06.jpeg",
+      title: "Team Leader",
+      position: "Joint Secretary, Planning & Budget Branch, Cabinet Division",
+      image: "/src/assets/home/Md-Kamrul-Hasan.png",
+      quote: "Empowering the next generation through robotics education",
     },
     {
       name: "Engr Abu Kowsar",
-      position: "Project Manager",
-      details: "Programmer, Dept. of ICT, ICT Division",
-      image: "/src/assets/home/photo_07.jpeg",
+      title: "Project Manager",
+      position: "Programmer, Dept. of ICT, ICT Division",
+      image: "/src/assets/home/Engr-Abu-Kowsar.png",
+      quote: "Building innovative solutions for tomorrow's challenges",
     },
     {
       name: "Shanjit Mondol",
-      position: "Master Trainer",
-      details: "Senior Robotics Trainer",
-      image: "/src/assets/home/photo_08.jpeg",
+      title: "Master Trainer",
+      position: "Senior Robotics Trainer",
+      image: "/src/assets/home/Shanjit-Mondol.png",
+      quote: "Hands-on learning creates lasting knowledge",
     },
     {
       name: "Jewel Nath",
-      position: "Master Trainer",
-      details: "Senior Robotics Trainer",
-      image: "/src/assets/home/photo_06.jpeg",
-    },
-    {
-      name: "Engr Abu Kowsar",
-      position: "Project Manager",
-      details: "Programmer, Dept. of ICT, ICT Division",
-      image: "/src/assets/home/photo_07.jpeg",
-    },
-    {
-      name: "Shanjit Mondol",
-      position: "Master Trainer",
-      details: "Senior Robotics Trainer",
-      image: "/src/assets/home/photo_08.jpeg",
+      title: "Master Trainer",
+      position: "Senior Robotics Trainer",
+      image: "/src/assets/home/Jewel-Nath.png",
+      quote: "Turning complex concepts into accessible knowledge",
     },
   ];
+
   return (
-    <div className="container mx-auto py-16">
-      <div className="text-center  max-w-2xl mx-auto">
-        <h2 className="text-3xl text-teal-950 mb-5 font-bold">Management</h2>
-        <p className="text-teal-950 mb-16 text-lg">
-          We work under the guidance of team leaders and alongside other team
-          members to ensure that organizational goals are met.
-        </p>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-3">
-        {manageData.map((item, i) => (
-          <div
-            key={i}
-            data-aos="fade-up"
-            data-aos-delay={i * 100}
-            className="shadow-sm p-4 rounded-lg group "
-          >
-            <Link to={`#`} className=" ">
-              <div className="relative  h-[400px]">
+    <section id="team" className="bg-gradient-to-b from-gray-50 to-white py-20 relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/5 rounded-full blur-3xl"></div>
+      <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-blue-500/5 rounded-full blur-3xl"></div>
+
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        <SectionHeader
+          badge="Our Leadership"
+          title="Management Team"
+          description="We work under the guidance of team leaders and alongside other team members to ensure that organizational goals are met."
+        />
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+          {manageData.map((member, index) => (
+            <div
+              key={index}
+              className="rounded-xl bg-white overflow-hidden group shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
+            >
+              <div className="h-72 overflow-hidden relative">
                 <img
-                  src={item?.image}
-                  alt="instructor"
-                  className="w-full rounded-lg h-full object-cover"
+                  src={member.image}
+                  alt={member.name}
+                  className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                 />
-
-                <div className="absolute top-0 left-0 right-0 bottom-0 bg-gray-200 rounded-lg opacity-0 group-hover:opacity-20 duration-500"></div>
-
-                <div className="absolute top-3 group-hover:top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center duration-500 opacity-0  group-hover:opacity-100">
-                  <span className="p-2">
-                    <FaFacebookF className="text-2xl  text-white duration-300 hover:text-[#12A2E0]" />
-                  </span>
-                  <span className="p-2">
-                    <IoLogoTwitter className="text-2xl  text-white duration-300 hover:text-[#12A2E0]" />
-                  </span>
-                  <span className="p-2">
-                    <FaLinkedinIn className="text-2xl  text-white  duration-300 hover:text-[#12A2E0]" />
-                  </span>
-                  <span className="p-2">
-                    <BsInstagram className="text-2xl  text-white  duration-300 hover:text-[#12A2E0]" />
-                  </span>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-end p-6">
+                  <p className="text-white text-center italic mb-4 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                    <FaQuoteLeft className="inline-block mr-2 text-primary/80" size={14} />
+                    {member.quote}
+                  </p>
+                  <div className="flex gap-4 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300 delay-100">
+                    <a
+                      href="#"
+                      className="w-9 h-9 bg-white/90 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors shadow-md"
+                      aria-label="Twitter"
+                    >
+                      <FaTwitter className="h-4 w-4" />
+                    </a>
+                    <a
+                      href="#"
+                      className="w-9 h-9 bg-white/90 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors shadow-md"
+                      aria-label="LinkedIn"
+                    >
+                      <FaLinkedin className="h-4 w-4" />
+                    </a>
+                    <a
+                      href="#"
+                      className="w-9 h-9 bg-white/90 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors shadow-md"
+                      aria-label="Email"
+                    >
+                      <Mail className="h-4 w-4" />
+                    </a>
+                  </div>
                 </div>
               </div>
-              <div className="text-center space-y-2 py-3">
-                <h2 className="text-xl font-semibold">{item?.name}</h2>
-                <p className="text-xs text-[#959393]">{item?.position}</p>
-                <p className="text-[#959393] font-light">{item?.details}</p>
+
+              <div className="p-6">
+                <div className="absolute top-64 right-6 w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center shadow-lg transform -translate-y-1/2 group-hover:rotate-12 transition-transform">
+                  {index === 0 ? "CEO" : index === 1 ? "PM" : "MT"}
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary transition-colors">{member.name}</h3>
+                <p className="text-primary-600 font-medium">{member.title}</p>
+                <p className="text-gray-500 text-sm mt-2">{member.position}</p>
               </div>
-            </Link>
-          </div>
-        ))}
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-16 text-center" data-aos="fade-up" data-aos-delay="400">
+          <a
+            href="/about-team"
+            className="inline-block px-6 py-2 border-2 border-primary text-primary font-medium rounded-lg hover:bg-primary hover:text-white transition-colors"
+          >
+            Meet The Entire Team
+          </a>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
