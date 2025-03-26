@@ -1,82 +1,154 @@
 import { Link } from "react-router-dom";
-import photo from "./../../../../assets/images/photo.png";
+import { useEffect, useState } from "react";
+import useAuth from "@/Hooks/useAuth";
+import useAxios from "@/Hooks/useAxios";
+
 const Profile = () => {
-  const user = {
-    _id: "65f6a1d8e4b09c7823a1b2c3",
-    name: "Sarah Johnson",
-    email: "sarah.johnson@example.com",
-    phone: 9876543210,
-    password: "$2a$10$xH4c2Y5ZvCn7Q8ZnVy3DRe9jGjKHD4GhW6OQh0BZsc1tLnUneKnMq",
-    role: "student",
-    subscription: "standard",
-    progress: [
-      {
-        _id: "65f6a2e1f5d2a3b4c5d6e7f8",
-        chapterId: "65f6a1e2d3c4b5a6978d8e9f",
-        completed: true,
-      },
-      {
-        _id: "65f6a3f2e1d2c3b4a5968d7e",
-        chapterId: "65f6a2f3e4d5c6b7a8d9e0f1",
-        completed: true,
-      },
-      {
-        _id: "65f6a4f3e2d3c4b5a6d7e8f9",
-        chapterId: "65f6a3f4e5d6c7b8a9d0e1f2",
-        completed: false,
-      },
-      {
-        _id: "65f6a5f4e3d4c5b6a7d8e9f0",
-        moduleId: "65f6a4f5e6d7c8b9a0e1f2d3",
-        completed: true,
-      },
-      {
-        _id: "65f6a6f5e4d5c6b7a8d9e0f1",
-        moduleId: "65f6a5f6e7d8c9b0a1e2f3d4",
-        completed: false,
-      },
-    ],
-    createdAt: "2024-03-17T10:25:12.345Z",
-    updatedAt: "2024-03-17T15:30:45.678Z",
+  const UserAxios = useAxios();
+  const { userId } = useAuth();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await UserAxios.get(`/user/get-user/${userId}`);
+        setUser(response.data.data);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    if (userId) {
+      fetchUserData();
+    }
+  }, [userId, UserAxios]);
+
+  if (!user) {
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-teal-500"></div>
+      </div>
+    );
+  }
+
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
   };
 
   return (
-    <div className="bg-white shadow  rounded-2xl p-8 ">
-      <div className="flex flex-col md:flex-row justify-center md:justify-between items-center gap-5">
-        <div className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-x-5 gap-y-2">
-          <img src={photo} alt="photo" />
-          <div>
-            <h2 className="text-2xl font-semibold text-center md:text-start text-[#000]">{user?.name}</h2>
-            <p className="text-[16px] text-center md:text-start text-[#000] opacity-40">{user?.email}</p>
+    <div className="container mx-auto px-4 py-8">
+      <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+        {/* Header Section */}
+        <div className="relative h-48 bg-gradient-to-r from-teal-500 to-teal-600">
+          <div className="absolute -bottom-12 left-8">
+            <div className="bg-white p-2 rounded-full ring-4 ring-white">
+              <div className="w-24 h-24 rounded-full bg-gradient-to-r from-teal-400 to-teal-500 flex items-center justify-center text-3xl text-white font-bold">
+                {user.name.charAt(0).toUpperCase()}
+              </div>
+            </div>
           </div>
         </div>
-        <div className="w-full">
-          <div className="flex justify-end items-end">
-          <Link to="/dashboard/editProfile" >
-          <button className="bg-[#00776D] px-7 py-2 hover:bg-[#84f5ee] text-white hover:text-[#00776D] duration-300 rounded-md">
-            Edit
-          </button>
-        </Link>
+
+        {/* Profile Info */}
+        <div className="pt-16 px-8 pb-8">
+          <div className="flex justify-between items-start">
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">{user.name}</h1>
+              <p className="text-gray-600">{user.role.charAt(0).toUpperCase() + user.role.slice(1)}</p>
+            </div>
+            <Link to="/dashboard/editProfile">
+              <button className="bg-teal-500 hover:bg-teal-600 text-white px-6 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                </svg>
+                Edit Profile
+              </button>
+            </Link>
           </div>
-        </div>
-        
-      </div>
-      <div className="max-w-lg mt-8 md:mt-12 pb-32">
-        <div className="flex justify-between items-center border-b border-gray-100 pb-4">
-          <h3 className="w-3/8 text-[15px] md:text-lg text-[#000] opacity-60">Full Name</h3>
-          <p className="w-5/8 text-[15px] md:text-lg text-[#000] opacity-60 font-semibold">{user?.name}</p>
-        </div>
-        <div className="flex justify-between items-center border-b border-gray-100 pb-4 pt-4">
-          <h3 className="w-3/8 text-[15px] md:text-lg text-[#000] opacity-60">Email</h3>
-          <p className="w-5/8 text-[15px] md:text-lg text-[#000] opacity-60 font-semibold">{user?.email}</p>
-        </div>
-        <div className="flex justify-between items-center border-b border-gray-100 pb-4 pt-4">
-          <h3 className="w-3/8 text-[15px] md:text-lg text-[#000] opacity-60">Phone</h3>
-          <p className="w-5/8 text-[15px] md:text-lg text-[#000] opacity-60 font-semibold">{user?.phone}</p>
-        </div>
-        <div className="flex justify-between items-center border-b border-gray-100 pb-4 pt-4">
-          <h3 className="w-3/8 text-[15px] md:text-lg text-[#000] opacity-60">Member Since</h3>
-          <p className="w-5/8 text-[15px] md:text-lg text-[#000] opacity-60 font-semibold">{user?.createdAt.slice(0, 10)}</p>
+
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Personal Information */}
+            <div className="bg-gray-50 rounded-xl p-6">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Personal Information</h2>
+              <div className="space-y-4">
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Phone</span>
+                  <span className="text-gray-900">{user.phone}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Gender</span>
+                  <span className="text-gray-900">{user.gender || 'Not specified'}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Address</span>
+                  <span className="text-gray-900">{user.address || 'Not specified'}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Joined</span>
+                  <span className="text-gray-900">{formatDate(user.createdAt)}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Academic Information */}
+            <div className="bg-gray-50 rounded-xl p-6">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Academic Information</h2>
+              <div className="space-y-4">
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Class</span>
+                  <span className="text-gray-900">{user.className || 'Not specified'}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Institute</span>
+                  <span className="text-gray-900">{user.institute || 'Not specified'}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Subscription Information */}
+            {user.subscription && (
+              <div className="md:col-span-2 bg-gradient-to-r from-teal-50 to-emerald-50 rounded-xl p-6">
+                <h2 className="text-lg font-semibold text-gray-900 mb-4">Subscription Details</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-4">
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Plan</span>
+                      <span className="text-gray-900 capitalize">{user.subscription.plan}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Status</span>
+                      <span className="px-3 py-1 rounded-full text-sm capitalize
+                        ${user.subscription.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}">
+                        {user.subscription.status}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Amount</span>
+                      <span className="text-gray-900">{user.subscription.amount} BDT</span>
+                    </div>
+                  </div>
+                  <div className="space-y-4">
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Start Date</span>
+                      <span className="text-gray-900">{formatDate(user.subscription.startDate)}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">End Date</span>
+                      <span className="text-gray-900">{formatDate(user.subscription.endDate)}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Transaction ID</span>
+                      <span className="text-gray-900">{user.subscription.transactionId}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
