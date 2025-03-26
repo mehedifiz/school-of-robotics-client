@@ -1,6 +1,6 @@
 // src/pages/books/BookReading/BookReading.jsx
 import { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
 import { FaArrowLeft, FaBook, FaCheckCircle, FaChevronRight, FaLock, FaQuestionCircle } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
@@ -17,6 +17,7 @@ const BookReading = () => {
   const navigate = useNavigate();
   const axios = useAxios();
   const { user } = useAuth();
+  const location = useLocation();
 
   // Fetch book details
   const { data: bookData, isLoading: bookLoading } = useQuery({
@@ -53,6 +54,25 @@ const BookReading = () => {
       return res.data;
     },
     enabled: !!bookId && !!user?._id,
+  });
+
+  // Add a new query to fetch quiz submission data
+  const { data: quizData, isLoading: quizLoading } = useQuery({
+    queryKey: ["chapter-quiz", activeChapter?.quizId, user?._id],
+    queryFn: async () => {
+      if (!activeChapter?.quizId) return null;
+      try {
+        const res = await axios.get(`/quiz/get-quiz-by-chapter/${activeChapter._id}`);
+        return res.data.data;
+      } catch (error) {
+        // Quiz might not exist for this chapter
+        if (error.response?.status === 404) {
+          return null;
+        }
+        throw error;
+      }
+    },
+    enabled: !!activeChapter?.quizId && !!user?._id,
   });
 
   // Set active chapter based on route params or default to first chapter
@@ -100,6 +120,13 @@ const BookReading = () => {
 
   // Protect Unlocked Chapters from Direct URL Access
   useEffect(() => {
+    // Skip protection if coming from quiz completion
+    if (location.state?.justCompletedQuiz) {
+      // Optionally force refetch progress to update the local state
+      refetchProgress();
+      return;
+    }
+
     // Check if the current chapter is unlocked
     if (activeChapter && chapters.length > 0 && !isChapterUnlocked(activeChapter)) {
       toast.error("This chapter is locked. Complete the previous chapters first.");
@@ -112,7 +139,15 @@ const BookReading = () => {
         navigate("/dashboard/student-book", { replace: true });
       }
     }
-  }, [activeChapter, chapters, bookProgress]);
+  }, [activeChapter, chapters, bookProgress, location.state]);
+
+  useEffect(() => {
+    // Clean up the navigation state after it's been used
+    if (location.state?.justCompletedQuiz) {
+      // This will clear the state after using it
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
 
   // security measures
   useSecurityMeasures();
@@ -140,7 +175,13 @@ const BookReading = () => {
   // Handle take quiz button click
   const handleTakeQuiz = () => {
     if (activeChapter && activeChapter.quizId) {
-      navigate(`/dashboard/book-quiz/${bookId}/chapter/${activeChapter._id}`);
+      if (quizData?.userSubmission) {
+        // If quiz is already submitted, go to details view
+        navigate(`/dashboard/quiz-details/${bookId}/chapter/${activeChapter._id}/submission/${quizData.userSubmission._id}`);
+      } else {
+        // If quiz is not submitted, go to quiz page
+        navigate(`/dashboard/book-quiz/${bookId}/chapter/${activeChapter._id}`);
+      }
     } else {
       toast.error("No quiz available for this chapter.");
     }
@@ -205,9 +246,33 @@ const BookReading = () => {
 
           {/* Actions */}
           <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-between">
-            <button onClick={handleTakeQuiz} className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-lg flex items-center justify-center gap-2">
-              <FaQuestionCircle /> Take Chapter Quiz
-            </button>
+            {quizData?.userSubmission ? (
+              <div className="bg-white border border-gray-200 rounded-lg px-6 py-3 flex items-center gap-3">
+                <div className={`p-2 rounded-full ${quizData.userSubmission.passed ? "bg-green-100" : "bg-amber-100"}`}>
+                  {quizData.userSubmission.passed ? (
+                    <FaCheckCircle className="text-green-600 text-lg" />
+                  ) : (
+                    <FaQuestionCircle className="text-amber-600 text-lg" />
+                  )}
+                </div>
+                <div>
+                  <div className="font-medium text-gray-800">{quizData.userSubmission.passed ? "Quiz Passed" : "Quiz Attempted"}</div>
+                  <div className="text-sm text-gray-500">
+                    Score: {quizData.userSubmission.score * (100 / 10)}% •{new Date(quizData.userSubmission.createdAt).toLocaleDateString()}
+                  </div>
+                </div>
+                <button onClick={handleTakeQuiz} className="ml-4 text-primary text-sm hover:underline">
+                  View Details
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={handleTakeQuiz}
+                className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-lg flex items-center justify-center gap-2"
+              >
+                <FaQuestionCircle /> Take Chapter Quiz
+              </button>
+            )}
 
             <button
               onClick={handleNextChapter}
@@ -236,22 +301,20 @@ const BookReading = () => {
                       isActive ? "border-primary bg-primary/5" : isUnlocked ? "border-gray-200 hover:bg-gray-50" : "border-gray-200 bg-gray-50 opacity-70"
                     }`}
                   >
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between" title={chapter.title}>
                       {isUnlocked ? (
                         <Link
                           to={`/dashboard/book-reading/${bookId}/chapter/${chapter._id}`}
                           className={`flex-1 ${isActive ? "font-medium text-primary" : ""}`}
                         >
                           <div className="flex items-center">
-                            <span className="mr-2">Chapter {chapter.chapterNo}:</span>
-                            <span className="truncate">{chapter.title}</span>
+                            <span className="mr-2">Chapter {chapter.chapterNo}</span>
                           </div>
                         </Link>
                       ) : (
                         <div className="flex-1 text-gray-500">
                           <div className="flex items-center">
-                            <span className="mr-2">Chapter {chapter.chapterNo}:</span>
-                            <span className="truncate">{chapter.title}</span>
+                            <span className="mr-2">Chapter {chapter.chapterNo}</span>
                           </div>
                         </div>
                       )}

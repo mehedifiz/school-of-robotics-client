@@ -96,13 +96,13 @@ const PDFViewer = ({ pdfUrl, title }) => {
       <div className="flex">
         {/* Thumbnail Sidebar */}
         {/* {thumbnailVisible && ( */}
-        <div className={`${thumbnailVisible ? "w-20" : "w-0"} border-r border-gray-200 overflow-y-auto duration-500`}>
+        <div className={`${thumbnailVisible ? "w-20 sm:w-24" : "w-0"} border-r border-gray-200 overflow-hidden max-h-[600px] duration-500`}>
           <Thumbnails />
         </div>
         {/* )} */}
 
         {/* PDF Viewer */}
-        <div className="border border-gray-200 rounded-lg h-[600px] relative flex-1">
+        <div className="border border-gray-200 rounded-lg h-[600px] max-h-[600px] relative flex-1">
           {/* Custom watermark */}
           <div style={watermarkStyle}>
             <div style={watermarkTextStyle}>

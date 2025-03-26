@@ -6,7 +6,7 @@ import useAuth from "@/Hooks/useAuth";
 import Loader from "@/components/shared/Loader";
 import { FaSearch, FaBook, FaBookOpen, FaLock } from "react-icons/fa";
 
-const Books = () => {
+const StudentBooks = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   const axios = useAxios();
@@ -144,7 +144,7 @@ const Books = () => {
             return (
               <div
                 key={book._id}
-                className={`bg-white rounded-xl shadow-sm overflow-hidden border transition-transform duration-300 hover:shadow-md ${
+                className={`bg-white rounded-xl shadow-sm overflow-hidden border transition-transform duration-300 hover:shadow-md flex flex-col justify-between ${
                   canAccess ? "hover:scale-[1.02] cursor-pointer" : "opacity-80"
                 }`}
                 onClick={() => canAccess && handleSelectBook(book)}
@@ -157,6 +157,11 @@ const Books = () => {
                     <span className={`capitalize text-xs font-semibold px-2.5 py-1 rounded-full ${getPlanBadgeStyle(book.plan)}`}>{book.plan}</span>
                   </div>
 
+                  <div className="p-4">
+                    <h3 className="font-bold text-gray-800 mb-1">{book.name}</h3>
+                    <p className="text-sm text-gray-500 mb-3">by {book.author}</p>
+                  </div>
+
                   {/* Lock overlay if not accessible */}
                   {!canAccess && (
                     <div className="absolute inset-0 bg-black/60 flex items-center justify-center flex-col">
@@ -167,10 +172,7 @@ const Books = () => {
                   )}
                 </div>
 
-                <div className="p-4">
-                  <h3 className="font-bold text-gray-800 mb-1">{book.name}</h3>
-                  <p className="text-sm text-gray-500 mb-3">by {book.author}</p>
-
+                <div className="px-4 pb-4">
                   {/* Chapter count */}
                   <div className="flex items-center justify-between text-sm mb-3">
                     <span className="text-gray-600 flex items-center">
@@ -226,4 +228,4 @@ const Books = () => {
   );
 };
 
-export default Books;
+export default StudentBooks;

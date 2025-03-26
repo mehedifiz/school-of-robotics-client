@@ -7,7 +7,7 @@ import { CiMenuBurger } from "react-icons/ci";
 import { HiOutlineUsers } from "react-icons/hi";
 import { HiOutlineArchiveBox, HiOutlineDocumentText } from "react-icons/hi2";
 import { IoIosLogOut } from "react-icons/io";
-import { SiGoogletagmanager } from "react-icons/si";
+import { SiApplenews, SiGoogletagmanager } from "react-icons/si";
 import { AiOutlineFileAdd } from "react-icons/ai";
 import { LiaUserLockSolid } from "react-icons/lia";
 import { MdOutlineCloudDownload } from "react-icons/md";
@@ -168,6 +168,12 @@ const DashboardSidebar = () => {
                   <NavLink to="/dashboard/plan" className={linkStyles} onClick={handleMobileClick}>
                     <TbBrandPlanetscale size={20} />
                     <span>Plan</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/notice" className={linkStyles} onClick={handleMobileClick}>
+                    <SiApplenews size={20} />
+                    <span>Notice</span>
                   </NavLink>
                 </li>
               </div>
