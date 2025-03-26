@@ -28,6 +28,8 @@ import ManageNotice from "@/pages/dashboard/admin/ManageNotice/ManageNotice";
 import Notice from "@/pages/dashboard/student/notice/Notice";
 import BookReading from "@/pages/dashboard/student/BookReading/BookReading";
 import BookQuiz from "@/pages/dashboard/student/BookQuiz/BookQuiz";
+import PaymentFailed from "@/pages/Payment/PaymentFailed";
+import PaymentSuccess from "@/pages/Payment/PaymentSuccess";
 import QuizDetails from "@/pages/dashboard/student/BookQuiz/QuizDetails";
 
 
@@ -68,6 +70,14 @@ const router = createBrowserRouter([
       {
         path: "verify-otp",
         element: <VerifyOTP />,
+      },
+      {
+        path: "payment/failed",
+        element: <PaymentFailed />,
+      },
+      {
+        path: "payment/success",
+        element: <PaymentSuccess/>, 
       },
     ],
   },
