@@ -60,7 +60,7 @@ const ContactUs = () => {
   };
 
   return (
-    <section id="contact" className={`bg-gray-50 pt-16 pb-16 md:pb-28 px-6 lg:px-8 ${pathname === "/contact" ? "mt-24" : ""}`}>
+    <section id="contact" className={`bg-gray-50 pb-16 md:pb-28 px-6 lg:px-8 ${pathname === "/contact" ? "pt-44" : "pt-16"}`}>
       <div className="max-w-7xl mx-auto">
         <SectionHeader
           badge="Get In Touch"

@@ -49,7 +49,7 @@ const Management = () => {
   ];
 
   return (
-    <section id="team" className={`bg-gradient-to-b from-gray-50 to-white py-20 relative overflow-hidden ${pathname === "/management" ? "mt-24" : ""}`}>
+    <section id="team" className={`bg-gradient-to-b from-gray-50 to-white pb-20 relative overflow-hidden ${pathname === "/management" ? "pt-44" : "pt-20"}`}>
       {/* Decorative elements */}
       <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/5 rounded-full blur-3xl"></div>
       <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-blue-500/5 rounded-full blur-3xl"></div>
