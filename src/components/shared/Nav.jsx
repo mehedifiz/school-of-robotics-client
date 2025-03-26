@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Link, useLocation } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 import useAuth from "@/Hooks/useAuth";
 
 const Nav = () => {
@@ -42,13 +42,13 @@ const Nav = () => {
 
         <nav className="hidden lg:flex items-center gap-1">
           {navItems.map((item) => (
-            <Link
+            <NavLink
               key={item.name}
               to={item.href}
               className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary transition-colors relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all hover:after:w-full"
             >
               {item.name}
-            </Link>
+            </NavLink>
           ))}
           {user ? (
             <Button onClick={logoutUser} className="ml-4 bg-primary hover:bg-primary/90 text-white">
