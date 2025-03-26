@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import useAuth from "@/Hooks/useAuth";
@@ -8,6 +8,7 @@ import useAuth from "@/Hooks/useAuth";
 const Nav = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const { user, logoutUser } = useAuth();
   const { pathname } = useLocation();
 
@@ -36,11 +37,13 @@ const Nav = () => {
       )}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
+        {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
           <img src="/src/assets/home/logo-dark.png" alt="SRS Logo" className="h-11 w-auto" />
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-1">
+        {/* Desktop Navigation */}
+        <nav className="hidden lg:flex items-center gap-6">
           {navItems.map((item) => (
             <NavLink
               key={item.name}
@@ -50,20 +53,56 @@ const Nav = () => {
               {item.name}
             </NavLink>
           ))}
-          {user ? (
-            <Button onClick={logoutUser} className="ml-4 bg-primary hover:bg-primary/90 text-white">
-              Logout
-            </Button>
-          ) : (
+
+          {/* User Profile Dropdown */}
+          {!user && (
             <Button asChild className="ml-4 bg-primary hover:bg-primary/90 text-white">
               <Link to="/login">Login</Link>
             </Button>
           )}
         </nav>
 
-        <button className="lg:hidden text-gray-700 relative z-50" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu">
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="flex items-center gap-6">
+          {user ? (
+            <div className="relative">
+              <button
+                onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+                className="flex items-center gap-2 bg-gray-200 hover:bg-gray-300 px-2 py-2 rounded-full"
+              >
+                <User size={20} className="text-gray-600" />
+              </button>
+
+              {profileMenuOpen && (
+                <div className="absolute right-0 mt-4 w-48 bg-white shadow-lg rounded-lg p-3">
+                  <Link to="/profile" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    Profile
+                  </Link>
+                  <Link to="/dashboard" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    Dashboard
+                  </Link>
+                  <button
+                    onClick={() => {
+                      logoutUser();
+                      setProfileMenuOpen(false);
+                    }}
+                    className="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-50"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <Button asChild className="ml-4 bg-primary hover:bg-primary/90 text-white">
+              <Link to="/login">Login</Link>
+            </Button>
+          )}
+
+          {/* Mobile Menu Toggle Button */}
+          <button className="lg:hidden text-gray-700 relative z-50" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu">
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Navigation */}
@@ -73,7 +112,7 @@ const Nav = () => {
           mobileMenuOpen ? "translate-x-0" : "translate-x-full"
         )}
       >
-        <nav className="flex flex-col gap-4 bg-white px-6 pb-6">
+        <nav className="flex flex-col gap-4 bg-white px-6 pb-6 relative">
           {navItems.map((item) => (
             <Link
               key={item.name}
@@ -84,23 +123,8 @@ const Nav = () => {
               {item.name}
             </Link>
           ))}
-          {user ? (
-            <Button
-              onClick={() => {
-                logoutUser();
-                setMobileMenuOpen(false);
-              }}
-              className="mt-4 bg-primary hover:bg-primary/90 text-white"
-            >
-              Logout
-            </Button>
-          ) : (
-            <Button asChild className="mt-4 bg-primary hover:bg-primary/90 text-white">
-              <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
-                Login
-              </Link>
-            </Button>
-          )}
+          {/* User Profile Dropdown */}
+
         </nav>
       </div>
     </header>
