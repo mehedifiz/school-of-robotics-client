@@ -104,12 +104,7 @@ const DashboardSidebar = () => {
                     <span className="max-w-[165px]">Manage Chapters Quizzes</span>
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink to="/dashboard/addPlan" className={linkStyles} onClick={handleMobileClick}>
-                    <AiOutlineFileAdd size={20} />
-                    <span className="max-w-[165px]">Add a Plan</span>
-                  </NavLink>
-                </li>
+                
                 <li>
                   <NavLink to="/dashboard/managePlan" className={linkStyles} onClick={handleMobileClick}>
                     <SiGoogletagmanager size={20} />
@@ -134,36 +129,16 @@ const DashboardSidebar = () => {
                     <span>Dashboard</span>
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink to="/dashboard/classes" className={linkStyles} onClick={handleMobileClick}>
-                    <HiOutlineArchiveBox size={20} />
-                    <span>Classes</span>
-                  </NavLink>
-                </li>
+                
                 <li>
                   <NavLink to="/dashboard/student-book" className={linkStyles} onClick={handleMobileClick}>
                     <BookOpen size={20} />
                     <span>My Books</span>
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink to="/dashboard/groups" className={linkStyles} onClick={handleMobileClick}>
-                    <HiOutlineUsers size={20} />
-                    <span>Groups</span>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/dashboard/schedule" className={linkStyles} onClick={handleMobileClick}>
-                    <BsCalendar4Week size={20} />
-                    <span>Schedule</span>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/dashboard/documents" className={linkStyles} onClick={handleMobileClick}>
-                    <MdOutlineCloudDownload size={20} />
-                    <span>Documents</span>
-                  </NavLink>
-                </li>
+                
+                
+                
                 <li>
                   <NavLink to="/dashboard/plan" className={linkStyles} onClick={handleMobileClick}>
                     <TbBrandPlanetscale size={20} />
