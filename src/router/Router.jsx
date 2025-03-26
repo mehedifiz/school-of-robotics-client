@@ -27,6 +27,8 @@ import UpdatePlan from "@/pages/dashboard/admin/ManagePlan/UpdatePlan";
 import ManageNotice from "@/pages/dashboard/admin/ManageNotice/ManageNotice";
 import BookReading from "@/pages/dashboard/student/BookReading/BookReading";
 import BookQuiz from "@/pages/dashboard/student/BookQuiz/BookQuiz";
+import PaymentFailed from "@/pages/Payment/PaymentFailed";
+import PaymentSuccess from "@/pages/Payment/PaymentSuccess";
 
 
 const router = createBrowserRouter([
@@ -66,6 +68,14 @@ const router = createBrowserRouter([
       {
         path: "verify-otp",
         element: <VerifyOTP />,
+      },
+      {
+        path: "payment/failed",
+        element: <PaymentFailed />,
+      },
+      {
+        path: "payment/success",
+        element: <PaymentSuccess/>, 
       },
     ],
   },
