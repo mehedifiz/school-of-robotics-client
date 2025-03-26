@@ -5,6 +5,7 @@ import useAuth from "@/Hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { FaArrowLeft, FaCheckCircle, FaSpinner, FaLock, FaExchangeAlt, FaCreditCard, FaMobileAlt, FaUniversity, FaWallet } from "react-icons/fa";
+import { TbCreditCardPay } from "react-icons/tb";
 import Loader from "@/components/shared/Loader";
 import SSLCommerzLogo from "@/assets/utility/sslcommerz.png";
 
@@ -43,15 +44,6 @@ const Checkout = () => {
       month: "long",
       day: "numeric",
     });
-  };
-
-  // Format currency
-  const formatCurrency = (amount) => {
-    return new Intl.NumberFormat("bn-BD", {
-      style: "currency",
-      currency: "BDT",
-      maximumFractionDigits: 0,
-    }).format(amount);
   };
 
   // If no plan is selected, redirect to plans page
@@ -208,7 +200,7 @@ const Checkout = () => {
 
                     <div className="flex justify-between items-center py-3">
                       <span className="text-gray-600">Subscription Price</span>
-                      <span className="font-medium">{formatCurrency(plan.price)}</span>
+                      <span className="font-medium">BDT {plan.price}</span>
                     </div>
 
                     <div className="flex justify-between items-center py-3 border-t border-gray-200">
@@ -225,7 +217,7 @@ const Checkout = () => {
 
                     <div className="flex justify-between items-center py-4 border-t border-gray-200 mt-2">
                       <span className="text-lg font-semibold text-gray-800">Total Amount</span>
-                      <span className="text-lg font-bold text-primary">{formatCurrency(plan.price)}</span>
+                      <span className="text-lg font-bold text-primary">BDT {plan.price}</span>
                     </div>
                   </div>
 
@@ -253,7 +245,7 @@ const Checkout = () => {
                         </>
                       ) : (
                         <>
-                          <FaLock className="mr-2" /> Proceed to Secure Payment
+                          <TbCreditCardPay className="text-xl mr-2" /> Proceed to Secure Payment
                         </>
                       )}
                     </button>
