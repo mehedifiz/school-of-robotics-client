@@ -124,10 +124,7 @@ const router = createBrowserRouter([
         path: "manage-chapter-quizzes",
         element: <ManageChaptersQuiz />,
       },
-      {
-        path: 'addPlan',
-        element: <AddPlan />
-      },
+       
       {
         path: 'managePlan',
         element: <ManagePlans />
