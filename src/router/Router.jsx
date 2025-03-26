@@ -79,16 +79,26 @@ const router = createBrowserRouter([
       },
       {
         path: "payment/failed",
-        element: <PaymentFailed />,
+        element: (
+          <PrivateRoute>
+            <PaymentFailed />
+          </PrivateRoute>
+        ),
       },
       {
         path: "payment/success",
-        element: <PaymentSuccess/>, 
+        element: (
+          <PrivateRoute>
+            <PaymentSuccess />
+          </PrivateRoute>
+        ), 
       },
       {
         path: "payment/checkout",
         element: (
+          <PrivateRoute>
             <Checkout />
+          </PrivateRoute>
         ),
       },
     ],
