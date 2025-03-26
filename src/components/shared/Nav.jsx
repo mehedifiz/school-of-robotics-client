@@ -1,151 +1,113 @@
+import { useState, useEffect } from 'react';
+import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
+import { cn } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 import useAuth from "@/Hooks/useAuth";
-import { useEffect, useState } from "react";
-import { HiMenu, HiSearch, HiX } from "react-icons/hi";
-import { Link, NavLink } from "react-router-dom";
-import logoDark from "../../assets/home/logo-dark.png";
-import logoLight from "../../assets/home/logo-light.png";
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+const Nav = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, logoutUser } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 20);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const navItems = [
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
+    { name: 'Programs', href: '/books' },
+    { name: 'Packages', href: '/pricing' },
+    { name: 'Team', href: '/management' },
+    { name: 'Contact', href: '/contact' }
+  ];
+
   return (
-    <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white  "
-          : " bg-teal-50  "
-      }`}
+    <header 
+      className={cn(
+        'fixed top-0 w-full z-50 transition-all duration-300 ease-in-out py-4 px-6 lg:px-8',
+        scrolled ? 'bg-white/90 backdrop-blur-md shadow-sm' : 'bg-transparent'
+      )}
     >
-      <div className=" mx-auto px-6 py-3 flex items-center justify-between">
-        {/* Logo */}
-        <Link to="/" className="flex items-center">
-          <img
-            src={isScrolled ? logoDark : logoLight}
-            alt="Logo"
-            className="h-8 transition-all duration-300"
-          />
+      <div className="max-w-7xl mx-auto flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-2">
+          <img src="/src/assets/home/logo-dark.png" alt="SRS Logo" className="h-11 w-auto" />
         </Link>
-
-        {/* Desktop Navigation */}
-        <div className="hidden lg:flex items-center space-x-8">
-          <ul className="flex space-x-6 text-l text-sm font-sm">
-            {["home", "about", "books", "contact", "dashboard"].map((link) => (
-              <NavLink
-                key={link}
-                to={`/${link}`}
-                className={({ isActive }) =>
-                  `px-3 py-2 transition duration-300 text-teal-950 font-semibold ${
-                    isActive
-                      ? "hover:text-teal-700 underline underline-offset-4"
-                      : ""
-                  }`
-                }
-              >
-                {link.charAt(0).toUpperCase() + link.slice(1)}
-              </NavLink>
-            ))}
-          </ul>
-
-          {/* Search Bar */}
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search..."
-              className="w-48 pl-10 pr-4 py-1 border bg-teal-50 border-teal-400 rounded-full shadow-lg focus:ring-2 focus:ring-teal-500"
-            />
-            <HiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-teal-500 w-5 h-5" />
-          </div>
-
-          {/* Auth Buttons */}
+        
+        <nav className="hidden lg:flex items-center gap-1">
+          {navItems.map((item) => (
+            <Link 
+              key={item.name}
+              to={item.href}
+              className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary transition-colors relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all hover:after:w-full"
+            >
+              {item.name}
+            </Link>
+          ))}
           {user ? (
-            <button
-              onClick={logoutUser}
-              className="bg-[#00635A] hover:bg-[#004d40] text-white px-6 py-2 rounded-full shadow-lg  font-semibold transition duration-300 "
+            <Button 
+              onClick={logoutUser} 
+              className="ml-4 bg-primary hover:bg-primary/90 text-white"
             >
               Logout
-            </button>
+            </Button>
           ) : (
-            <Link
-              to="/login"
-              className=" px-6 py-1  rounded-2xl bg-[#00635A] hover:bg-[#004d40] shadow-lg text-white font-semibold transition duration-300 hover:text-teal-50 "
-            >
-              Sign Up
-            </Link>
+            <Button asChild className="ml-4 bg-primary hover:bg-primary/90 text-white">
+              <Link to="/login">Login</Link>
+            </Button>
           )}
-        </div>
-
-        {/* Mobile Menu Button */}
-        <button
-          className="lg:hidden text-3xl text-white"
-          onClick={() => setIsOpen(!isOpen)}
+        </nav>
+        
+        <button 
+          className="lg:hidden text-gray-700 relative z-50"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
         >
-          {isOpen ? <HiX className="text-gray-800" /> : <HiMenu  className="text-gray-800" />}
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
-
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="fixed top-0 right-0 w-64 h-full bg-[#1D3F4E] text-white flex flex-col p-6 shadow-lg transform transition-transform duration-300 lg:hidden">
-          <button
-            className="absolute top-5 right-5 text-2xl"
-            onClick={() => setIsOpen(false)}
-          >
-            <HiX />
-          </button>
-
-          {/* Search Input for Mobile */}
-          <div className="relative mt-10 mb-6">
-            <input
-              type="text"
-              placeholder="Search..."
-              className="w-full pl-10 pr-4 py-2 border border-teal-300 rounded-full focus:ring-2 focus:ring-teal-500 text-gray-100"
-            />
-            <HiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-teal-500 w-5 h-5" />
-          </div>
-
-          <ul className="flex flex-col space-y-4 text-lg font-medium">
-            {["home", "about", "course", "contact", "dashboard"].map((link) => (
-              <NavLink
-                key={link}
-                to={`/${link}`}
-                className="py-2 transition duration-300 hover:text-gray-300"
-                onClick={() => setIsOpen(false)}
-              >
-                {link.charAt(0).toUpperCase() + link.slice(1)}
-              </NavLink>
-            ))}
-          </ul>
-
-          {/* Auth Buttons */}
+      
+      {/* Mobile Navigation */}
+      <div className={cn(
+        "fixed inset-0 bg-white z-40 pt-24 transform transition-transform duration-300 ease-in-out lg:hidden",
+        mobileMenuOpen ? "translate-x-0" : "translate-x-full"
+      )}>
+        <nav className="flex flex-col gap-4 bg-white px-6 pb-6">
+          {navItems.map((item) => (
+            <Link
+              key={item.name}
+              to={item.href}
+              className="py-3 text-lg font-medium text-gray-700 hover:text-primary border-b border-gray-100"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {item.name}
+            </Link>
+          ))}
           {user ? (
-            <button
-              onClick={logoutUser}
-              className="mt-6 bg-teal-700 px-6 py-2 rounded-full text-white font-semibold transition duration-300 hover:bg-teal-800"
+            <Button 
+              onClick={() => {
+                logoutUser();
+                setMobileMenuOpen(false);
+              }} 
+              className="mt-4 bg-primary hover:bg-primary/90 text-white"
             >
               Logout
-            </button>
+            </Button>
           ) : (
-            <Link
-              to="/login"
-              className="mt-6 bg-white px-6 py-2 rounded-full text-teal-700 font-semibold transition duration-300 hover:bg-teal-200"
-            >
-              Signup
-            </Link>
+            <Button asChild className="mt-4 bg-primary hover:bg-primary/90 text-white">
+              <Link to="/login" onClick={() => setMobileMenuOpen(false)}>Login</Link>
+            </Button>
           )}
-        </div>
-      )}
-    </nav>
+        </nav>
+      </div>
+    </header>
   );
 };
 
-export default Navbar;
+export default Nav;

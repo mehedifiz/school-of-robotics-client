@@ -1,23 +1,51 @@
-import OnlineProgramSection from "@/pages/home/OnlineProgramSection";
-import OurProgram from "@/pages/home/OurProgram";
-import PricingSection from "@/pages/home/PricingSection";
-import StayConnected from "@/pages/home/StayConnected";
-import FeatureSection from "@/components/utility/FeatureSection";
-import ContactUs from "../contactUs/ContactUs";
-import Management from "../management/Management";
+import { useEffect } from "react";
 import Banner from "./Banner";
+import OurProgram from "./OurProgram";
+import OnlineProgramSection from "./OnlineProgramSection";
+import StayConnected from "./StayConnected";
+import PricingSection from "./PricingSection";
+import Management from "../management/Management";
+import ContactUs from "../contactUs/ContactUs";
+import ScrollToTop from "@/components/utility/ScrollToTop";
+import Development from "./Development";
+import "./Home.css";
 
 const Home = () => {
+  useEffect(() => {
+    const revealElements = () => {
+      const reveals = document.querySelectorAll(".reveal");
+
+      for (let i = 0; i < reveals.length; i++) {
+        const windowHeight = window.innerHeight;
+        const elementTop = reveals[i].getBoundingClientRect().top;
+        const elementVisible = 150;
+
+        if (elementTop < windowHeight - elementVisible) {
+          reveals[i].classList.add("active");
+        }
+      }
+    };
+
+    window.addEventListener("scroll", revealElements);
+    revealElements(); // Call once on initial load
+
+    return () => window.removeEventListener("scroll", revealElements);
+  }, []);
+
   return (
-    <div>
-      <Banner />
-      <OurProgram />
-      <OnlineProgramSection />
-      <FeatureSection />
-      <StayConnected />
-      <PricingSection />
-      <Management />
-      <ContactUs />
+    <div className="min-h-screen bg-white">
+      <main>
+        <Banner />
+        <OurProgram />
+        <Development />
+        <OnlineProgramSection />
+        <StayConnected />
+        <PricingSection />
+        <Management />
+        <ContactUs />
+      </main>
+
+      <ScrollToTop />
     </div>
   );
 };

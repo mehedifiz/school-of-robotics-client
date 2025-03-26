@@ -1,145 +1,97 @@
-import AOS from "aos";
 import { useEffect } from "react";
+import { CheckCircle2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import SectionHeader from "@/components/utility/SectionHeader";
 
 const PricingSection = () => {
   useEffect(() => {
-    AOS.init();
+    AOS.init({
+      duration: 800,
+      once: true,
+      easing: "ease-out",
+    });
   }, []);
 
+  const packages = [
+    {
+      title: "Standard",
+      price: "BDT 2000",
+      period: "/Monthly",
+      features: ["10+ Classes", "1+ Projects", "Build Tools"],
+    },
+    {
+      title: "Premium",
+      price: "BDT 3000",
+      period: "/Monthly",
+      popular: true,
+      features: ["20+ Classes", "3+ Projects", "Build Tools", "Free Update"],
+    },
+    {
+      title: "Enterprise",
+      price: "BDT 5000",
+      period: "/Monthly",
+      features: ["30+ Classes", "5+ Projects", "Build Tools", "Free Update", "Source Files"],
+    },
+  ];
+
   return (
-    <section
-      id="pricing"
-      className="py-16 relative text-white transition-colors duration-300 "
-    >
-      <div className="container mx-auto px-4">
-        <div className="flex justify-center mb-12">
-          <div className="max-w-2xl text-center">
-            <h2 className="text-3xl font-bold mb-4 text-teal-950">Packages</h2>
-            <p className="text-teal-950 text-lg">
-              There are different e-learning packages available. In each
-              package, you get high-quality e-learning, excellent resources, and
-              many more...
-            </p>
-          </div>
-        </div>
+    <section id="packages" className="bg-white py-16 md:py-28 px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <SectionHeader
+          badge="Our Pricing"
+          title="Packages"
+          description="There are different e-learning packages available. In each package, you get high-quality e-learning, excellent resources, and many more..."
+        />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Standard Plan */}
-          <PricingCard
-            plan="Standard"
-            price="BDT 2000"
-            features={["12+ Classes", "1+ Projects", "Build Tools"]}
-            unavailable={["Free Update", "Source Files"]}
-          />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {packages.map((pkg, index) => (
+            <div
+              key={index}
+              className={cn("glass-card p-8 transition-all duration-300 hover:shadow-xl relative flex flex-col justify-between")}
+              style={{
+                borderColor: pkg.popular ? "#00776d" : "rgba(128, 128, 128, 0.07)",
+                borderWidth: pkg.popular ? "2px" : "1px",
+              }}
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
+            >
+              <div>
+                {pkg.popular && (
+                  <div className="absolute top-0 right-0 -translate-y-1/2 px-4 py-1 bg-primary text-white text-xs font-bold rounded-full">POPULAR</div>
+                )}
 
-          {/* Premium Plan (Most Popular) */}
-          <PricingCard
-            plan="Premium"
-            price="BDT 3000"
-            features={[
-              "24+ Classes",
-              "3+ Projects",
-              "Build Tools",
-              "Free Update",
-            ]}
-            unavailable={["Source Files"]}
-            highlight
-          />
+                <h3 className="text-xl font-bold mb-2">{pkg.title}</h3>
+                <div className="mb-6">
+                  <span className="text-3xl font-bold">{pkg.price}</span>
+                  <span className="text-gray-500">{pkg.period}</span>
+                </div>
 
-          {/* Enterprise Plan */}
-          <PricingCard
-            plan="Enterprise"
-            price="BDT 5000"
-            features={[
-              "36+ Classes",
-              "5+ Projects",
-              "Build Tools",
-              "Free Update",
-              "Source Files",
-            ]}
-          />
+                <div className="space-y-3 mb-8">
+                  {pkg.features.map((feature, idx) => (
+                    <div key={idx} className="flex items-center">
+                      <CheckCircle2 className="h-5 w-5 text-primary mr-3" />
+                      <span>{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <Button
+                className={cn(
+                  "w-full",
+                  pkg.popular ? "bg-primary hover:bg-primary-600 text-white" : "bg-white border-2 border-primary text-primary hover:bg-primary-50"
+                )}
+              >
+                Choose Plan
+              </Button>
+            </div>
+          ))}
         </div>
       </div>
     </section>
-  );
-};
-
-const PricingCard = ({ plan, price, features, highlight }) => {
-  return (
-    <div
-      className={`relative group ${highlight ? "border-2 border-teal-700" : ""}
-     text-black rounded-lg border overflow-hidden mx-1 mt-4 
-      hover:shadow-lg hover:scale-105 transition-transform duration-300`}
-    >
-      {highlight && (
-        <span className="absolute top-9 text-xs right-0 bg-white text-teal-600 font-bold px-2 py-1 uppercase shadow-md rotate-90 translate-x-6 -translate-y-4">
-          POPULAR
-        </span>
-      )}
-
-      <div className={`p-6 border-b group-hover:bg-teal-700 group-hover:text-white transition-colors duration-300 ${highlight ? "bg-teal-700 text-white" : ""}`}>
-        <h6 className="text-lg font-medium">{plan}</h6>
-        <h1 className="text-3xl font-bold mt-2">
-          {price}{" "}
-          <span className={`text-sm font-normal group-hover:text-gray-300 transition-colors duration-300 ${highlight ? "text-gray-300" : "text-gray-500"}`}>/-Monthly</span>
-        </h1>
-      </div>
-
-      <div className="p-6 h-80 flex flex-col justify-between relative">
-        <ul className="space-y-4">
-          {features.map((text, index) => (
-            <PricingFeature key={index} text={text} checked={true} />
-          ))}
-        </ul>
-
-        <div className="w-full flex justify-center">
-          <button className={`w-full py-2 px-4 border border-teal-600 text-teal-600 rounded-md group-hover:bg-teal-600 group-hover:text-white transition-colors duration-300 ${highlight ? "bg-teal-600 text-white" : ""}`}>
-            Choose Plan
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const PricingFeature = ({ text, checked }) => {
-  return (
-    <li className="flex items-center">
-      <div className="flex-shrink-0">
-        <div className="h-6 w-6 rounded-full bg-teal-100 flex items-center justify-center">
-          {checked ? (
-            <svg
-              className="h-4 w-4 text-teal-600"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                clipRule="evenodd"
-              />
-            </svg>
-          ) : (
-            <svg
-              className="h-4 w-4 text-teal-600"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                clipRule="evenodd"
-              />
-            </svg>
-          )}
-        </div>
-      </div>
-      <div className="ml-3">
-        <p className="text-sm text-gray-600">{text}</p>
-      </div>
-    </li>
   );
 };
 

@@ -19,7 +19,8 @@ const BookDetails = () => {
   const { data: bookData, isLoading } = useQuery({
     queryKey: ["book", id],
     queryFn: async () => {
-      const res = await axios.get(`/book/${id}`);
+      const res = await axios.get(`/book/getBookFree/${id}`);
+      console.log(res.data);
       return res.data;
     },
   });
