@@ -69,12 +69,12 @@
 
 /* Text glow effect */
 .text-glow {
-  text-shadow: 0 0 15px rgba(0, 119, 109, 0.5);
+  text-shadow: 0 0 10px rgba(0, 119, 109, 0.5);
 }
 
 /* Colors */
 .text-robotics-yellow {
-  color: #ffc107;
+  color: #ff4107be;
 }
 
 .text-primary-600 {
@@ -88,7 +88,7 @@
 .glass-card {
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(128, 128, 128, 0.07);
+  border: 1px solid rgba(128, 128, 128, 0.7);
   border-radius: 0.75rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   transition: all 0.3s ease;

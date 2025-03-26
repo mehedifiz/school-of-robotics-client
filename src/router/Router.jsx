@@ -32,6 +32,7 @@ import BookQuiz from "@/pages/dashboard/student/BookQuiz/BookQuiz";
 import PaymentFailed from "@/pages/Payment/PaymentFailed";
 import PaymentSuccess from "@/pages/Payment/PaymentSuccess";
 import QuizDetails from "@/pages/dashboard/student/BookQuiz/QuizDetails";
+import Checkout from "@/pages/Payment/Checkout";
 
 
 const router = createBrowserRouter([
@@ -83,6 +84,12 @@ const router = createBrowserRouter([
       {
         path: "payment/success",
         element: <PaymentSuccess/>, 
+      },
+      {
+        path: "payment/checkout",
+        element: (
+            <Checkout />
+        ),
       },
     ],
   },

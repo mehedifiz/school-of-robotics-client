@@ -20,7 +20,7 @@ const Banner = () => {
 
   return (
     <section id="hero" className="pt-32 pb-20 md:pt-40 md:pb-28 bg-gradient-to-br from-white to-blue-50 overflow-hidden relative px-6 lg:px-8">
-      <div className="absolute inset-0 bg-grid opacity-20"></div>
+      <div className="absolute inset-0 bg-grid opacity-50"></div>
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-4 max-w-2xl">
