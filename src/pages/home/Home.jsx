@@ -3,7 +3,7 @@ import Banner from "./Banner";
 import OurProgram from "./OurProgram";
 import OnlineProgramSection from "./OnlineProgramSection";
 import StayConnected from "./StayConnected";
-import PricingSection from "./PricingSection";
+import Pricing from "../Pricing/Pricing";
 import Management from "../management/Management";
 import ContactUs from "../contactUs/ContactUs";
 import ScrollToTop from "@/components/utility/ScrollToTop";
@@ -40,7 +40,7 @@ const Home = () => {
         <Development />
         <OnlineProgramSection />
         <StayConnected />
-        <PricingSection />
+        <Pricing />
         <Management />
         <ContactUs />
       </main>

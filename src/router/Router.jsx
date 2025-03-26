@@ -11,6 +11,7 @@ import Management from "@/pages/management/Management";
 import PrivateRoute from "@/routes/PrivateRoute";
 import { createBrowserRouter } from "react-router-dom";
 import Root from "../layout/Root";
+import Pricing from "../pages/Pricing/Pricing";
 import ContactUs from "../pages/contactUs/ContactUs";
 import ErrorPage from "../pages/error/ErrorPage";
 import Home from "../pages/home/Home";
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: "/pricing",
+        element: <Pricing></Pricing>,
       },
       {
         path: "/contact",

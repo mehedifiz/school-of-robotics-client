@@ -4,6 +4,7 @@ import { FaTwitter, FaLinkedin, FaQuoteLeft } from "react-icons/fa";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import SectionHeader from "@/components/utility/SectionHeader";
+import { useLocation } from "react-router-dom";
 
 const Management = () => {
   useEffect(() => {
@@ -13,6 +14,8 @@ const Management = () => {
       easing: "ease-out",
     });
   }, []);
+
+  const { pathname } = useLocation();
 
   const manageData = [
     {
@@ -46,7 +49,7 @@ const Management = () => {
   ];
 
   return (
-    <section id="team" className="bg-gradient-to-b from-gray-50 to-white py-20 relative overflow-hidden">
+    <section id="team" className={`bg-gradient-to-b from-gray-50 to-white py-20 relative overflow-hidden ${pathname === "/management" ? "mt-24" : ""}`}>
       {/* Decorative elements */}
       <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/5 rounded-full blur-3xl"></div>
       <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-blue-500/5 rounded-full blur-3xl"></div>
@@ -62,7 +65,7 @@ const Management = () => {
           {manageData.map((member, index) => (
             <div
               key={index}
-              className="rounded-xl bg-white overflow-hidden group shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+              className="rounded-xl bg-white overflow-hidden group shadow-lg hover:shadow-xl transition-all duration-300"
               data-aos="fade-up"
               data-aos-delay={index * 100}
             >
@@ -113,15 +116,6 @@ const Management = () => {
               </div>
             </div>
           ))}
-        </div>
-
-        <div className="mt-16 text-center" data-aos="fade-up" data-aos-delay="400">
-          <a
-            href="/about-team"
-            className="inline-block px-6 py-2 border-2 border-primary text-primary font-medium rounded-lg hover:bg-primary hover:text-white transition-colors"
-          >
-            Meet The Entire Team
-          </a>
         </div>
       </div>
     </section>

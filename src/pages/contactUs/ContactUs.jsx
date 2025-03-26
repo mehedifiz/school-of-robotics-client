@@ -3,6 +3,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { Button } from "@/components/ui/button";
 import SectionHeader from "@/components/utility/SectionHeader";
+import { useLocation } from "react-router-dom";
 
 const ContactUs = () => {
   useEffect(() => {
@@ -20,6 +21,8 @@ const ContactUs = () => {
     message: "",
     terms: false,
   });
+
+  const { pathname } = useLocation();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -57,7 +60,7 @@ const ContactUs = () => {
   };
 
   return (
-    <section id="contact" className="bg-gray-50 pt-16 pb-16 md:pb-28 px-6 lg:px-8">
+    <section id="contact" className={`bg-gray-50 pt-16 pb-16 md:pb-28 px-6 lg:px-8 ${pathname === "/contact" ? "mt-24" : ""}`}>
       <div className="max-w-7xl mx-auto">
         <SectionHeader
           badge="Get In Touch"
