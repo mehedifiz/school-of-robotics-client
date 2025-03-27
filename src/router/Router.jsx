@@ -17,7 +17,6 @@ import ErrorPage from "../pages/error/ErrorPage";
 import Home from "../pages/home/Home";
 import AllAdmin from "@/pages/dashboard/admin/ManageAllAdmin/AllAdmin";
 import Plan from "@/pages/dashboard/student/plan/Plan";
-import Settings from "@/pages/dashboard/common/profile/Settings";
 import VerifyOTP from "@/pages/auth/VerifyOtp";
 import BookDetails from "@/pages/books/BookDetails/BookDetails";
 import ManageChapters from "@/pages/dashboard/admin/ManageChapters/ManageChapters";
@@ -132,10 +131,6 @@ const router = createBrowserRouter([
       {
         path: "editProfile",
         element: <EditProfile></EditProfile>,
-      },
-      {
-        path: "settings",
-        element: <Settings></Settings>,
       },
 
       // admin routes
