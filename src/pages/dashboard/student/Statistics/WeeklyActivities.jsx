@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
+import PremiumFeatureOverlay from "./PremiumFeatureOverlay";
 
 // Register ChartJS components
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-const WeeklyActivities = ({ weeklyPerformance, compact = false }) => {
+const WeeklyActivities = ({ weeklyPerformance, compact = false, isPremium = true }) => {
   // Process data for the chart
   const processChartData = () => {
     // Get dates from the last 7 days
@@ -173,7 +174,14 @@ const WeeklyActivities = ({ weeklyPerformance, compact = false }) => {
   const chartHeight = compact ? "h-52" : "h-80";
 
   return (
-    <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, delay: 0.3 }} className={containerClass}>
+    <motion.div
+      initial={{ y: 20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, delay: 0.3 }}
+      className={`${containerClass} relative`}
+    >
+      {!isPremium && <PremiumFeatureOverlay message="Upgrade to Premium to access detailed weekly performance analytics" />}
+
       <h2 className={`${compact ? "text-lg" : "text-xl"} font-semibold mb-4`}>Weekly Performance</h2>
 
       <div className={chartHeight}>

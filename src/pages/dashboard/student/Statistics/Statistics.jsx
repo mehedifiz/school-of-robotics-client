@@ -14,12 +14,16 @@ import QuizPerformance from "./QuizPerformance";
 import ReadingProgress from "./ReadingProgress";
 import PerformanceChart from "./PerformanceChart";
 import WeeklyActivities from "./WeeklyActivities";
+import PremiumFeatureOverlay from "./PremiumFeatureOverlay";
 
 const Statistics = () => {
   const axios = useAxios();
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState("overview");
   const [isAnimating, setIsAnimating] = useState(true);
+
+  // Check if user has premium subscription
+  const isPremium = user?.subscription?.plan && user.subscription.plan !== "free";
 
   // Animation toggle effect
   useEffect(() => {
@@ -146,21 +150,21 @@ const Statistics = () => {
             transition={{ duration: 0.3 }}
           >
             {/* Key Metrics Overview */}
-            <ProgressOverview stats={stats} />
+            <ProgressOverview stats={stats} isPremium={isPremium} />
 
             {/* Performance Summary and Weekly Trends */}
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mt-6">
               <div className="">
-                <StatisticsSummary overallStats={overallStats} quizStats={quizStats} />
+                <StatisticsSummary overallStats={overallStats} quizStats={quizStats} isPremium={isPremium} />
               </div>
               <div>
-                <QuizPerformance quizStats={quizStats} />
+                <QuizPerformance quizStats={quizStats} isPremium={isPremium} />
               </div>
             </div>
 
             {/* Weekly Performance Chart */}
             <div className="mt-6">
-              <WeeklyActivities weeklyPerformance={weeklyData} />
+              <WeeklyActivities weeklyPerformance={weeklyData} isPremium={isPremium} />
             </div>
           </motion.div>
         )}
@@ -174,16 +178,16 @@ const Statistics = () => {
             transition={{ duration: 0.3 }}
           >
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-              <PerformanceChart weeklyData={weeklyData} overallStats={overallStats} />
-              <QuizPerformance quizStats={quizStats} />
+              <PerformanceChart weeklyData={weeklyData} overallStats={overallStats} isPremium={isPremium} />
+              <QuizPerformance quizStats={quizStats} isPremium={isPremium} />
             </div>
-            <WeeklyActivities weeklyPerformance={weeklyData} compact={true} />
+            <WeeklyActivities weeklyPerformance={weeklyData} compact={true} isPremium={isPremium} />
           </motion.div>
         )}
 
         {activeTab === "reading" && (
           <motion.div key="reading" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.3 }}>
-            <ReadingProgress readingProgress={readingProgress} />
+            <ReadingProgress readingProgress={readingProgress} isPremium={isPremium} />
           </motion.div>
         )}
 

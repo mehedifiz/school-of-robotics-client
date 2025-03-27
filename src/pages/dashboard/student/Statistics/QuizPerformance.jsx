@@ -2,11 +2,12 @@ import { motion } from "framer-motion";
 import { Radar } from "react-chartjs-2";
 import { Chart as ChartJS, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend } from "chart.js";
 import { BookText, FileText, Award, AlertTriangle } from "lucide-react";
+import PremiumFeatureOverlay from "./PremiumFeatureOverlay";
 
 // Register ChartJS components
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
-const QuizPerformance = ({ quizStats }) => {
+const QuizPerformance = ({ quizStats, isPremium = true }) => {
   // Extract book and course quiz data
   const bookQuizzes = quizStats?.bookQuizzes || {
     totalAttempts: 0,
@@ -34,7 +35,12 @@ const QuizPerformance = ({ quizStats }) => {
     datasets: [
       {
         label: "Book Quizzes",
-        data: [bookQuizzes.passPercentage || 0, bookQuizzes.averageScore * (100 / 10) || 0, bookQuizzes.overallPercentage || 0, bookQuizzes.highestScore * (100 / 10) || 0],
+        data: [
+          bookQuizzes.passPercentage || 0,
+          bookQuizzes.averageScore * (100 / 10) || 0,
+          bookQuizzes.overallPercentage || 0,
+          bookQuizzes.highestScore * (100 / 10) || 0,
+        ],
         backgroundColor: "rgba(0, 119, 109, 0.2)",
         borderColor: "rgba(0, 119, 109, 0.8)",
         borderWidth: 1.5,
@@ -143,7 +149,9 @@ const QuizPerformance = ({ quizStats }) => {
   };
 
   return (
-    <motion.div initial="hidden" animate="show" variants={containerVariants} className="bg-white rounded-xl shadow-sm border border-gray-50 p-5">
+    <motion.div initial="hidden" animate="show" variants={containerVariants} className="bg-white rounded-xl shadow-sm border border-gray-50 p-5 relative">
+      {!isPremium && <PremiumFeatureOverlay message="Upgrade to Premium to unlock detailed quiz performance analytics" />}
+
       <motion.h2 variants={itemVariants} className="text-lg font-semibold mb-5">
         Quiz Performance
       </motion.h2>

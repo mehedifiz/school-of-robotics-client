@@ -2,11 +2,12 @@ import { motion } from "framer-motion";
 import { Bar, Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from "chart.js";
 import CountUp from "react-countup";
+import PremiumFeatureOverlay from "./PremiumFeatureOverlay";
 
 // Register ChartJS components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
 
-const ProgressOverview = ({ stats }) => {
+const ProgressOverview = ({ stats, isPremium = true }) => {
   // Calculate total books and in-progress books
   const totalBooks = stats.readingProgress.length;
   const completedBooks = stats.readingProgress.filter((book) => book.percentage === 1).length;
@@ -84,7 +85,7 @@ const ProgressOverview = ({ stats }) => {
       className="grid grid-cols-1 xl:grid-cols-3 gap-6 mt-8"
     >
       {/* Quiz Performance Overview */}
-      <div className="col-span-1 xl:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+      <div className="col-span-1 xl:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 p-6 relative">
         <h2 className="text-xl font-semibold mb-4">Quiz Performance</h2>
         <div className="h-64">
           <Bar data={chartData} options={chartOptions} />
@@ -126,7 +127,9 @@ const ProgressOverview = ({ stats }) => {
       </div>
 
       {/* Reading Progress Overview */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 relative">
+        {!isPremium && <PremiumFeatureOverlay message="Upgrade to Premium to access detailed reading progress analytics" />}
+
         <h2 className="text-xl font-semibold mb-4">Reading Progress</h2>
         <div className="h-48 flex justify-center">
           <Doughnut data={doughnutData} options={doughnutOptions} />

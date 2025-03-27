@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import ReactApexChart from "react-apexcharts";
+import PremiumFeatureOverlay from "./PremiumFeatureOverlay";
 
-const PerformanceChart = ({ weeklyData, overallStats }) => {
+const PerformanceChart = ({ weeklyData, overallStats, isPremium = true }) => {
   const [chartData, setChartData] = useState({
     series: [
       {
@@ -152,11 +153,13 @@ const PerformanceChart = ({ weeklyData, overallStats }) => {
 
   return (
     <motion.div
-      className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden"
+      className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden relative"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.1 }}
     >
+      {!isPremium && <PremiumFeatureOverlay message="Upgrade to Premium to access detailed performance charts and analytics" />}
+
       <div className="p-6 border-b border-gray-100 flex justify-between items-center">
         <div>
           <h2 className="text-lg font-bold text-gray-800">Weekly Performance</h2>

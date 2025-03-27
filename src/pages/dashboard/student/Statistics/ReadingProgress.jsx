@@ -3,8 +3,9 @@ import { useState } from "react";
 import { FaBookOpen, FaChevronRight, FaRegClock, FaStar } from "react-icons/fa";
 import { BookOpen, Clock, Award, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import PremiumFeatureOverlay from "./PremiumFeatureOverlay";
 
-const ReadingProgress = ({ readingProgress }) => {
+const ReadingProgress = ({ readingProgress, isPremium = true }) => {
   const navigate = useNavigate();
   const [expandedBook, setExpandedBook] = useState(null);
 
@@ -80,7 +81,9 @@ const ReadingProgress = ({ readingProgress }) => {
       </motion.div>
 
       {sortedBooks.length > 0 && (
-        <motion.div variants={itemVariants} className="bg-white rounded-xl shadow-sm border border-gray-50 p-6">
+        <motion.div variants={itemVariants} className="bg-white rounded-xl shadow-sm border border-gray-50 p-6 relative">
+          {!isPremium && <PremiumFeatureOverlay message="Upgrade to Premium to access detailed reading analytics and progress tracking" />}
+
           <h3 className="text-lg font-semibold mb-4">Your Books</h3>
           <div className="space-y-3">
             {sortedBooks.map((book, index) => {

@@ -2,15 +2,18 @@ import { motion } from "framer-motion";
 import { FaCheck, FaTimes, FaQuestionCircle } from "react-icons/fa";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import PremiumFeatureOverlay from "./PremiumFeatureOverlay";
 
-const StatisticsSummary = ({ overallStats }) => {
+const StatisticsSummary = ({ overallStats, isPremium = true }) => {
   return (
     <motion.div
-      className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden h-full"
+      className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden h-full relative"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
+      {!isPremium && <PremiumFeatureOverlay message="Upgrade to Premium to access detailed performance insights and statistics" />}
+
       <div className="p-6 border-b border-gray-100">
         <h2 className="text-lg font-bold text-gray-800">Performance Summary</h2>
       </div>
