@@ -20,14 +20,14 @@ const Dashboard = () => {
   }, [role, navigate]);
   return (
     <div className="flex">
-      <div className="md:fixed">
+      <div className="lg:fixed">
         <DashboardSidebar />
       </div>
-      <div className="md:ml-[255px] w-full bg-white">
-        <div className="fixed md:max-w-[1280px] mx-auto px-8 right-0 md:left-[255px] w-full md:w-auto">
+      <div className="lg:ml-[255px] w-full bg-white">
+        <div className="fixed lg:max-w-[1280px] mx-auto px-8 right-0 lg:left-[255px] w-full lg:w-auto">
           <DashboardNav />
         </div>
-        <div className=" md:max-w-[1280px] md:pt-8 w-full mx-auto p-8 mt-20">
+        <div className=" lg:max-w-[1280px] lg:pt-8 w-full mx-auto p-8 mt-20">
           <Outlet />
         </div>
       </div>

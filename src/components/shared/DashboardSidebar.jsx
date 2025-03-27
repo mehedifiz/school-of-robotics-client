@@ -41,7 +41,7 @@ const DashboardSidebar = () => {
     <div className="">
       {/* Mobile Toggle Button */}
       <button
-        className="md:hidden fixed top-4 left-4 z-50 p-2 bg-white border rounded-sm transition-colors cursor-pointer"
+        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-white border rounded-sm transition-colors cursor-pointer"
         onClick={toggleSidebar}
         aria-label="Toggle sidebar"
       >
@@ -51,8 +51,8 @@ const DashboardSidebar = () => {
       {/* Sidebar */}
       <aside
         className={`fixed inset-y-0 left-0 w-64 bg-white border-r border-gray-100 transform transition-transform duration-300 z-40
-          ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
-          md:relative md:h-screen flex flex-col`}
+          ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+          lg:relative lg:h-screen flex flex-col`}
       >
         {/* Logo */}
         <div className="p-4 border-b border-gray-100">
@@ -172,7 +172,7 @@ const DashboardSidebar = () => {
       </aside>
 
       {/* Mobile Overlay */}
-      {isOpen && <div className="md:hidden fixed inset-0 bg-black/50 z-30" onClick={toggleSidebar} aria-hidden="true" />}
+      {isOpen && <div className="lg:hidden fixed inset-0 bg-black/50 z-30" onClick={toggleSidebar} aria-hidden="true" />}
     </div>
   );
 };

@@ -33,6 +33,7 @@ import PaymentFailed from "@/pages/Payment/PaymentFailed";
 import PaymentSuccess from "@/pages/Payment/PaymentSuccess";
 import QuizDetails from "@/pages/dashboard/student/BookQuiz/QuizDetails";
 import Checkout from "@/pages/Payment/Checkout";
+import Statistics from "@/pages/dashboard/student/Statistics/Statistics";
 
 
 const router = createBrowserRouter([
@@ -164,7 +165,7 @@ const router = createBrowserRouter([
       // student routes
       {
         path: "student-dashboard",
-        element: <DashboardHome />,
+        element: <Statistics />,
       },
       {
         path: "student-book",
