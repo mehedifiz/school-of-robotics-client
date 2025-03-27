@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "@/Hooks/useAxios";
@@ -18,6 +19,16 @@ const Statistics = () => {
   const axios = useAxios();
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState("overview");
+  const [isAnimating, setIsAnimating] = useState(true);
+
+  // Animation toggle effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsAnimating((prev) => !prev);
+    }, 1500);
+
+    return () => clearInterval(interval);
+  }, []);
 
   // Fetch all data using React Query
   const { data: overallStats, isLoading: overallLoading } = useQuery({
@@ -84,8 +95,8 @@ const Statistics = () => {
       <DashboardHeader user={user} stats={overallStats} />
 
       {/* Tab Navigation */}
-      <div className="bg-white rounded-xl shadow-sm mb-6 overflow-hidden">
-        <div className="flex overflow-x-auto scrollbar-hide">
+      <div className="bg-white rounded-xl shadow-sm mb-6 overflow-hidden relative">
+        <div className="flex overflow-x-auto scrollbar-hide relative">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -107,6 +118,22 @@ const Statistics = () => {
             </button>
           ))}
         </div>
+
+        {/* Professional scroll indicator for mobile with animation */}
+        <div className="absolute top-0 right-0 h-full w-10 bg-gradient-to-l from-white to-transparent pointer-events-none md:hidden"></div>
+        <motion.div
+          className="absolute right-2 top-1/2 -translate-y-1/2 sm:hidden flex items-center"
+          animate={{
+            x: isAnimating ? [-2, 2] : [2, -2],
+            opacity: isAnimating ? 0.8 : 1,
+          }}
+          transition={{
+            x: { duration: 0.8, repeat: Infinity, repeatType: "reverse" },
+            opacity: { duration: 0.8, repeat: Infinity, repeatType: "reverse" },
+          }}
+        >
+          <MdOutlineKeyboardDoubleArrowRight className="h-6 w-6 text-primary" />
+        </motion.div>
       </div>
 
       <AnimatePresence mode="wait">
