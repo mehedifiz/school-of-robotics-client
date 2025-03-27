@@ -1,9 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import useAuth from "@/Hooks/useAuth";
+import { FaRegUser } from "react-icons/fa";
+import { RxDashboard } from "react-icons/rx";
+import { AiOutlineLogout } from "react-icons/ai";
 
 const Nav = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -11,14 +14,32 @@ const Nav = () => {
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const { user, logoutUser } = useAuth();
   const { pathname } = useLocation();
+  const profileMenuRef = useRef(null);
+  const profileButtonRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
 
+    const handleClickOutside = (event) => {
+      if (
+        profileMenuRef.current &&
+        profileButtonRef.current &&
+        !profileMenuRef.current.contains(event.target) &&
+        !profileButtonRef.current.contains(event.target)
+      ) {
+        setProfileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const navItems = [
@@ -66,31 +87,35 @@ const Nav = () => {
           {user ? (
             <div className="relative">
               <button
+                ref={profileButtonRef}
                 onClick={() => setProfileMenuOpen(!profileMenuOpen)}
                 className="flex items-center gap-2 bg-gray-200 hover:bg-gray-300 px-2 py-2 rounded-full"
               >
                 <User size={20} className="text-gray-600" />
               </button>
-
-              {profileMenuOpen && (
-                <div className="absolute right-0 mt-4 w-48 bg-white shadow-lg rounded-lg p-3">
-                  <Link to="/profile" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                    Profile
-                  </Link>
-                  <Link to="/dashboard" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                    Dashboard
-                  </Link>
-                  <button
-                    onClick={() => {
-                      logoutUser();
-                      setProfileMenuOpen(false);
-                    }}
-                    className="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-50"
-                  >
-                    Logout
-                  </button>
-                </div>
-              )}
+              <div
+                ref={profileMenuRef}
+                className={`absolute right-8 mt-4 w-48 bg-white border border-gray-300 rounded-lg p-3 ${profileMenuOpen ? 'scale-100' : 'scale-0'} transform origin-top-right transition-transform duration-500 ease-in-out`}
+              >
+                <Link to="/profile" className="px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center space-x-4">
+                  <FaRegUser />
+                  <span>Profile</span>
+                </Link>
+                <Link to="/dashboard" className="px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center space-x-4">
+                  <RxDashboard />
+                  <span>Dashboard</span>
+                </Link>
+                <button
+                  onClick={() => {
+                    logoutUser();
+                    setProfileMenuOpen(false);
+                  }}
+                  className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 flex items-center space-x-4"
+                >
+                  <AiOutlineLogout /> 
+                  <span>Logout</span>
+                </button>
+              </div>
             </div>
           ) : (
             <Button asChild className="ml-4 bg-primary hover:bg-primary/90 text-white">
@@ -123,8 +148,6 @@ const Nav = () => {
               {item.name}
             </Link>
           ))}
-          {/* User Profile Dropdown */}
-
         </nav>
       </div>
     </header>
