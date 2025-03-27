@@ -74,13 +74,6 @@ const Nav = () => {
               {item.name}
             </NavLink>
           ))}
-
-          {/* User Profile Dropdown */}
-          {!user && (
-            <Button asChild className="ml-4 bg-primary hover:bg-primary/90 text-white">
-              <Link to="/login">Login</Link>
-            </Button>
-          )}
         </nav>
 
         <div className="flex items-center gap-6">
