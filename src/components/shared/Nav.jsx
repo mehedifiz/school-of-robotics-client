@@ -90,7 +90,7 @@ const Nav = () => {
                 ref={profileMenuRef}
                 className={`absolute right-8 mt-4 w-48 bg-white border border-gray-300 rounded-lg p-3 ${profileMenuOpen ? 'scale-100' : 'scale-0'} transform origin-top-right transition-transform duration-500 ease-in-out`}
               >
-                <Link to="/profile" className="px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center space-x-4">
+                <Link to="/dashboard/profile" className="px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center space-x-4">
                   <FaRegUser />
                   <span>Profile</span>
                 </Link>

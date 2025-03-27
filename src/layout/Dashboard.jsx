@@ -24,7 +24,7 @@ const Dashboard = () => {
         <DashboardSidebar />
       </div>
       <div className="lg:ml-[255px] w-full bg-white">
-        <div className="fixed lg:max-w-[1280px] mx-auto px-8 right-0 lg:left-[255px] w-full lg:w-auto z-[9999999]">
+        <div className="fixed lg:max-w-[1280px] mx-auto px-8 right-0 lg:left-[255px] w-full lg:w-auto z-[99]">
           <DashboardNav />
         </div>
         <div className=" lg:max-w-[1280px] lg:pt-8 w-full mx-auto p-8 mt-20">

@@ -52,7 +52,7 @@ const Settings = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-transparent backdrop-blur-xs bg-opacity-50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-transparent backdrop-blur-xs bg-opacity-50 flex items-center justify-center z-[100]">
       <div className="bg-white max-w-lg w-full mx-4 p-6 rounded-2xl shadow-xl">
         <div className="max-w-[5.5rem] md:max-w-[7rem] mx-auto">
           <img src={lock} alt="lock" className="w-full" />
