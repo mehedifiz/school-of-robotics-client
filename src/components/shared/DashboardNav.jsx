@@ -1,32 +1,41 @@
 import useAuth from "@/Hooks/useAuth";
 import { useEffect, useRef, useState } from "react";
 import { HiSearch } from "react-icons/hi";
-import { IoMdArrowDropdown } from "react-icons/io";
-import { IoNotificationsOutline } from "react-icons/io5";
+import { IoNotificationsOutline, IoSettingsOutline } from "react-icons/io5";
 import { TfiEmail } from "react-icons/tfi";
 import { Link } from "react-router-dom";
+import { User } from "lucide-react";
+import { FaRegUser } from "react-icons/fa";
+import { RxDashboard } from "react-icons/rx";
+import { AiOutlineLogout } from "react-icons/ai";
 
 const DashboardNav = () => {
   const { logoutUser } = useAuth();
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const profileMenuRef = useRef(null);
+  const profileButtonRef = useRef(null);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setDropdownOpen(false);
+      if (
+        profileMenuRef.current &&
+        profileButtonRef.current &&
+        !profileMenuRef.current.contains(event.target) &&
+        !profileButtonRef.current.contains(event.target)
+      ) {
+        setProfileMenuOpen(false);
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
   return (
-    <div className="py-6 w-full bg-white ">
+    <div className="py-6 w-full bg-white">
       <div className="flex items-center justify-between ">
         <div className="hidden md:flex w-full md:w-3/4 bg-slate-50 px-6 rounded-full items-center gap-2 max-w-[600px] border">
           <button className="text-[#434E55] hover:text-black text-xl duration-300 cursor-pointer ">
@@ -41,36 +50,40 @@ const DashboardNav = () => {
               <TfiEmail size={20} className="" />
             </Link>
 
-            <Link to="/dashboard/manageNotice" className="flex items-center gap-2 text-[#C5C5C5] hover:text-blue-600 duration-300">
+            <Link to="/dashboard" className="flex items-center gap-2 text-[#C5C5C5] hover:text-blue-600 duration-300">
               <IoNotificationsOutline size={24} className="" />
             </Link>
-            <div className="relative" ref={dropdownRef}>
+            <div className="relative">
               <button
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="relative z-[1] border-2 border-gray-100 max-w-11 max-h-11 rounded-full overflow-hidden focus:outline-none cursor-pointer flex items-center"
-                aria-label="User menu"
-                aria-expanded={dropdownOpen}
+                ref={profileButtonRef}
+                onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+                className="flex items-center gap-2 bg-gray-200 hover:bg-gray-300 px-2 py-2 rounded-full"
               >
-                <img src="https://iili.io/2pLtKmJ.jpg" alt="profile" className="w-10 h-10 rounded-full object-cover" />
-                <IoMdArrowDropdown className="text-gray-600 ml-2" />
+                <User size={20} className="text-gray-600" />
               </button>
-
-              {dropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 z-50">
-                  <Link to="/dashboard/profile" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                    Profile
-                  </Link>
-                  <Link to="/dashboard/settings" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                  Settings
-                  </Link>
-                  <button
+              <div
+                ref={profileMenuRef}
+                className={`absolute right-8 mt-4 w-48 bg-white border border-gray-300 rounded-lg p-3 ${profileMenuOpen ? 'scale-100' : 'scale-0'} transform origin-top-right transition-transform duration-500 ease-in-out`}
+              >
+                <Link to="/profile" className="px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center space-x-4">
+                  <FaRegUser />
+                  <span>Profile</span>
+                </Link>
+                <Link to="/dashboard/setting" className="px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center space-x-4">
+                  <IoSettingsOutline />
+                  <span>Setting</span>
+                </Link>
+                <button
                   onClick={() => {
-                    setDropdownOpen(false);
                     logoutUser();
+                    setProfileMenuOpen(false);
                   }}
-                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">Logout</button>
-                </div>
-              )}
+                  className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 flex items-center space-x-4"
+                >
+                  <AiOutlineLogout />
+                  <span>Logout</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
