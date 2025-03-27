@@ -34,6 +34,7 @@ import PaymentSuccess from "@/pages/Payment/PaymentSuccess";
 import QuizDetails from "@/pages/dashboard/student/BookQuiz/QuizDetails";
 import Checkout from "@/pages/Payment/Checkout";
 import TransactionHistory from "@/pages/dashboard/student/TransactionHistory";
+import Alltransactions from "@/pages/dashboard/admin/ManagePlan/Alltransactions";
 
 
 const router = createBrowserRouter([
@@ -191,7 +192,12 @@ const router = createBrowserRouter([
       {
         path: 'my-transactions',
         element: <TransactionHistory />
-      }
+      },
+       
+      {
+        path: 'all-transactions',
+        element: <Alltransactions />
+      },
 
     ],
   },

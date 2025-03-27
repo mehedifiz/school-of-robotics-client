@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF'
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 5
   },
@@ -20,11 +20,10 @@ const styles = StyleSheet.create({
     fontSize: 12,
     opacity: 0.8
   },
-  transaction: {
+  section: {
     marginBottom: 15,
     padding: 10,
-    backgroundColor: '#F9FAFB',
-    borderRadius: 5
+    backgroundColor: '#F9FAFB'
   },
   row: {
     flexDirection: 'row',
@@ -41,53 +40,65 @@ const styles = StyleSheet.create({
     color: '#111827'
   },
   divider: {
-    borderBottom: 1,
+    borderTop: 1,
     borderColor: '#E5E7EB',
     marginVertical: 10
   }
 });
 
-export const TransactionPDF = ({ transactions }) => (
+export const TransactionPDF = ({ transaction }) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.header}>
-        <Text style={styles.title}>Transaction History</Text>
+        <Text style={styles.title}>Payment Receipt</Text>
         <Text style={styles.subtitle}>School of Robotics</Text>
       </View>
 
-      {transactions.map((transaction) => (
-        <View key={transaction._id} style={styles.transaction}>
-          <View style={styles.row}>
-            <Text style={styles.label}>Plan:</Text>
-            <Text style={styles.value}>{transaction.planName}</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.label}>Amount:</Text>
-            <Text style={styles.value}>{transaction.amount} BDT</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.label}>Payment Method:</Text>
-            <Text style={styles.value}>{transaction.paymentDetails.cardType}</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.label}>Transaction ID:</Text>
-            <Text style={styles.value}>{transaction.transactionId}</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.label}>Date:</Text>
-            <Text style={styles.value}>
-              {new Date(transaction.createdAt).toLocaleDateString()}
-            </Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.label}>Validity:</Text>
-            <Text style={styles.value}>
-              {new Date(transaction.startDate).toLocaleDateString()} - 
-              {new Date(transaction.expiryDate).toLocaleDateString()}
-            </Text>
-          </View>
+      <View style={styles.section}>
+        <Text style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>Student Information</Text>
+        <View style={styles.row}>
+          <Text style={styles.label}>Name:</Text>
+          <Text style={styles.value}>{transaction.studentName}</Text>
         </View>
-      ))}
+        <View style={styles.row}>
+          <Text style={styles.label}>Phone:</Text>
+          <Text style={styles.value}>{transaction.studentPhone}</Text>
+        </View>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>Plan Details</Text>
+        <View style={styles.row}>
+          <Text style={styles.label}>Plan Name:</Text>
+          <Text style={styles.value}>{transaction.plan.name}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>Duration:</Text>
+          <Text style={styles.value}>{transaction.plan.duration} months</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>Amount:</Text>
+          <Text style={styles.value}>{transaction.amount} BDT</Text>
+        </View>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>Payment Details</Text>
+        <View style={styles.row}>
+          <Text style={styles.label}>Transaction ID:</Text>
+          <Text style={styles.value}>{transaction.transactionId}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>Payment Method:</Text>
+          <Text style={styles.value}>{transaction.paymentMethod}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>Date:</Text>
+          <Text style={styles.value}>
+            {new Date(transaction.createdAt).toLocaleDateString()}
+          </Text>
+        </View>
+      </View>
     </Page>
   </Document>
 );

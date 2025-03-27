@@ -138,13 +138,7 @@ const DashboardSidebar = () => {
                 </li>
                 
                 
-                
-                <li>
-                  <NavLink to="/dashboard/plan" className={linkStyles} onClick={handleMobileClick}>
-                    <TbBrandPlanetscale size={20} />
-                    <span>Plan</span>
-                  </NavLink>
-                </li>
+               
                 <li>
                   <NavLink to="/dashboard/notice" className={linkStyles} onClick={handleMobileClick}>
                     <SiApplenews size={20} />
@@ -154,12 +148,38 @@ const DashboardSidebar = () => {
               </div>
             )}
             <div>
-            <li>
-                  <NavLink to="/dashboard/my-transactions" className={linkStyles} onClick={handleMobileClick}>
-                    <TbTransactionPound size={20} />
-                    <span>My Transactions</span>
-                  </NavLink>
-                </li>
+           
+                {role === "student" && (
+                   <div className="space-y-3 grow">
+                       
+                   <li>
+                     <NavLink to="/dashboard/plan" className={linkStyles} onClick={handleMobileClick}>
+                       <TbBrandPlanetscale size={20} />
+                       <span>Plan</span>
+                     </NavLink>
+                   </li>
+                  
+                   <li>
+                   <NavLink to="/dashboard/my-transactions" className={linkStyles} onClick={handleMobileClick}>
+                     <TbTransactionPound size={20} />
+                     <span>My Transactions</span>
+                   </NavLink>
+                 </li>
+                 </div>
+
+                )}
+                {role === "admin" && (
+                    <div className="space-y-3 grow">
+                
+                   <li>
+                   <NavLink to="/dashboard/all-transactions" className={linkStyles} onClick={handleMobileClick}>
+                     <TbTransactionPound size={20} />
+                     <span>All Transactions</span>
+                   </NavLink>
+                 </li>
+                 </div>
+
+                )}
               <li className="mt-auto">
                 <button
                   className="flex items-center p-2 mt-4 space-x-4 text-red-600 cursor-pointer bg-red-600/10 border border-red-500/30 rounded-md w-full"
