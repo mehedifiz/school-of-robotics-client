@@ -33,6 +33,7 @@ import PaymentFailed from "@/pages/Payment/PaymentFailed";
 import PaymentSuccess from "@/pages/Payment/PaymentSuccess";
 import QuizDetails from "@/pages/dashboard/student/BookQuiz/QuizDetails";
 import Checkout from "@/pages/Payment/Checkout";
+import TransactionHistory from "@/pages/dashboard/student/TransactionHistory";
 
 
 const router = createBrowserRouter([
@@ -185,6 +186,11 @@ const router = createBrowserRouter([
       {
         path: 'notice',
         element: <Notice/>
+      },
+      
+      {
+        path: 'my-transactions',
+        element: <TransactionHistory />
       }
 
     ],

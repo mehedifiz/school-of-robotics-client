@@ -12,7 +12,7 @@ import { AiOutlineFileAdd } from "react-icons/ai";
 import { LiaUserLockSolid } from "react-icons/lia";
 import { MdOutlineCloudDownload } from "react-icons/md";
 import { PiSealQuestion, PiSquaresFourFill } from "react-icons/pi";
-import { TbBrandAppleNews, TbBrandPlanetscale } from "react-icons/tb";
+import { TbBrandAppleNews, TbBrandPlanetscale, TbTransactionPound, TbTransactionRupee } from "react-icons/tb";
 import { VscClose } from "react-icons/vsc";
 import { Link, NavLink } from "react-router-dom";
 
@@ -154,9 +154,15 @@ const DashboardSidebar = () => {
               </div>
             )}
             <div>
+            <li>
+                  <NavLink to="/dashboard/my-transactions" className={linkStyles} onClick={handleMobileClick}>
+                    <TbTransactionPound size={20} />
+                    <span>My Transactions</span>
+                  </NavLink>
+                </li>
               <li className="mt-auto">
                 <button
-                  className="flex items-center p-2 space-x-4 text-red-600 cursor-pointer bg-red-600/10 border border-red-500/30 rounded-md w-full"
+                  className="flex items-center p-2 mt-4 space-x-4 text-red-600 cursor-pointer bg-red-600/10 border border-red-500/30 rounded-md w-full"
                   onClick={() => {
                     logoutUser();
                     handleMobileClick();
