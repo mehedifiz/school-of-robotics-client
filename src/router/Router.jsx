@@ -33,6 +33,10 @@ import PaymentFailed from "@/pages/Payment/PaymentFailed";
 import PaymentSuccess from "@/pages/Payment/PaymentSuccess";
 import QuizDetails from "@/pages/dashboard/student/BookQuiz/QuizDetails";
 import Checkout from "@/pages/Payment/Checkout";
+import TransactionHistory from "@/pages/dashboard/student/TransactionHistory";
+import Alltransactions from "@/pages/dashboard/admin/ManagePlan/Alltransactions";
+import ForgotPassword from "@/pages/auth/ForgotPassword";
+import ResetPassword from "@/pages/auth/ResetPassword";
 import Statistics from "@/pages/dashboard/student/Statistics/Statistics";
 
 
@@ -102,6 +106,14 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "forgot-password",
+        element: <ForgotPassword />
+      },
+      {
+        path: "reset-password",
+        element: <ResetPassword />
+      }
     ],
   },
   {
@@ -196,7 +208,17 @@ const router = createBrowserRouter([
       {
         path: 'notice',
         element: <Notice/>
-      }
+      },
+      
+      {
+        path: 'my-transactions',
+        element: <TransactionHistory />
+      },
+       
+      {
+        path: 'all-transactions',
+        element: <Alltransactions />
+      },
 
     ],
   },

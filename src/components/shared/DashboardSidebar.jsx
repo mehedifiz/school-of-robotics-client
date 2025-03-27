@@ -12,7 +12,7 @@ import { AiOutlineFileAdd } from "react-icons/ai";
 import { LiaUserLockSolid } from "react-icons/lia";
 import { MdOutlineCloudDownload } from "react-icons/md";
 import { PiSealQuestion, PiSquaresFourFill } from "react-icons/pi";
-import { TbBrandAppleNews, TbBrandPlanetscale } from "react-icons/tb";
+import { TbBrandAppleNews, TbBrandPlanetscale, TbTransactionPound, TbTransactionRupee } from "react-icons/tb";
 import { VscClose } from "react-icons/vsc";
 import { Link, NavLink } from "react-router-dom";
 
@@ -138,13 +138,7 @@ const DashboardSidebar = () => {
                 </li>
                 
                 
-                
-                <li>
-                  <NavLink to="/dashboard/plan" className={linkStyles} onClick={handleMobileClick}>
-                    <TbBrandPlanetscale size={20} />
-                    <span>Plan</span>
-                  </NavLink>
-                </li>
+               
                 <li>
                   <NavLink to="/dashboard/notice" className={linkStyles} onClick={handleMobileClick}>
                     <SiApplenews size={20} />
@@ -154,9 +148,41 @@ const DashboardSidebar = () => {
               </div>
             )}
             <div>
+           
+                {role === "student" && (
+                   <div className="space-y-3 grow">
+                       
+                   <li>
+                     <NavLink to="/dashboard/plan" className={linkStyles} onClick={handleMobileClick}>
+                       <TbBrandPlanetscale size={20} />
+                       <span>Plan</span>
+                     </NavLink>
+                   </li>
+                  
+                   <li>
+                   <NavLink to="/dashboard/my-transactions" className={linkStyles} onClick={handleMobileClick}>
+                     <TbTransactionPound size={20} />
+                     <span>My Transactions</span>
+                   </NavLink>
+                 </li>
+                 </div>
+
+                )}
+                {role === "admin" && (
+                    <div className="space-y-3 grow">
+                
+                   <li>
+                   <NavLink to="/dashboard/all-transactions" className={linkStyles} onClick={handleMobileClick}>
+                     <TbTransactionPound size={20} />
+                     <span>All Transactions</span>
+                   </NavLink>
+                 </li>
+                 </div>
+
+                )}
               <li className="mt-auto">
                 <button
-                  className="flex items-center p-2 space-x-4 text-red-600 cursor-pointer bg-red-600/10 border border-red-500/30 rounded-md w-full"
+                  className="flex items-center p-2 mt-4 space-x-4 text-red-600 cursor-pointer bg-red-600/10 border border-red-500/30 rounded-md w-full"
                   onClick={() => {
                     logoutUser();
                     handleMobileClick();
