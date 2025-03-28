@@ -32,7 +32,7 @@ const AddNoticeModal = ({ isOpen, onClose, refetch }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60">
       <div className="relative w-full max-w-md mx-auto p-6 bg-white shadow-xl rounded-lg">
         <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
           <X className="w-6 h-6" />
