@@ -2,15 +2,19 @@ import useAxios from "@/Hooks/useAxios";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { FaEdit, FaFileAlt, FaTrash } from "react-icons/fa";
+import { FaEdit, FaFileAlt, FaTrash, FaTimes } from "react-icons/fa";
 import { PiSealQuestionBold } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import EditChapterModal from "./EditChapterModal";
+import PDFViewer from "@/components/utility/PDFViewer";
+import { AnimatePresence, motion } from "framer-motion";
 
 const ChaptersList = ({ chapters, book, refetchChapters, refetchBooks, selectedBook }) => {
   const [editingChapter, setEditingChapter] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
+  const [selectedPdf, setSelectedPdf] = useState(null);
   const axios = useAxios();
   const navigate = useNavigate();
 
@@ -55,6 +59,15 @@ const ChaptersList = ({ chapters, book, refetchChapters, refetchBooks, selectedB
     setIsEditModalOpen(true);
   };
 
+  // Handle opening PDF modal
+  const handleViewPdf = (chapter) => {
+    setSelectedPdf({
+      url: chapter.pdfUrl,
+      title: `Chapter ${chapter.chapterNo}: ${chapter.title}`,
+    });
+    setIsPdfModalOpen(true);
+  };
+
   // Format date
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("en-US", {
@@ -68,6 +81,7 @@ const ChaptersList = ({ chapters, book, refetchChapters, refetchBooks, selectedB
   const handleQuizNavigation = (chapter) => {
     navigate("/dashboard/manage-chapter-quizzes", { state: { book: selectedBook, chapter } });
   };
+
   return (
     <div>
       <div className="overflow-x-auto">
@@ -91,28 +105,39 @@ const ChaptersList = ({ chapters, book, refetchChapters, refetchBooks, selectedB
                   <div className="text-sm font-medium text-gray-900">{chapter.title}</div>
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap">
-                  <a
-                    href={chapter.pdfUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center text-sm text-primary hover:text-primary/80"
+                  <button
+                    onClick={() => handleViewPdf(chapter)}
+                    className="inline-flex items-center text-sm text-primary hover:text-primary/80 hover:underline"
                   >
                     <FaFileAlt className="mr-1" /> View PDF
-                  </a>
+                  </button>
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap">
                   <div className="text-sm text-gray-500">{formatDate(chapter.createdAt)}</div>
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <button onClick={() => handleQuizNavigation(chapter)} className="text-purple-600 hover:text-purple-900 mr-3">
-                    <PiSealQuestionBold />
+                  <button
+                    onClick={() => handleQuizNavigation(chapter)}
+                    className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-purple-100 text-purple-600 hover:bg-purple-200 mr-2"
+                    title="Manage Quizzes"
+                  >
+                    <PiSealQuestionBold size={16} />
                   </button>
 
-                  <button onClick={() => handleEditChapter(chapter)} className="text-blue-600 hover:text-blue-900 mr-3">
-                    <FaEdit />
+                  <button
+                    onClick={() => handleEditChapter(chapter)}
+                    className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 mr-2"
+                    title="Edit Chapter"
+                  >
+                    <FaEdit size={14} />
                   </button>
-                  <button onClick={() => handleDeleteChapter(chapter)} className="text-red-600 hover:text-red-900" disabled={isDeleting}>
-                    <FaTrash />
+                  <button
+                    onClick={() => handleDeleteChapter(chapter)}
+                    className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-red-100 text-red-600 hover:bg-red-200"
+                    disabled={isDeleting}
+                    title="Delete Chapter"
+                  >
+                    <FaTrash size={14} />
                   </button>
                 </td>
               </tr>
@@ -133,6 +158,44 @@ const ChaptersList = ({ chapters, book, refetchChapters, refetchBooks, selectedB
           }}
         />
       )}
+
+      {/* PDF Viewer Modal */}
+      <AnimatePresence>
+        {isPdfModalOpen && selectedPdf && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] overflow-y-auto bg-black/50 flex items-center justify-center p-4"
+            onClick={() => setIsPdfModalOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", damping: 20 }}
+              className="w-full max-w-5xl bg-white rounded-xl shadow-xl overflow-hidden"
+              style={{ maxHeight: "90vh", overflowY: "auto" }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex justify-between items-center p-4 border-b">
+                <h2 className="text-xl font-semibold text-gray-800">{selectedPdf.title}</h2>
+                <button onClick={() => setIsPdfModalOpen(false)} className="p-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100">
+                  <FaTimes />
+                </button>
+              </div>
+              <div className="p-4">
+                <PDFViewer pdfUrl={selectedPdf.url} />
+              </div>
+              <div className="bg-gray-50 py-3 px-4 text-right">
+                <button onClick={() => setIsPdfModalOpen(false)} className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors">
+                  Close
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
