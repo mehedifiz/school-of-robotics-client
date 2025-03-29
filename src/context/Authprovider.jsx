@@ -21,19 +21,32 @@ const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       const response = await axios.post("/auth/login", formData);
-
+  
       if (response.data.token) {
         const {data} = await axios.get(`/user/get-user/${response.data.user._id}`)
         const authData = {
-        user: data.data ,
-          userId: response.data.user._id, // Only storing userId
+          user: data.data,
+          userId: response.data.user._id,
           token: response.data.token,
           isLoggedIn: true,
         };
-
+  
         setAuth(authData);
+        
+        // Save to localStorage and ensure it's complete before proceeding
         localStorage.setItem("auth", JSON.stringify(authData));
+        
         toast.success("Login successful!");
+        
+        // Redirect the user based on their role
+        if (data.data.role === 'admin') {
+          window.location.href = '/dashboard/admin-dashboard';
+        } else if (data.data.role === 'student') {
+          window.location.href = '/dashboard/student-dashboard';
+        } else {
+          window.location.href = '/dashboard';
+        }
+        
         return response;
       }
     } catch (error) {

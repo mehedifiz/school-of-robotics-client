@@ -40,17 +40,15 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-
+  
     if (!isValidBangladeshiPhone(formData.phone)) {
       setError("Please enter a valid Bangladeshi phone number");
       return;
     }
-
+  
     try {
       const response = await loginUser(formData);
-      if (response) {
-        navigate("/dashboard");
-      }
+      // The redirect will now happen after token is saved to localStorage
     } catch (error) {
       setError(error?.response?.data?.message || "Login failed");
       toast.error(error?.response?.data?.message || "Login failed");
