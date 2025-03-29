@@ -2,6 +2,8 @@ import useAxios from '@/Hooks/useAxios';
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { IoPersonAddOutline } from "react-icons/io5";
+import { MdOutlineDelete } from 'react-icons/md';
+import Swal from 'sweetalert2';
 
 const AllAdmin = () => {
    const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,6 +17,48 @@ const AllAdmin = () => {
          return res.data.data.admins;
       }
    });
+
+   const handleDeleteAdmin = (id) => {
+           Swal.fire({
+               title: "Are you sure?",
+               text: "You won't be able to revert this!",
+               icon: "warning",
+               showCancelButton: true,
+               confirmButtonColor: "#3085d6",
+               cancelButtonColor: "#d33",
+               confirmButtonText: "Yes, delete it!"
+           }).then(async (result) => {
+               if (result.isConfirmed) {
+                   try {
+                       const res = await axiosPublic.delete(`/auth/remove-admin/${id}`);
+                       console.log(res.data);
+   
+                       if (res.data.success) {
+                           Swal.fire({
+                               title: "Deleted!",
+                               text: "Admin has been deleted.",
+                               icon: "success"
+                           });
+   
+                           refetch()
+                       } else {
+                           Swal.fire({
+                               title: "Error!",
+                               text: res.data.message || "Failed to delete the admin.",
+                               icon: "error"
+                           });
+                       }
+                   } catch (error) {
+                       console.error("Error deleting admin:", error);
+                       Swal.fire({
+                           title: "Error!",
+                           text: "Something went wrong while deleting the admin.",
+                           icon: "error"
+                       });
+                   }
+               }
+           });
+       };
 
    return (
       <div>
@@ -43,6 +87,9 @@ const AllAdmin = () => {
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                            Role
                         </th>
+                        <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                           Delete
+                        </th>
                      </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
@@ -53,6 +100,11 @@ const AllAdmin = () => {
                               <td className="px-6 py-4 whitespace-nowrap">{admin.phone}</td>
                               <td className="px-6 py-4 whitespace-nowrap capitalize">
                                  {admin.role}
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-red-500 hover:text-red-600 cursor-pointer text-2xl flex justify-center">
+                                 <MdOutlineDelete onClick={() => {
+                                    handleDeleteAdmin(admin._id)
+                                 }} />
                               </td>
                            </tr>
                         ))
@@ -89,12 +141,12 @@ const AdminCreationModal = ({ isOpen, onClose, axiosPublic, refetchAdmins }) => 
    const handleCreateAdmin = async (e) => {
       e.preventDefault();
       setLoading(true);
-      
+
       const form = e.target;
       const name = form.name.value;
       const phone = form.phone.value;
       const password = form.password.value;
-      
+
       try {
          // Make API call to create admin
          await axiosPublic.post('/auth/create-admin', {
@@ -103,10 +155,10 @@ const AdminCreationModal = ({ isOpen, onClose, axiosPublic, refetchAdmins }) => 
             password,
             role: 'admin'
          });
-         
+
          // Refetch admin list to update the table
          refetchAdmins();
-         
+
          // Reset form and close modal
          form.reset();
          onClose();

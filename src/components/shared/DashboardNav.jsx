@@ -1,12 +1,11 @@
 import useAuth from "@/Hooks/useAuth";
 import { useEffect, useRef, useState } from "react";
 import { HiSearch } from "react-icons/hi";
-import { IoNotificationsOutline, IoSettingsOutline } from "react-icons/io5";
+import { IoNotificationsOutline } from "react-icons/io5";
 import { TfiEmail } from "react-icons/tfi";
 import { Link } from "react-router-dom";
 import { User } from "lucide-react";
 import { FaRegUser } from "react-icons/fa";
-import { RxDashboard } from "react-icons/rx";
 import { AiOutlineLogout } from "react-icons/ai";
 
 const DashboardNav = () => {
