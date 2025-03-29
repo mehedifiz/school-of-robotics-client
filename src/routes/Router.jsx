@@ -37,7 +37,7 @@ import AllTransactions from "@/pages/dashboard/admin/AllTransactions/AllTransact
 import ForgotPassword from "@/pages/auth/ForgotPassword";
 import ResetPassword from "@/pages/auth/ResetPassword";
 import Statistics from "@/pages/dashboard/student/Statistics/Statistics";
-
+import RoleProtectedRoute from "../routes/RoleProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -95,7 +95,7 @@ const router = createBrowserRouter([
           <PrivateRoute>
             <PaymentSuccess />
           </PrivateRoute>
-        ), 
+        ),
       },
       {
         path: "payment/checkout",
@@ -107,12 +107,12 @@ const router = createBrowserRouter([
       },
       {
         path: "forgot-password",
-        element: <ForgotPassword />
+        element: <ForgotPassword />,
       },
       {
         path: "reset-password",
-        element: <ResetPassword />
-      }
+        element: <ResetPassword />,
+      },
     ],
   },
   {
@@ -133,88 +133,146 @@ const router = createBrowserRouter([
         element: <EditProfile></EditProfile>,
       },
 
-      // admin routes
+      // Admin routes
       {
         path: "admin-dashboard",
-        element: <AdminStatistics />,
+        element: (
+          <RoleProtectedRoute role="admin">
+            <AdminStatistics />
+          </RoleProtectedRoute>
+        ),
       },
       {
         path: "manage-books",
-        element: <ManageBooks></ManageBooks>,
+        element: (
+          <RoleProtectedRoute role="admin">
+            <ManageBooks />
+          </RoleProtectedRoute>
+        ),
       },
       {
         path: "allAdmins",
-        element: <AllAdmin />
+        element: (
+          <RoleProtectedRoute role="admin">
+            <AllAdmin />
+          </RoleProtectedRoute>
+        ),
       },
       {
         path: "manage-chapters",
-        element: <ManageChapters></ManageChapters>,
+        element: (
+          <RoleProtectedRoute role="admin">
+            <ManageChapters />
+          </RoleProtectedRoute>
+        ),
       },
       {
         path: "manage-chapter-quizzes",
-        element: <ManageChaptersQuiz />,
-      },
-       
-      {
-        path: 'managePlan',
-        element: <ManagePlans />
-      },
-      {
-        path: 'updatePlan/:id',
-        element: <UpdatePlan />,
-        loader: ({ params }) => fetch(`http://localhost:7000/api/plan/${params.id}`)
+        element: (
+          <RoleProtectedRoute role="admin">
+            <ManageChaptersQuiz />
+          </RoleProtectedRoute>
+        ),
       },
       {
-        path: 'manageNotice',
-        element: <ManageNotice />
+        path: "managePlan",
+        element: (
+          <RoleProtectedRoute role="admin">
+            <ManagePlans />
+          </RoleProtectedRoute>
+        ),
       },
-      
-      // student routes
+      {
+        path: "updatePlan/:id",
+        element: (
+          <RoleProtectedRoute role="admin">
+            <UpdatePlan />
+          </RoleProtectedRoute>
+        ),
+        loader: ({ params }) => fetch(`http://localhost:7000/api/plan/${params.id}`),
+      },
+      {
+        path: "manageNotice",
+        element: (
+          <RoleProtectedRoute role="admin">
+            <ManageNotice />
+          </RoleProtectedRoute>
+        ),
+      },
+      {
+        path: "all-transactions",
+        element: (
+          <RoleProtectedRoute role="admin">
+            <AllTransactions />
+          </RoleProtectedRoute>
+        ),
+      },
+
+      // Student routes
       {
         path: "student-dashboard",
-        element: <Statistics />,
+        element: (
+          <RoleProtectedRoute role="student">
+            <Statistics />
+          </RoleProtectedRoute>
+        ),
       },
       {
         path: "student-book",
-        element: <StudentBooks></StudentBooks>,
+        element: (
+          <RoleProtectedRoute role="student">
+            <StudentBooks />
+          </RoleProtectedRoute>
+        ),
       },
       {
         path: "book-reading/:bookId/chapter/:chapterId",
         element: (
+          <RoleProtectedRoute role="student">
             <BookReading />
+          </RoleProtectedRoute>
         ),
       },
       {
         path: "book-quiz/:bookId/chapter/:chapterId",
         element: (
+          <RoleProtectedRoute role="student">
             <BookQuiz />
+          </RoleProtectedRoute>
         ),
       },
       {
         path: "quiz-details/:bookId/chapter/:chapterId/submission/:submissionId",
         element: (
+          <RoleProtectedRoute role="student">
             <QuizDetails />
+          </RoleProtectedRoute>
         ),
       },
       {
-        path: 'plan',
-        element: <Plan />
+        path: "plan",
+        element: (
+          <RoleProtectedRoute role="student">
+            <Plan />
+          </RoleProtectedRoute>
+        ),
       },
       {
-        path: 'notice',
-        element: <Notice/>
+        path: "notice",
+        element: (
+          <RoleProtectedRoute role="student">
+            <Notice />
+          </RoleProtectedRoute>
+        ),
       },
-      
       {
-        path: 'my-transactions',
-        element: <TransactionHistory />
+        path: "my-transactions",
+        element: (
+          <RoleProtectedRoute role="student">
+            <TransactionHistory />
+          </RoleProtectedRoute>
+        ),
       },
-       
-      {
-        path: 'all-transactions',
-        element: <AllTransactions />
-      },
-
     ],
   },
 ]);
