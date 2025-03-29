@@ -32,8 +32,8 @@ import PaymentFailed from "@/pages/Payment/PaymentFailed";
 import PaymentSuccess from "@/pages/Payment/PaymentSuccess";
 import QuizDetails from "@/pages/dashboard/student/BookQuiz/QuizDetails";
 import Checkout from "@/pages/Payment/Checkout";
-import TransactionHistory from "@/pages/dashboard/student/TransactionHistory";
-import Alltransactions from "@/pages/dashboard/admin/ManagePlan/Alltransactions";
+import TransactionHistory from "@/pages/dashboard/student/TransactionHistory/TransactionHistory";
+import AllTransactions from "@/pages/dashboard/admin/AllTransactions/AllTransactions";
 import ForgotPassword from "@/pages/auth/ForgotPassword";
 import ResetPassword from "@/pages/auth/ResetPassword";
 import Statistics from "@/pages/dashboard/student/Statistics/Statistics";
@@ -212,7 +212,7 @@ const router = createBrowserRouter([
        
       {
         path: 'all-transactions',
-        element: <Alltransactions />
+        element: <AllTransactions />
       },
 
     ],
