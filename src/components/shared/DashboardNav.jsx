@@ -34,21 +34,10 @@ const DashboardNav = () => {
   }, []);
 
   return (
-    <div className="py-6 w-full bg-white">
-      <div className="flex items-center justify-between ">
-        <div className="hidden md:flex w-full md:w-3/4 bg-slate-50 px-6 rounded-full items-center gap-2 max-w-[600px] border">
-          <button className="text-[#434E55] hover:text-black text-xl duration-300 cursor-pointer ">
-            <HiSearch />
-          </button>
-          <input type="text" className="outline-0 placeholder-[#CBCED3] py-2.5 w-full bg-transparent" placeholder="Search anything..." />
-        </div>
-
+    <div className="py-6 w-full bg-white px-8">
+      <div className="flex items-center justify-end ">
         <div className="flex items-center justify-end w-full md:w-1/4 gap-5">
           <div className="flex items-center gap-8">
-            <Link to="/dashboard" className="flex items-center gap-2 text-[#C5C5C5] hover:text-blue-600 duration-300">
-              <TfiEmail size={20} className="" />
-            </Link>
-
             <Link to="/dashboard" className="flex items-center gap-2 text-[#C5C5C5] hover:text-blue-600 duration-300">
               <IoNotificationsOutline size={24} className="" />
             </Link>

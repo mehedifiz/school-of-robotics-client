@@ -38,7 +38,7 @@ const DashboardSidebar = () => {
   };
 
   return (
-    <div className="">
+    <div className="relative z-[96]">
       {/* Mobile Toggle Button */}
       <button
         className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-white border rounded-sm transition-colors cursor-pointer"
