@@ -189,7 +189,7 @@ const PaymentSuccess = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             {transaction && (
               <PDFDownloadLink
-                document={<ReceiptPDF transaction={transaction} formatDate={formatDate} />}
+                document={<ReceiptPDF transaction={transaction} />}
                 fileName={`SOR_Receipt_${transaction.transactionId}.pdf`}
                 className="px-6 py-3 bg-primary/90 hover:bg-primary text-white rounded-lg flex items-center justify-center transition"
                 style={{ textDecoration: "none" }}

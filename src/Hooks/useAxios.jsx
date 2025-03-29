@@ -3,7 +3,7 @@ import axios from "axios";
 const token = JSON.parse(localStorage.getItem("auth"))
 
 const axiosPublic = axios.create({
-  baseURL: "https://school-of-robotics-server.vercel.app/api",
+  baseURL: "http://localhost:7000/api",
   headers: {
     Authorization: `${token?.token}`
   }
