@@ -10,7 +10,7 @@ const TransactionItem = ({ transaction, formatDate }) => {
   const axios = useAxios();
 
   const { data: transactionData = [], isLoading } = useQuery({
-    queryKey: ["transactionData"],
+    queryKey: ["transactionData", transaction?.transactionId],
     queryFn: async () => {
       const res = await axios.get(`/plan/transaction/${transaction?.transactionId}`);
       return res.data.data;
@@ -34,20 +34,9 @@ const TransactionItem = ({ transaction, formatDate }) => {
           <p className="text-sm text-gray-500">{transaction.studentPhone}</p>
         </div>
         {transactionData?.transactionId && (
-          <PDFDownloadLink document={<ReceiptPDF transaction={transactionData} />} fileName={`SOR_Receipt_${transaction.transactionId}.pdf`}>
-            {({ loading }) => (
-              <button disabled={loading} className="px-3 py-1.5 bg-primary-100/50 text-primary rounded-lg hover:bg-primary-100 transition-colors duration-200">
-                {loading ? (
-                  <FaSpinner className="animate-spin text-sm" />
-                ) : (
-                  <span className="text-sm flex items-center space-x-2">
-                    <Download size={16} />
-                    Receipt
-                  </span>
-                )}
-              </button>
-            )}
-          </PDFDownloadLink>
+          <div className="hidden sm:block">
+            <PDFDownloadButton transactionData={transactionData} transaction={transaction} />
+          </div>
         )}
       </div>
 
@@ -79,8 +68,33 @@ const TransactionItem = ({ transaction, formatDate }) => {
           <p className="font-medium text-gray-900">{transaction.transactionId}</p>
         </div>
       </div>
+
+      {transactionData?.transactionId && (
+        <div className="sm:hidden mt-3">
+          <PDFDownloadButton transactionData={transactionData} transaction={transaction} />
+        </div>
+      )}
     </div>
   );
 };
 
 export default TransactionItem;
+
+const PDFDownloadButton = ({ transactionData, transaction }) => {
+  return (
+    <PDFDownloadLink document={<ReceiptPDF transaction={transactionData} />} fileName={`SOR_Receipt_${transaction.transactionId}.pdf`}>
+      {({ loading }) => (
+        <button disabled={loading} className="px-3 py-1.5 bg-primary-100/50 text-primary rounded-lg hover:bg-primary-100 transition-colors duration-200">
+          {loading ? (
+            <FaSpinner className="animate-spin text-sm" />
+          ) : (
+            <span className="text-sm flex items-center gap-1">
+              <Download size={16} />
+              Receipt
+            </span>
+          )}
+        </button>
+      )}
+    </PDFDownloadLink>
+  );
+};
