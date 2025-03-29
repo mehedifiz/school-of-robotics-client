@@ -3,7 +3,7 @@ import Login from "@/pages/auth/Login";
 import Register from "@/pages/auth/Register";
 import Books from "@/pages/books/Books/Books";
 import ManageBooks from "@/pages/dashboard/admin/ManageBooks/ManageBooks";
-import DashboardHome from "@/pages/dashboard/common/DashboardHome/DashboardHome";
+import AdminStatistics from "@/pages/dashboard/admin/AdminStatistics/AdminStatistics";
 import EditProfile from "@/pages/dashboard/common/profile/EditProfile";
 import Profile from "@/pages/dashboard/common/profile/Profile";
 import StudentBooks from "@/pages/dashboard/student/studentBooks/StudentBooks";
@@ -136,7 +136,7 @@ const router = createBrowserRouter([
       // admin routes
       {
         path: "admin-dashboard",
-        element: <DashboardHome />,
+        element: <AdminStatistics />,
       },
       {
         path: "manage-books",
