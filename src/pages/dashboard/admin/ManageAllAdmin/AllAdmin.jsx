@@ -10,8 +10,9 @@ const AllAdmin = () => {
    const { data: admins = [], refetch } = useQuery({
       queryKey: ['admin'],
       queryFn: async () => {
-         const res = await axiosPublic.get('/admin')
-         return res.data;
+         const res = await axiosPublic.get('/auth/admins')
+         console.log(res.data.data.admins)
+         return res.data.data.admins;
       }
    });
 
@@ -96,7 +97,7 @@ const AdminCreationModal = ({ isOpen, onClose, axiosPublic, refetchAdmins }) => 
       
       try {
          // Make API call to create admin
-         await axiosPublic.post('/admin', {
+         await axiosPublic.post('/auth/create-admin', {
             name,
             phone,
             password,
@@ -119,7 +120,7 @@ const AdminCreationModal = ({ isOpen, onClose, axiosPublic, refetchAdmins }) => 
    if (!isOpen) return null;
 
    return (
-      <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+      <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[100]">
          <div className="bg-white rounded-lg shadow-lg w-full max-w-md">
             <div className="p-6">
                <h2 className="text-xl font-bold mb-4">Create Admin</h2>

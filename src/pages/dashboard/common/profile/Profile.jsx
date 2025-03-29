@@ -2,11 +2,13 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useAuth from "@/Hooks/useAuth";
 import useAxios from "@/Hooks/useAxios";
+import Settings from "./Settings";
 
 const Profile = () => {
   const UserAxios = useAxios();
   const { userId } = useAuth();
   const [user, setUser] = useState(null);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -41,9 +43,24 @@ const Profile = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      {showPasswordModal && (
+        <Settings onClose={() => setShowPasswordModal(false)} />
+      )}
+      
       <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
         {/* Header Section */}
         <div className="relative h-48 bg-gradient-to-r from-teal-500 to-teal-600">
+          <div className="absolute top-4 right-4">
+            <button
+              onClick={() => setShowPasswordModal(true)}
+              className="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+              </svg>
+              Change Password
+            </button>
+          </div>
           <div className="absolute -bottom-12 left-8">
             <div className="bg-white p-2 rounded-full ring-4 ring-white">
               <div className="w-24 h-24 rounded-full bg-gradient-to-r from-teal-400 to-teal-500 flex items-center justify-center text-3xl text-white font-bold">

@@ -17,7 +17,6 @@ import ErrorPage from "../pages/error/ErrorPage";
 import Home from "../pages/home/Home";
 import AllAdmin from "@/pages/dashboard/admin/ManageAllAdmin/AllAdmin";
 import Plan from "@/pages/dashboard/student/plan/Plan";
-import Settings from "@/pages/dashboard/common/profile/Settings";
 import VerifyOTP from "@/pages/auth/VerifyOtp";
 import BookDetails from "@/pages/books/BookDetails/BookDetails";
 import ManageChapters from "@/pages/dashboard/admin/ManageChapters/ManageChapters";
@@ -33,6 +32,11 @@ import PaymentFailed from "@/pages/Payment/PaymentFailed";
 import PaymentSuccess from "@/pages/Payment/PaymentSuccess";
 import QuizDetails from "@/pages/dashboard/student/BookQuiz/QuizDetails";
 import Checkout from "@/pages/Payment/Checkout";
+import TransactionHistory from "@/pages/dashboard/student/TransactionHistory";
+import Alltransactions from "@/pages/dashboard/admin/ManagePlan/Alltransactions";
+import ForgotPassword from "@/pages/auth/ForgotPassword";
+import ResetPassword from "@/pages/auth/ResetPassword";
+import Statistics from "@/pages/dashboard/student/Statistics/Statistics";
 
 
 const router = createBrowserRouter([
@@ -79,18 +83,36 @@ const router = createBrowserRouter([
       },
       {
         path: "payment/failed",
-        element: <PaymentFailed />,
+        element: (
+          <PrivateRoute>
+            <PaymentFailed />
+          </PrivateRoute>
+        ),
       },
       {
         path: "payment/success",
-        element: <PaymentSuccess/>, 
+        element: (
+          <PrivateRoute>
+            <PaymentSuccess />
+          </PrivateRoute>
+        ), 
       },
       {
         path: "payment/checkout",
         element: (
+          <PrivateRoute>
             <Checkout />
+          </PrivateRoute>
         ),
       },
+      {
+        path: "forgot-password",
+        element: <ForgotPassword />
+      },
+      {
+        path: "reset-password",
+        element: <ResetPassword />
+      }
     ],
   },
   {
@@ -109,10 +131,6 @@ const router = createBrowserRouter([
       {
         path: "editProfile",
         element: <EditProfile></EditProfile>,
-      },
-      {
-        path: "settings",
-        element: <Settings></Settings>,
       },
 
       // admin routes
@@ -154,7 +172,7 @@ const router = createBrowserRouter([
       // student routes
       {
         path: "student-dashboard",
-        element: <DashboardHome />,
+        element: <Statistics />,
       },
       {
         path: "student-book",
@@ -185,7 +203,17 @@ const router = createBrowserRouter([
       {
         path: 'notice',
         element: <Notice/>
-      }
+      },
+      
+      {
+        path: 'my-transactions',
+        element: <TransactionHistory />
+      },
+       
+      {
+        path: 'all-transactions',
+        element: <Alltransactions />
+      },
 
     ],
   },

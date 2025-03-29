@@ -52,7 +52,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
       <div className="max-w-md w-full space-y-6 bg-white rounded-xl shadow-lg p-8 border-t-4 border-indigo-600">
         {/* Header Section */}
         <div className="text-center">
@@ -179,6 +179,15 @@ const Login = () => {
             </Link>
           </div>
         </form>
+        
+        <div className="mt-4 text-center">
+          <Link 
+            to="/forgot-password"
+            className="text-sm text-indigo-600 hover:text-indigo-500"
+          >
+            Forgot your password?
+          </Link>
+        </div>
       </div>
     </div>
   );
