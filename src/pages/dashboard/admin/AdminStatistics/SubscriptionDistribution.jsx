@@ -17,8 +17,8 @@ const SubscriptionDistribution = ({ stats }) => {
         <div className="bg-indigo-50 text-indigo-600 text-xs px-2 py-1 rounded-md font-medium">Real-time</div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 mt-4">
-        <div className="col-span-2 bg-gray-50 rounded-lg p-3">
+      <div className="grid sm:grid-cols-2 gap-4 mt-4">
+        <div className="sm:col-span-2 bg-gray-50 rounded-lg p-3">
           <p className="text-sm font-medium text-gray-600">Total Users</p>
           <p className="text-lg font-bold text-gray-800 mt-1">
             <CountUp end={totalUsers || 0} duration={2} separator="," />

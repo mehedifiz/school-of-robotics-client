@@ -44,8 +44,6 @@ const AdminStatistics = () => {
     },
   });
 
-  console.log(revenueData);
-
   const isLoading = statsLoading || revenueLoading;
 
   if (isLoading) {
@@ -66,9 +64,9 @@ const AdminStatistics = () => {
       <DashboardHeader stats={dashboardStats} revenue={revenueData?.revenue} transactions={revenueData?.transactions} proUsers={proUsers} />
 
       {/* Main Dashboard Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mt-6">
         {/* Left Column - Larger Charts */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="xl:col-span-2 space-y-6">
           <StatisticsSummary stats={dashboardStats} />
           <RevenueOverview revenue={revenueData} />
         </div>
@@ -81,7 +79,7 @@ const AdminStatistics = () => {
       </div>
 
       {/* Bottom Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mt-6">
         <RecentTransactions />
         <SalesOverview revenueData={revenueData} />
       </div>

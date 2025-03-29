@@ -5,7 +5,6 @@ import { TrendingUp, Users, CreditCard, ArrowUpRight } from "lucide-react";
 import CountUp from "react-countup";
 
 const SalesOverview = ({ revenueData }) => {
-  console.log(revenueData);
   // Get conversion data from weeklyStats
   const [conversionData, setConversionData] = useState([]);
   const [weekCategories, setWeekCategories] = useState([]);
@@ -153,7 +152,7 @@ const SalesOverview = ({ revenueData }) => {
         </div>
       </div>
 
-      <div className="px-6 pb-6 grid grid-cols-2 gap-6">
+      <div className="px-6 pb-6 grid sm:grid-cols-2 gap-6">
         <div className="flex items-center space-x-3">
           <div className="p-2 bg-blue-50 rounded-full">
             <Users className="h-5 w-5 text-blue-600" />

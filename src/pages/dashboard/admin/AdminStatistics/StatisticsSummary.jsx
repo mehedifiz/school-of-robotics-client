@@ -41,7 +41,7 @@ const StatisticsSummary = ({ stats }) => {
         <h2 className="text-lg font-bold text-gray-800">Platform Statistics</h2>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         {metrics.map((metric, index) => (
           <motion.div
             key={metric.title}
@@ -50,7 +50,7 @@ const StatisticsSummary = ({ stats }) => {
             transition={{ duration: 0.3, delay: 0.1 * index }}
             className={`${metric.bgColor} rounded-lg p-4`}
           >
-            <div className="flex items-center space-x-3">
+            <div className="flex sm:flex-col md:flex-row items-center sm:items-baseline md:items-center space-x-3">
               <div className="p-2 rounded-lg bg-white/60">{metric.icon}</div>
               <div>
                 <p className="text-sm text-gray-600">{metric.title}</p>

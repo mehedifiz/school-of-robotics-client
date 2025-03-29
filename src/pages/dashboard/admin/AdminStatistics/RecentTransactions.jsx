@@ -17,7 +17,7 @@ const RecentTransactions = () => {
         setLoading(true);
         const response = await axios.get("/user/transactions");
         if (response.data.success) {
-          setTransactions(response.data.data.transactions.slice(0, 6)); // Get only first 4 transactions
+          setTransactions(response.data.data.transactions.slice(0, 5)); // Get only first 4 transactions
         } else {
           setError("Failed to fetch transactions");
         }

@@ -17,11 +17,11 @@ const ContentOverview = ({ books = 0, courses = 0 }) => {
         <h2 className="text-lg font-bold text-gray-800">Content Overview</h2>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-6">
         <div className="p-4 bg-blue-50 rounded-xl">
           <div className="flex justify-between items-start">
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-white rounded-lg">
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="p-2 bg-white rounded-lg w-fit">
                 <BookOpen className="h-6 w-6 text-blue-600" />
               </div>
               <div>
@@ -36,7 +36,7 @@ const ContentOverview = ({ books = 0, courses = 0 }) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => navigate("/dashboard/manage-books")}
-              className="bg-white text-blue-600 p-1.5 rounded-lg shadow-sm hover:shadow-md transition-all"
+              className="hidden sm:block bg-white text-blue-600 p-1.5 rounded-lg shadow-sm hover:shadow-md transition-all"
             >
               <BookPlus className="h-5 w-5" />
             </motion.button>
@@ -52,8 +52,8 @@ const ContentOverview = ({ books = 0, courses = 0 }) => {
 
         <div className="p-4 bg-amber-50 rounded-xl">
           <div className="flex justify-between items-start">
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-white rounded-lg">
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="p-2 bg-white rounded-lg w-fit">
                 <Layers className="h-6 w-6 text-amber-600" />
               </div>
               <div>
@@ -67,7 +67,7 @@ const ContentOverview = ({ books = 0, courses = 0 }) => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-white text-amber-600 p-1.5 rounded-lg shadow-sm hover:shadow-md transition-all"
+              className="hidden sm:block bg-white text-amber-600 p-1.5 rounded-lg shadow-sm hover:shadow-md transition-all"
             >
               <PlusCircle className="h-5 w-5" />
             </motion.button>

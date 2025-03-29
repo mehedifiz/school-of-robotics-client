@@ -32,7 +32,7 @@ const DashboardHeader = ({ stats, revenue, transactions, proUsers }) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 mt-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
