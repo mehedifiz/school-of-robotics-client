@@ -198,7 +198,7 @@ const AdminCreationModal = ({ isOpen, onClose, axiosPublic, refetchAdmins }) => 
                            type="tel"
                            name="phone"
                            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                           placeholder="Enter phone number"
+                           placeholder="e.g. 1712345678"
                            required
                         />
                      </div>
